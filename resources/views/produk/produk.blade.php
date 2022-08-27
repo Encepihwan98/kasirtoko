@@ -12,15 +12,17 @@
     </div>
     <div class="widget-content widget-content-area br-6">
         <div class="row">
-            <div class="mx-2 my-2 col-md-3 col-lg-3 col-sm-3">
-                <select class="selectpicker">
-                    <option value="">Tampilkan</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
+            <div class="col-sm-3 ml-2 my-2 col-3 col-md-3">
+                <div class="form-group">
+                    <select class="selectpicker form-control">
+                        <option>Filter</option>
+                        <option>10</option>
+                        <option>15</option>
+                        <option>20</option>
+                    </select>
+                </div>
             </div>
-            <div class="col-lg-6 col-md-6 my-2 col-sm-6 filtered-list-search ">
+            <div class="col-6 col-md-6 my-2 col-sm-6 filtered-list-search ">
                 <form class="form-inline my-2 my-lg-0 justify-content-center">
                     <div class="w-100">
                         <input type="text" class="w-100 form-control product-search br-30" id="input-search" placeholder="Search Attendees...">
@@ -31,154 +33,155 @@
                     </div>
                 </form>
             </div>
-            <div class="mx-2 my-2 col-md-2 col-lg-2 col-sm-2">
+            <div class="mx-2 my-2 col-md-2 col-lg-2 col-md-2 col-2 col-sm-2">
                 <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target=".bd-example-modal-xl">Tambah</button>
             </div>
         </div>
-        <table id="" class="table table-bordered table-striped mb-4" style="width:100%">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama Barang</th>
-                    <th>Satuan</th>
-                    <th>Kategori</th>
-                    <th>Harga</th>
-                    <th class="no-content">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Pasta gigi</td>
-                    <td>Bungkus</td>
-                    <td>Peralatan Mandi</td>
-                    <td>Rp. 15.000</td>
-                    <td>
-                        <i class="far fa-edit"></i><span class="icon-name"> </span>
-                        <i class="ml-3 far fa-trash-alt"></i><span class="icon-name"> </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Pasta gigi</td>
-                    <td>Voucher</td>
-                    <td>Peralatan Mandi</td>
-                    <td>Rp. 15.000</td>
-                    <td>
-                        <i class="far fa-edit"></i><span class="icon-name"> </span>
-                        <i class="ml-3 far fa-trash-alt"></i><span class="icon-name"> </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Pasta gigi</td>
-                    <td>Pcs</td>
-                    <td>Peralatan Mandi</td>
-                    <td>Rp. 15.000</td>
-                    <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="15" y1="9" x2="9" y2="15"></line>
-                            <line x1="9" y1="9" x2="15" y2="15"></line>
-                        </svg></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Pasta gigi</td>
-                    <td>Bungkus</td>
-                    <td>Peralatan Mandi</td>
-                    <td>Rp. 15.000</td>
-                    <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="15" y1="9" x2="9" y2="15"></line>
-                            <line x1="9" y1="9" x2="15" y2="15"></line>
-                        </svg></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Pasta gigi</td>
-                    <td>Bungkus</td>
-                    <td>Peralatan Mandi</td>
-                    <td>Rp. 15.000</td>
-                    <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="15" y1="9" x2="9" y2="15"></line>
-                            <line x1="9" y1="9" x2="15" y2="15"></line>
-                        </svg></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Pasta gigi</td>
-                    <td>Bungkus</td>
-                    <td>Peralatan Mandi</td>
-                    <td>Rp. 15.000</td>
-                    <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="15" y1="9" x2="9" y2="15"></line>
-                            <line x1="9" y1="9" x2="15" y2="15"></line>
-                        </svg></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Pasta gigi</td>
-                    <td>Bungkus</td>
-                    <td>Peralatan Mandi</td>
-                    <td>Rp. 15.000</td>
-                    <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="15" y1="9" x2="9" y2="15"></line>
-                            <line x1="9" y1="9" x2="15" y2="15"></line>
-                        </svg></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Pasta gigi</td>
-                    <td>Bungkus</td>
-                    <td>Peralatan Mandi</td>
-                    <td>Rp. 15.000</td>
-                    <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="15" y1="9" x2="9" y2="15"></line>
-                            <line x1="9" y1="9" x2="15" y2="15"></line>
-                        </svg></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Pasta gigi</td>
-                    <td>Bungkus</td>
-                    <td>Peralatan Mandi</td>
-                    <td>Rp. 15.000</td>
-                    <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="15" y1="9" x2="9" y2="15"></line>
-                            <line x1="9" y1="9" x2="15" y2="15"></line>
-                        </svg></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Pasta gigi</td>
-                    <td>Bungkus</td>
-                    <td>Peralatan Mandi</td>
-                    <td>Rp. 15.000</td>
-                    <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="15" y1="9" x2="9" y2="15"></line>
-                            <line x1="9" y1="9" x2="15" y2="15"></line>
-                        </svg></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Pasta gigi</td>
-                    <td>Bungkus</td>
-                    <td>Peralatan Mandi</td>
-                    <td>Rp. 15.000</td>
-                    <td>
-                        <div class="icon-container">
-                            <i class="far fa-edit"></i><span class="icon-name"> edit</span>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-            <!-- <tfoot>
+        <div class="table-responsive">
+            <table id="" class="table table-bordered table-striped mb-4" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Barang</th>
+                        <th>Satuan</th>
+                        <th>Kategori</th>
+                        <th>Harga</th>
+                        <th class="no-content">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Pasta gigi</td>
+                        <td>Bungkus</td>
+                        <td>Peralatan Mandi</td>
+                        <td>Rp. 15.000</td>
+                        <td>
+                            <i class="far fa-edit"></i><span class="icon-name"> </span>
+                            <i class="ml-3 far fa-trash-alt"></i><span class="icon-name"> </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Pasta gigi</td>
+                        <td>Voucher</td>
+                        <td>Peralatan Mandi</td>
+                        <td>Rp. 15.000</td>
+                        <td>
+                            <i class="far fa-edit"></i><span class="icon-name"> </span>
+                            <i class="ml-3 far fa-trash-alt"></i><span class="icon-name"> </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Pasta gigi</td>
+                        <td>Pcs</td>
+                        <td>Peralatan Mandi</td>
+                        <td>Rp. 15.000</td>
+                        <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                                <line x1="9" y1="9" x2="15" y2="15"></line>
+                            </svg></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Pasta gigi</td>
+                        <td>Bungkus</td>
+                        <td>Peralatan Mandi</td>
+                        <td>Rp. 15.000</td>
+                        <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                                <line x1="9" y1="9" x2="15" y2="15"></line>
+                            </svg></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Pasta gigi</td>
+                        <td>Bungkus</td>
+                        <td>Peralatan Mandi</td>
+                        <td>Rp. 15.000</td>
+                        <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                                <line x1="9" y1="9" x2="15" y2="15"></line>
+                            </svg></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Pasta gigi</td>
+                        <td>Bungkus</td>
+                        <td>Peralatan Mandi</td>
+                        <td>Rp. 15.000</td>
+                        <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                                <line x1="9" y1="9" x2="15" y2="15"></line>
+                            </svg></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Pasta gigi</td>
+                        <td>Bungkus</td>
+                        <td>Peralatan Mandi</td>
+                        <td>Rp. 15.000</td>
+                        <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                                <line x1="9" y1="9" x2="15" y2="15"></line>
+                            </svg></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Pasta gigi</td>
+                        <td>Bungkus</td>
+                        <td>Peralatan Mandi</td>
+                        <td>Rp. 15.000</td>
+                        <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                                <line x1="9" y1="9" x2="15" y2="15"></line>
+                            </svg></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Pasta gigi</td>
+                        <td>Bungkus</td>
+                        <td>Peralatan Mandi</td>
+                        <td>Rp. 15.000</td>
+                        <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                                <line x1="9" y1="9" x2="15" y2="15"></line>
+                            </svg></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Pasta gigi</td>
+                        <td>Bungkus</td>
+                        <td>Peralatan Mandi</td>
+                        <td>Rp. 15.000</td>
+                        <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                                <line x1="9" y1="9" x2="15" y2="15"></line>
+                            </svg></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Pasta gigi</td>
+                        <td>Bungkus</td>
+                        <td>Peralatan Mandi</td>
+                        <td>Rp. 15.000</td>
+                        <td>
+                            <div class="icon-container">
+                                <i class="far fa-edit"></i><span class="icon-name"> edit</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <!-- <tfoot>
                 <tr>
                     <th>Name</th>
                     <th>Position</th>
@@ -189,7 +192,8 @@
                     <th></th>
                 </tr>
             </tfoot> -->
-        </table>
+            </table>
+        </div>
     </div>
     <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
