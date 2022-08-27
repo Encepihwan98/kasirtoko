@@ -36,7 +36,7 @@
                 <div class="col-lg-6 col-sm-6">
                     <div class="row">
                         <div class="col-lg-12 col-sm-12 my-4 text-end">
-                            <h5 class="fs-1 ml-5">Nota: Uxx898Ukljlll </h5>
+                            <h5 class="fs-1 ml-5">Nota: Uxx898Ukljfflll </h5>
                         </div>
                         <div class="col-lg-12 col-sm-12 my-4 nota">
                             <h1 class="ml-5"><span class="text-danger">Rp  180.000</span>  </h1>
