@@ -40,3 +40,11 @@ Route::get('/user', function () {
 Route::get('/transaksi', function () {
     return view('transaksi.transaksi');
 });
+
+Route::get('/profile', function () {
+    return view('user.profile');
+});
+
+Route::get('/login', function () {
+    return view('login');
+});

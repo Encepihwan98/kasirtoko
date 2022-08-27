@@ -33,6 +33,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/select2/select2.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset ('plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}">
     <link href="{{asset('assets/css/elements/search.css')}}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{asset('plugins/dropify/dropify.min.css')}}">
+    <link href="{{asset('assets/css/users/account-setting.css')}}" rel="stylesheet" type="text/css" />
     
 </head>
 
@@ -151,6 +153,10 @@
     
     <script src="{{asset('plugins/bootstrap-select/bootstrap-select.min.js')}}"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
+    <script src="{{asset('plugins/dropify/dropify.min.js')}}"></script>
+    <script src="{{asset('plugins/blockui/jquery.blockUI.min.js')}}"></script>
+    <!-- <script src="plugins/tagInput/tags-input.js"></script> -->
+    <script src="{{asset('assets/js/users/account-settings.js')}}"></script>
 
 </body>
 
