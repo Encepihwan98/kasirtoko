@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Kasir Toko</title>
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
     <link href="{{asset('assets/css/loader.css')}}" rel="stylesheet" type="text/css" />
@@ -35,7 +36,7 @@
     <link href="{{asset('assets/css/elements/search.css')}}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/dropify/dropify.min.css')}}">
     <link href="{{asset('assets/css/users/account-setting.css')}}" rel="stylesheet" type="text/css" />
-    
+
 </head>
 
 <body class="sidebar-noneoverflow">
@@ -150,13 +151,15 @@
         $('[data-toggle="tooltip"]').tooltip()
     </script>
     <script src="{{asset('assets/js/elements/custom-search.js')}}"></script>
-    
+
     <script src="{{asset('plugins/bootstrap-select/bootstrap-select.min.js')}}"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
     <script src="{{asset('plugins/dropify/dropify.min.js')}}"></script>
     <script src="{{asset('plugins/blockui/jquery.blockUI.min.js')}}"></script>
     <!-- <script src="plugins/tagInput/tags-input.js"></script> -->
     <script src="{{asset('assets/js/users/account-settings.js')}}"></script>
+
+    @yield('js')
 
 </body>
 
