@@ -15,9 +15,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $units = Unit::paginate(10);
-        $data['data'] = $units;
-        return view('produk.satuanproduk', $data);
+        return view('produk.satuanproduk');
     }
 
     /**
