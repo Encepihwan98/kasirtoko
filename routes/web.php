@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('dashboard.dashboard');
+    return view('auth.login');
 });
 
 Route::get('/transaksi', function () {
@@ -45,6 +47,10 @@ Route::get('/profile', function () {
     return view('user.profile');
 });
 
-Route::get('/login', function () {
-    return view('login');
-});
+// Route::get('/login', function () {
+//     return view('login');
+// });
+
+Auth::routes();
+
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
