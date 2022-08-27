@@ -18,6 +18,7 @@
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
     <link href="{{asset('plugins/apex/apexcharts.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('assets/css/dashboard/dash_1.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/css/tables/table-basic.css')}}" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 
     <!-- BEGIN PAGE LEVEL STYLES -->
@@ -25,12 +26,14 @@
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/dt-global_style.css')}}">
     <!-- END PAGE LEVEL STYLES -->
     <link href="{{asset('assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('plugins/bootstrap-select/bootstrap-select.min.css')}}" rel="stylesheet" type="text/css" >
     <link rel="stylesheet" href="{{asset('plugins/font-icons/fontawesome/css/regular.css')}}">
     <link rel="stylesheet" href="{{asset('plugins/font-icons/fontawesome/css/fontawesome.css')}}">
     <link href="{{asset('assets/css/components/custom-modal.css')}}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/select2/select2.min.css')}}">
-
-
+    <link rel="stylesheet" type="text/css" href="{{asset ('plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}">
+    <link href="{{asset('assets/css/elements/search.css')}}" rel="stylesheet" type="text/css" />
+    
 </head>
 
 <body class="sidebar-noneoverflow">
@@ -138,6 +141,16 @@
     </script> -->
     <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
     <script src="{{asset('plugins/select2/custom-select2.js')}}"></script>
+    <script src="{{asset('plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')}}"></script>
+    <script src="{{asset('plugins/bootstrap-touchspin/custom-bootstrap-touchspin.js')}}"></script>
+    <script>
+        checkall('todoAll', 'todochkbox');
+        $('[data-toggle="tooltip"]').tooltip()
+    </script>
+    <script src="{{asset('assets/js/elements/custom-search.js')}}"></script>
+    
+    <script src="{{asset('plugins/bootstrap-select/bootstrap-select.min.js')}}"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
 
 </body>
 

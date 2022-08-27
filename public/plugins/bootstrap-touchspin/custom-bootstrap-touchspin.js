@@ -44,7 +44,7 @@ $("input[name='demo_vertical2']").TouchSpin({
 
 // Value attribute is not set (applying settings.initval)
 $("input[name='demo3_21']").TouchSpin({
-    initval: 40,
+    initval: 0,
     buttondown_class: "btn btn-classic btn-primary",
     buttonup_class: "btn btn-classic btn-primary"
 });
