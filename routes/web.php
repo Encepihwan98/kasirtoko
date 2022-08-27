@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 
+use App\Http\Controllers\UnitController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,8 +32,16 @@ Route::get('/kategori', function () {
     return view('produk.kategori');
 });
 
-Route::get('/satuan-produk', function () {
-    return view('produk.satuanproduk');
+// Route::get('/satuan-produk', function () {
+//     return view('produk.satuanproduk');
+// });
+
+Route::controller(UnitController::class)->group(function () {
+    Route::get('/satuan-produk', 'index');
+    Route::get('/satuan-produk/{id}', 'show');
+    Route::post('/satuan-produk', 'store');
+    Route::post('/satuan-produk/{id}', 'update');
+    Route::delete('/satuan-produk/{id}', 'destroy');
 });
 
 Route::get('/user', function () {
@@ -47,6 +56,7 @@ Route::get('/profile', function () {
     return view('user.profile');
 });
 
+
 // Route::get('/login', function () {
 //     return view('login');
 // });
@@ -54,3 +64,8 @@ Route::get('/profile', function () {
 Auth::routes();
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Route::get('/login', function () {
+//     return view('login');
+// });
+

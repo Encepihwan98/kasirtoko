@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UnitController extends Controller
 {
@@ -14,10 +15,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $units = Unit::paginate(10);
-        $data['units'] = $units;
-        // dd($data);
-        return view('produk.satuanproduk', $data);
+        return view('produk.satuanproduk');
     }
 
     /**
@@ -58,7 +56,7 @@ class UnitController extends Controller
         $unit->save();
 
         if($unit) {
-            $responses['messages'] = "Data stored successfully!";
+            $responses['message'] = "Data stored successfully!";
             $responses['status'] = true;
             $responses['code'] = 200;
             return response()->json($responses, 200);
@@ -73,9 +71,22 @@ class UnitController extends Controller
      * @param  \App\Models\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function show(Unit $unit)
+    public function show($id)
     {
-        //
+        # default responses
+        $responses = [];
+        $responses['message'] = "Bad request!";
+        $responses['status'] = false;
+        $responses['code'] = 400;
+
+        if($id != null && $id != '') {
+            $responses['message'] = "Data get successfully!";
+            $responses['status'] = true;
+            $responses['code'] = 200;
+            return response()->json($responses, 200);
+        } else {
+            return response()->json($responses, 200);
+        }
     }
 
     /**

@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Kasir Toko</title>
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
     <link href="{{asset('assets/css/loader.css')}}" rel="stylesheet" type="text/css" />
@@ -35,7 +36,7 @@
     <link href="{{asset('assets/css/elements/search.css')}}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/dropify/dropify.min.css')}}">
     <link href="{{asset('assets/css/users/account-setting.css')}}" rel="stylesheet" type="text/css" />
-    
+
 </head>
 
 <body class="sidebar-noneoverflow">
@@ -150,13 +151,139 @@
         $('[data-toggle="tooltip"]').tooltip()
     </script>
     <script src="{{asset('assets/js/elements/custom-search.js')}}"></script>
-    
+
     <script src="{{asset('plugins/bootstrap-select/bootstrap-select.min.js')}}"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
     <script src="{{asset('plugins/dropify/dropify.min.js')}}"></script>
     <script src="{{asset('plugins/blockui/jquery.blockUI.min.js')}}"></script>
     <!-- <script src="plugins/tagInput/tags-input.js"></script> -->
     <script src="{{asset('assets/js/users/account-settings.js')}}"></script>
+
+    <script>
+        function isNumeric(str) {
+            if (typeof str != "string") return false // we only process strings!
+            return !isNaN(str) &&
+                // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+                !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+        }
+
+        function makePagination(data) {
+            let fixData = data.data
+            let page = `<div class="dt--pages-count  mb-sm-0 mb-3">
+                            <div class="dataTables_info" id="alter_pagination_info" role="status" aria-live="polite">
+                                Tampilkan ${fixData.current_page} dari ${fixData.last_page} halaman</div>
+                        </div>`
+            let show = isNumeric(document.getElementById("input-show").value) ? document.getElementById("input-show").value : 10
+            let item = ''
+            if (fixData.total > 0) {
+                if (fixData.current_page == 1) {
+                    item += `<li class="paginate_button page-item previous disabled" id="alter_pagination_previous">
+                                <a href="#" aria-controls="alter_pagination" data-dt-idx="1" tabindex="0"
+                                    class="page-link"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="feather feather-arrow-left">
+                                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                                        <polyline points="12 19 5 12 12 5"></polyline>
+                                    </svg></a>
+                            </li>`
+                } else {
+                    item += `<li class="paginate_button page-item previous" id="alter_pagination_previous">
+                                <a href="#" onclick="get(${(fixData.current_page-1)})" aria-controls="alter_pagination" data-dt-idx="1" tabindex="0"
+                                    class="page-link"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="feather feather-arrow-left">
+                                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                                        <polyline points="12 19 5 12 12 5"></polyline>
+                                    </svg></a>
+                            </li>`
+                }
+                let count = 0
+                for (let i = fixData.current_page; i <= fixData.last_page; i++) {
+                    count++
+
+                    if (fixData.current_page == i) {
+                        item += `<li class="paginate_button page-item active"><a href="#"
+                                    aria-controls="alter_pagination" data-dt-idx="2" tabindex="0"
+                                    class="page-link">${i}</a></li>`
+                    } else {
+                        item += `<li class="paginate_button page-item"><a href="#"
+                                    aria-controls="alter_pagination" data-dt-idx="2" tabindex="0"
+                                    class="page-link" onclick="get(${i})">${i}</a></li>`
+                    }
+
+                    if (count == 10) break
+                }
+                if (fixData.current_page != fixData.last_page) {
+                    item += `<li class="paginate_button page-item next" id="alter_pagination_next"><a href="#" onclick="get(${(fixData.current_page+1)})"
+                                                    aria-controls="alter_pagination" data-dt-idx="5" tabindex="0"
+                                                    class="page-link"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="feather feather-arrow-right">
+                                                        <line x1="5" y1="12" x2="19" y2="12">
+                                                        </line>
+                                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                                    </svg></a></li>`
+                } else {
+                    item += `<li class="paginate_button page-item next disabled" id="alter_pagination_next"><a href="#"
+                                                    aria-controls="alter_pagination" data-dt-idx="5" tabindex="0"
+                                                    class="page-link"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="feather feather-arrow-right">
+                                                        <line x1="5" y1="12" x2="19" y2="12">
+                                                        </line>
+                                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                                    </svg></a></li>`
+                }
+            }
+
+            let pagination = `<div class="dt--pagination">
+                                    <div class="dataTables_paginate paging_full_numbers" id="alter_pagination_paginate">
+                                        <ul class="pagination">
+                                            ${item}
+                                        </ul>
+                                    </div>
+                                </div>`
+
+            $("#pagination-unit").empty()
+            $("#pagination-unit").append(page, pagination)
+        }
+
+        function getFormData(elementID) {
+            let params = []
+            let form = document.getElementById(elementID)
+            for (let i = 0; i < form.elements.length; i++) {
+                let e = form.elements[i]
+                params.push(encodeURIComponent(e.name) + "=" + encodeURIComponent(e.value))
+            }
+            let allParams = params.join("&")
+            return allParams
+        }
+
+        function setFormData(elementID, data) {
+            let params = []
+            let form = document.getElementById(elementID)
+            for (let i = 0; i < form.elements.length; i++) {
+                let e = form.elements[i]
+                e.value = data[e.name];
+                // params.push(encodeURIComponent(e.name) + "=" + encodeURIComponent(e.value))
+            }
+        }
+
+        function filter(page = 1) {
+            let search = document.getElementById("input-search").value
+            let show = document.getElementById("input-show").value
+            let order_by = "id"
+            let order_type = "asc"
+
+            return `page=${page}&search=${search}&show=${isNumeric(show) ? show : 10}&order_by=${order_by}&order_type=${order_type}`
+        }
+    </script>
+
+    @yield('js')
 
 </body>
 
