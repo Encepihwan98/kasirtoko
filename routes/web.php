@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Auth;
 
 
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +46,15 @@ Route::controller(UnitController::class)->group(function () {
     Route::delete('/satuan-produk/{id}', 'destroy');
 });
 
+Route::controller(UserController::class)->group(function () {
+    Route::get('/list-user', 'index');
+    Route::get('/list-user/{id}', 'show');
+    Route::post('/list-user', 'store');
+    Route::post('/list-user/{id}', 'update');
+    Route::delete('/list-user/{id}', 'destroy');
+});
+
+
 Route::get('/user', function () {
     return view('user.user');
 });
@@ -66,6 +77,6 @@ Auth::routes();
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Route::get('/login', function () {
-//     return view('login');
+//     return view('login');sid
 // });
 

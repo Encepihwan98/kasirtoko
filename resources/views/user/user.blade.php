@@ -35,185 +35,11 @@
                 <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target=".bd-example-modal-xl">Tambah</button>
             </div>
         </div>
-        <table id="" class="table table-bordered table-striped mb-4" style="width:100%">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>No Hp</th>
-                    <th class="no-content">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Maman</td>
-                    <td>mamanaja</td>
-                    <td>mama@mail.com</td>
-                    <td>089755xxxxx</td>
-                    <td>
-                        <i class="far fa-edit"></i><span class="icon-name"> </span>
-                        <i class="ml-3 far fa-trash-alt"></i><span class="icon-name"> </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Maman</td>
-                    <td>mamanaja</td>
-                    <td>mama@mail.com</td>
-                    <td>089755xxxxx</td>
-                    <td>
-                        <i class="far fa-edit"></i><span class="icon-name"> </span>
-                        <i class="ml-3 far fa-trash-alt"></i><span class="icon-name"> </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Maman</td>
-                    <td>mamanaja</td>
-                    <td>mama@mail.com</td>
-                    <td>089755xxxxx</td>
-                    <td>
-                        <i class="far fa-edit"></i><span class="icon-name"> </span>
-                        <i class="ml-3 far fa-trash-alt"></i><span class="icon-name"> </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Maman</td>
-                    <td>mamanaja</td>
-                    <td>mama@mail.com</td>
-                    <td>089755xxxxx</td>
-                    <td>
-                        <i class="far fa-edit"></i><span class="icon-name"> </span>
-                        <i class="ml-3 far fa-trash-alt"></i><span class="icon-name"> </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Maman</td>
-                    <td>mamanaja</td>
-                    <td>mama@mail.com</td>
-                    <td>089755xxxxx</td>
-                    <td>
-                        <i class="far fa-edit"></i><span class="icon-name"> </span>
-                        <i class="ml-3 far fa-trash-alt"></i><span class="icon-name"> </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Maman</td>
-                    <td>mamanaja</td>
-                    <td>mama@mail.com</td>
-                    <td>089755xxxxx</td>
-                    <td>
-                        <i class="far fa-edit"></i><span class="icon-name"> </span>
-                        <i class="ml-3 far fa-trash-alt"></i><span class="icon-name"> </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Maman</td>
-                    <td>mamanaja</td>
-                    <td>mama@mail.com</td>
-                    <td>089755xxxxx</td>
-                    <td>
-                        <i class="far fa-edit"></i><span class="icon-name"> </span>
-                        <i class="ml-3 far fa-trash-alt"></i><span class="icon-name"> </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Maman</td>
-                    <td>mamanaja</td>
-                    <td>mama@mail.com</td>
-                    <td>089755xxxxx</td>
-                    <td>
-                        <i class="far fa-edit"></i><span class="icon-name"> </span>
-                        <i class="ml-3 far fa-trash-alt"></i><span class="icon-name"> </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Maman</td>
-                    <td>mamanaja</td>
-                    <td>mama@mail.com</td>
-                    <td>089755xxxxx</td>
-                    <td>
-                        <i class="far fa-edit"></i><span class="icon-name"> </span>
-                        <i class="ml-3 far fa-trash-alt"></i><span class="icon-name"> </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Maman</td>
-                    <td>mamanaja</td>
-                    <td>mama@mail.com</td>
-                    <td>089755xxxxx</td>
-                    <td>
-                        <i class="far fa-edit"></i><span class="icon-name"> </span>
-                        <i class="ml-3 far fa-trash-alt"></i><span class="icon-name"> </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Maman</td>
-                    <td>mamanaja</td>
-                    <td>mama@mail.com</td>
-                    <td>089755xxxxx</td>
-                    <td>
-                        <i class="far fa-edit"></i><span class="icon-name"> </span>
-                        <i class="ml-3 far fa-trash-alt"></i><span class="icon-name"> </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Maman</td>
-                    <td>mamanaja</td>
-                    <td>mama@mail.com</td>
-                    <td>089755xxxxx</td>
-                    <td>
-                        <i class="far fa-edit"></i><span class="icon-name"> </span>
-                        <i class="ml-3 far fa-trash-alt"></i><span class="icon-name"> </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Maman</td>
-                    <td>mamanaja</td>
-                    <td>mama@mail.com</td>
-                    <td>089755xxxxx</td>
-                    <td>
-                        <i class="far fa-edit"></i><span class="icon-name"> </span>
-                        <i class="ml-3 far fa-trash-alt"></i><span class="icon-name"> </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Maman</td>
-                    <td>mamanaja</td>
-                    <td>mama@mail.com</td>
-                    <td>089755xxxxx</td>
-                    <td>
-                        <i class="far fa-edit"></i><span class="icon-name"> </span>
-                        <i class="ml-3 far fa-trash-alt"></i><span class="icon-name"> </span>
-                    </td>
-                </tr>
-            </tbody>
-            <!-- <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
-                    <th></th>
-                </tr>
-            </tfoot> -->
-        </table>
+        <div class="table-responsive">
+            <table id="table-unit" class="table table-bordered table-striped mb-4" style="width:100%">
+            </table>
+            <div id="pagination-unit" class="dt--bottom-section d-sm-flex justify-content-sm-between text-center"></div>
+        </div>
     </div>
     <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
@@ -229,7 +55,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="">
-                        <form>
+                        <form id="form-unit">
                             <div class="form-group row mb-4">
                                 <label for="nama" class="col-xl-2 col-sm-3 col-sm-2 col-form-label">Nama</label>
                                 <div class="col-xl-10 col-lg-9 col-sm-10">
@@ -274,4 +100,133 @@
 </div>
 
 </div>
+@endsection
+
+@section('js')
+<script>
+    let csrf = document.querySelector('meta[name="csrf-token"]').content
+    let urlPath = '/list-user'
+
+    function makeTable(data) {
+        let heading = `<thead><tr><th>No</th><th>Nama</th><th>Email</th><th>Nama</th>Phone Number<th class="no-content">Actions</th></tr></thead>`
+        let item = ''
+        let index = 0
+        data.data.data.forEach(element => {
+            item += `<tr>
+                            <td>${data.data.from + index}</td>
+                            <td>${element['name']}</td>
+                            <td>${element['email']}</td>
+                            <td>${element['phone_number']}</td>
+                            <td>
+                                <i class="far fa-edit" onclick="show('${element['id']}')"></i>
+                                <i class="ml-3 far fa-trash-alt" onclick="destroy('${element['id']}')"></i>
+                            </td>
+                        </tr>`
+            index += 1
+        })
+        let body = `<tbody>${item}</tbody>`
+        $("#table-unit").empty()
+        $("#table-unit").append(heading, body)
+    }
+
+    function get(page = 1) {
+        let http = new XMLHttpRequest()
+        let url = `api${urlPath}`
+        let params = filter(page)
+        http.open('GET', `${url}?${params}`, true)
+
+        //Send the proper header information along with the request
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        http.setRequestHeader('X-CSRF-TOKEN', csrf)
+
+        http.onreadystatechange = function() { //Call a function when the state changes.
+            if (http.readyState == 4 && http.status == 200) {
+                // alert(http.responseText);
+                makeTable(JSON.parse(http.responseText))
+                makePagination(JSON.parse(http.responseText))
+            }
+        }
+        http.send()
+        document.getElementById('btn-submit').innerText = 'Save'
+    }
+
+    function show(id) {
+        let http = new XMLHttpRequest()
+        let url = `api${urlPath}`
+        http.open('GET', `${url}/${id}`, true)
+
+        //Send the proper header information along with the request
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        http.setRequestHeader('X-CSRF-TOKEN', csrf)
+
+        http.onreadystatechange = function() { //Call a function when the state changes.
+            if (http.readyState == 4 && http.status == 200) {
+                $('#modal-unit').modal('toggle');
+                setFormData('form-unit', JSON.parse(http.responseText).data)
+                document.getElementById('btn-submit').innerText = 'Update'
+            }
+        }
+        http.send()
+    }
+
+    function store() {
+        let http = new XMLHttpRequest()
+        let url = `api${urlPath}`
+        let params = getFormData('form-unit')
+        if (document.getElementById('btn-submit').innerText == 'Update') {
+            console.log('update');
+            let id = document.getElementById('form-id').value
+            http.open('PUT', `${url}/${id}`, true)
+        } else {
+            console.log('store');
+            http.open('POST', url, true)
+        }
+
+        //Send the proper header information along with the request
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        http.setRequestHeader('X-CSRF-TOKEN', csrf)
+
+        http.onreadystatechange = function() { //Call a function when the state changes.
+            if (http.readyState == 4 && http.status == 200) {
+                get()
+                $('#modal-unit').modal('toggle');
+            }
+        }
+        http.send(params)
+    }
+
+    function destroy(id) {
+        if (confirm('apakah anda yakin akan menghapus?')) {
+            let http = new XMLHttpRequest()
+            let url = `api${urlPath}`
+            http.open('DELETE', `${url}/${id}`, true)
+
+            //Send the proper header information along with the request
+            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+            http.setRequestHeader('X-CSRF-TOKEN', csrf)
+
+            http.onreadystatechange = function() { //Call a function when the state changes.
+                if (http.readyState == 4 && http.status == 200) {
+                    get()
+                }
+            }
+            http.send()
+        }
+
+    }
+
+    get()
+
+    document.getElementById("btn-submit").addEventListener("click", function() {
+        store()
+    })
+
+    document.getElementById('input-show').addEventListener('change', function() {
+        get()
+    })
+
+    document.getElementById('input-search').addEventListener('input', function() {
+        get()
+    })
+</script>
 @endsection
