@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Models\Unit;
-use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
 
-class ProductAPIController extends Controller
+class CategoryAPIController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -29,9 +27,9 @@ class ProductAPIController extends Controller
         $order_by = $request->order_by;
         $order_type = $request->order_type;
 
-        $data = Product::when($search, function ($query, $search) {
+        $data = Category::when($search, function ($query, $search) {
             $query->where('name', 'like', "%".$search."%");
-        })->with('unit', 'category')->orderBy($order_by, $order_type)->paginate($show);
+        })->orderBy($order_by, $order_type)->paginate($show);
         $responses['data'] = $data;
 
         return response()->json($responses, 200);
@@ -45,6 +43,7 @@ class ProductAPIController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
         # default responses
         $responses = [];
         $responses['message'] = "Bad request!";
@@ -60,20 +59,8 @@ class ProductAPIController extends Controller
             return response()->json($responses, 200);
         }
 
-        $filename = 'default.png';
-
-        if($request->file('image')){
-            $file= $request->file('image');
-            $filename= date('YmdHi').'-'.$file->getClientOriginalName();
-            $file-> move(public_path('public/upload/product/'), $filename);
-        }
-
-        $store = new Product;
+        $store = new Category;
         $store->name = $request->name;
-        $store->price = $request->price;
-        $store->image = $filename;
-        $store->unit_id = $request->unit_id;
-        $store->category_id = $request->category_id;
         $store->save();
 
         if($store) {
@@ -101,7 +88,7 @@ class ProductAPIController extends Controller
         $responses['code'] = 400;
 
         if($id != null && $id != '') {
-            $show = Product::where('id', $id)->first();
+            $show = Category::where('id', $id)->first();
             $responses['code'] = 200;
             if($show != null) {
                 $responses['message'] = "Data get successfully!";
@@ -131,31 +118,19 @@ class ProductAPIController extends Controller
         $responses['message'] = "Bad request!";
         $responses['status'] = false;
         $responses['code'] = 400;
-        // dd($request);
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:100',
             'id' => 'required'
         ]);
+        // dd($validator);
         if ($validator->fails()) {
             $responses['errors'] = $validator->errors();
             return response()->json($responses, 200);
         }
 
-        $filename = 'default.png';
-
-        if($request->file('image')){
-            $file= $request->file('image');
-            $filename= date('YmdHi').'-'.$file->getClientOriginalName();
-            $file-> move(public_path('public/upload/product/'), $filename);
-        }
-
-        $update = Product::find($request->id);
+        $update = Category::find($request->id);
         $update->name = $request->name;
-        $update->price = $request->price;
-        $update->image = $filename;
-        $update->unit_id = $request->unit_id;
-        $update->category_id = $request->category_id;
         $update->save();
 
         if($update) {
@@ -184,7 +159,7 @@ class ProductAPIController extends Controller
 
         if($id != null && $id != '') {
 
-            $delete = Product::find($id);
+            $delete = Category::find($id);
             $delete->delete();
 
             if($delete) {

@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UnitAPIController;
+use App\Http\Controllers\CategoryAPIController;
+use App\Http\Controllers\ProductAPIController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,5 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResources([
-    'satuan-produk' => UnitAPIController::class
+    'satuan-produk' => UnitAPIController::class,
+    'kategori' => CategoryAPIController::class,
+    'product' => ProductAPIController::class,
 ]);

@@ -128,7 +128,7 @@
                 if (http.readyState == 4 && http.status == 200) {
                     // alert(http.responseText);
                     makeTable(JSON.parse(http.responseText))
-                    makePagination(JSON.parse(http.responseText))
+                    makePagination(JSON.parse(http.responseText), 'unit')
                 }
             }
             http.send()

@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Auth;
 
 
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,12 +28,19 @@ Route::get('/transaksi', function () {
     return view('transaksi.transaksi');
 });
 
-Route::get('/produk', function () {
-    return view('produk.produk');
+// Route::get('/produk', function () {
+//     return view('produk.produk');
+// });
+Route::controller(ProductController::class)->group(function () {
+    Route::get('/produk', 'index');
 });
 
-Route::get('/kategori', function () {
-    return view('produk.kategori');
+// Route::get('/kategori', function () {
+//     return view('produk.kategori');
+// });
+
+Route::controller(CategoryController::class)->group(function () {
+    Route::get('/kategori', 'index');
 });
 
 // Route::get('/satuan-produk', function () {
@@ -69,3 +80,7 @@ Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])-
 //     return view('login');
 // });
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
