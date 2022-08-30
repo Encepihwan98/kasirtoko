@@ -44,7 +44,7 @@
                             <div class="form-group mb-2">
                                 <button type="button" class="btn btn-primary mt-3 mb-2" id="add-product">Tambah</button>
                                 <button type="button" class="btn btn-primary mt-3 mb-2" id="btn-submit">Bayar</button>
-                                <button type="button" class="btn btn-primary mt-3 mb-2" data-toggle="modal" data-target=".bd-example-modal-xl">Cetak Nota</button>
+                                <button type="button" id="btn-cetak" class="btn btn-primary mt-3 mb-2" data-toggle="modal" data-target=".bd-example-modal-xl">Cetak Nota</button>
                             </div>
 
                         </form>
@@ -375,6 +375,10 @@
 
         document.getElementById("add-product").addEventListener("click", function() {
             addItem()
+        })
+
+        document.getElementById("btn-cetak").addEventListener("click", function() {
+            get()
         })
 
         // document.getElementById("form-product-select").addEventListener("change", function() {
