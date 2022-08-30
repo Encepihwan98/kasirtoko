@@ -122,6 +122,7 @@
                 makePagination(JSON.parse(http.responseText))
             }
         }
+
         http.send()
         document.getElementById('btn-submit').innerText = 'Save'
     }
@@ -140,69 +141,91 @@
                 $('#modal-unit').modal('toggle');
                 setFormData('form-unit', JSON.parse(http.responseText).data)
                 document.getElementById('btn-submit').innerText = 'Update'
-            }
-        }
-        http.send()
-    }
 
-    function store() {
-        let http = new XMLHttpRequest()
-        let url = `api${urlPath}`
-        let params = getFormData('form-unit')
-        if (document.getElementById('btn-submit').innerText == 'Update') {
-            console.log('update');
-            let id = document.getElementById('form-id').value
-            http.open('PUT', `${url}/${id}`, true)
-        } else {
-            console.log('store');
-            http.open('POST', url, true)
-        }
 
-        //Send the proper header information along with the request
-        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-        http.setRequestHeader('X-CSRF-TOKEN', csrf)
+                function get(page = 1) {
+                    let http = new XMLHttpRequest()
+                    let url = `api${urlPath}`
+                    let params = filter(page)
+                    http.open('GET', `${url}?${params}`, true)
 
-        http.onreadystatechange = function() { //Call a function when the state changes.
-            if (http.readyState == 4 && http.status == 200) {
-                get()
-                $('#modal-unit').modal('toggle');
-            }
-        }
-        http.send(params)
-    }
+                    //Send the proper header information along with the request
+                    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+                    http.setRequestHeader('X-CSRF-TOKEN', csrf)
 
-    function destroy(id) {
-        if (confirm('apakah anda yakin akan menghapus?')) {
-            let http = new XMLHttpRequest()
-            let url = `api${urlPath}`
-            http.open('DELETE', `${url}/${id}`, true)
+                    http.onreadystatechange = function() { //Call a function when the state changes.
+                        if (http.readyState == 4 && http.status == 200) {
+                            // alert(http.responseText);
+                            makeTable(JSON.parse(http.responseText))
+                            makePagination(JSON.parse(http.responseText), 'unit')
+                        }
 
-            //Send the proper header information along with the request
-            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-            http.setRequestHeader('X-CSRF-TOKEN', csrf)
-
-            http.onreadystatechange = function() { //Call a function when the state changes.
-                if (http.readyState == 4 && http.status == 200) {
-                    get()
+                    }
                 }
+                http.send()
             }
-            http.send()
+
+            function store() {
+                let http = new XMLHttpRequest()
+                let url = `api${urlPath}`
+                let params = getFormData('form-unit')
+                if (document.getElementById('btn-submit').innerText == 'Update') {
+                    console.log('update');
+                    let id = document.getElementById('form-id').value
+                    http.open('PUT', `${url}/${id}`, true)
+                } else {
+                    console.log('store');
+                    http.open('POST', url, true)
+                }
+
+                //Send the proper header information along with the request
+                http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+                http.setRequestHeader('X-CSRF-TOKEN', csrf)
+
+                http.onreadystatechange = function() { //Call a function when the state changes.
+                    if (http.readyState == 4 && http.status == 200) {
+                        get()
+                        $('#modal-unit').modal('toggle');
+                    }
+                }
+                http.send(params)
+            }
+
+            function destroy(id) {
+                if (confirm('apakah anda yakin akan menghapus?')) {
+                    let http = new XMLHttpRequest()
+                    let url = `api${urlPath}`
+                    http.open('DELETE', `${url}/${id}`, true)
+
+                    //Send the proper header information along with the request
+                    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+                    http.setRequestHeader('X-CSRF-TOKEN', csrf)
+
+                    http.onreadystatechange = function() { //Call a function when the state changes.
+                        if (http.readyState == 4 && http.status == 200) {
+                            get()
+                        }
+                    }
+                    http.send()
+                }
+
+            }
+
+            get()
+
+            document.getElementById("btn-submit").addEventListener("click", function() {
+                store()
+            })
+
+            document.getElementById('input-show').addEventListener('change', function() {
+                get()
+            })
+
+            document.getElementById('input-search').addEventListener('input', function() {
+                get()
+            })
+
         }
-
     }
-
-    get()
-
-    document.getElementById("btn-submit").addEventListener("click", function() {
-        store()
-    })
-
-    document.getElementById('input-show').addEventListener('change', function() {
-        get()
-    })
-
-    document.getElementById('input-search').addEventListener('input', function() {
-        get()
-    })
 </script>
 @endsection

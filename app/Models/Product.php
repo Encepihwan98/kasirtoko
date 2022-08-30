@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Unit;
-use Category;
+use App\Models\Unit;
+use App\Models\Category;
 
 class Product extends Model
 {
@@ -16,7 +16,7 @@ class Product extends Model
      */
     public function unit()
     {
-        return $this->hasOne(Unit::class);
+        return $this->belongsTo(Unit::class);
     }
 
     /**
@@ -24,6 +24,6 @@ class Product extends Model
      */
     public function category()
     {
-        return $this->hasOne(Category::class);
+        return $this->belongsTo(Category::class);
     }
 }

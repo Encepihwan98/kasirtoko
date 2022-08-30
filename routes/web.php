@@ -5,7 +5,13 @@ use Illuminate\Support\Facades\Auth;
 
 
 use App\Http\Controllers\UnitController;
+
 use App\Http\Controllers\UserController;
+
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,12 +32,16 @@ Route::get('/transaksi', function () {
     return view('transaksi.transaksi');
 });
 
-Route::get('/produk', function () {
-    return view('produk.produk');
+Route::controller(ProductController::class)->group(function () {
+    Route::get('/produk', 'index');
 });
 
-Route::get('/kategori', function () {
-    return view('produk.kategori');
+Route::controller(UserController::class)->group(function () {
+    Route::get('/users', 'index');
+});
+
+Route::controller(CategoryController::class)->group(function () {
+    Route::get('/kategori', 'index');
 });
 
 // Route::get('/satuan-produk', function () {
@@ -46,13 +56,13 @@ Route::controller(UnitController::class)->group(function () {
     Route::delete('/satuan-produk/{id}', 'destroy');
 });
 
-Route::controller(UserController::class)->group(function () {
-    Route::get('/list-user', 'index');
-    Route::get('/list-user/{id}', 'show');
-    Route::post('/list-user', 'store');
-    Route::post('/list-user/{id}', 'update');
-    Route::delete('/list-user/{id}', 'destroy');
-});
+// Route::controller(UserController::class)->group(function () {
+//     Route::get('/list-user', 'index');
+//     Route::get('/list-user/{id}', 'show');
+//     Route::post('/list-user', 'store');
+//     Route::post('/list-user/{id}', 'update');
+//     Route::delete('/list-user/{id}', 'destroy');
+// });
 
 
 Route::get('/user', function () {
@@ -80,3 +90,7 @@ Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])-
 //     return view('login');sid
 // });
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

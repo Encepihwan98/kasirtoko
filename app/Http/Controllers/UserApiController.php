@@ -3,18 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\Unit;
-use App\Models\Product;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class ProductAPIController extends Controller
+class UserApiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         # default responses
@@ -29,10 +23,10 @@ class ProductAPIController extends Controller
         $order_by = $request->order_by;
         $order_type = $request->order_type;
 
-        $data = Product::when($search, function ($query, $search) {
-            $query->where('name', 'like', "%".$search."%");
-        })->with('unit', 'category')->orderBy($order_by, $order_type)->paginate($show);
-        $responses['data'] = $data;
+        $users = User::when($search, function ($query, $search) {
+            $query->where('name', 'like', "%" . $search . "%");
+        })->orderBy($order_by, $order_type)->paginate($show);
+        $responses['data'] = $users;
 
         return response()->json($responses, 200);
     }
@@ -52,7 +46,10 @@ class ProductAPIController extends Controller
         $responses['code'] = 400;
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:categories|max:100'
+            'name' => 'required|unique:units|max:100',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+            'phone_number' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -62,21 +59,21 @@ class ProductAPIController extends Controller
 
         $filename = 'default.png';
 
-        if($request->file('image')){
-            $file= $request->file('image');
-            $filename= date('YmdHi').'-'.$file->getClientOriginalName();
-            $file-> move(public_path('public/upload/product/'), $filename);
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $filename = date('YmdHi') . '-' . $file->getClientOriginalName();
+            $file->move(public_path('public/upload/product/'), $filename);
         }
 
-        $store = new Product;
-        $store->name = $request->name;
-        $store->price = $request->price;
-        $store->image = $filename;
-        $store->unit_id = $request->unit_id;
-        $store->category_id = $request->category_id;
-        $store->save();
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->avatar = $filename;
+        $user->password = Hash::make($request->password);
+        $user->phone_number = $request->phone_number;
+        $user->save();
 
-        if($store) {
+        if ($user) {
             $responses['message'] = "Data stored successfully!";
             $responses['status'] = true;
             $responses['code'] = 200;
@@ -100,12 +97,12 @@ class ProductAPIController extends Controller
         $responses['status'] = false;
         $responses['code'] = 400;
 
-        if($id != null && $id != '') {
-            $show = Product::where('id', $id)->first();
+        if ($id != null && $id != '') {
+            $unit = User::where('id', $id)->first();
             $responses['code'] = 200;
-            if($show != null) {
+            if ($unit != null) {
                 $responses['message'] = "Data get successfully!";
-                $responses['data'] = $show;
+                $responses['data'] = $unit;
                 $responses['status'] = true;
             } else {
                 $responses['message'] = "Data not found!";
@@ -131,12 +128,15 @@ class ProductAPIController extends Controller
         $responses['message'] = "Bad request!";
         $responses['status'] = false;
         $responses['code'] = 400;
-        // dd($request);
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:100',
-            'id' => 'required'
+            'id' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+            'phone_number' => 'required'
         ]);
+        // dd($validator);
         if ($validator->fails()) {
             $responses['errors'] = $validator->errors();
             return response()->json($responses, 200);
@@ -144,21 +144,21 @@ class ProductAPIController extends Controller
 
         $filename = 'default.png';
 
-        if($request->file('image')){
-            $file= $request->file('image');
-            $filename= date('YmdHi').'-'.$file->getClientOriginalName();
-            $file-> move(public_path('public/upload/product/'), $filename);
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $filename = date('YmdHi') . '-' . $file->getClientOriginalName();
+            $file->move(public_path('public/upload/product/'), $filename);
         }
 
-        $update = Product::find($request->id);
-        $update->name = $request->name;
-        $update->price = $request->price;
-        $update->image = $filename;
-        $update->unit_id = $request->unit_id;
-        $update->category_id = $request->category_id;
-        $update->save();
-
-        if($update) {
+        $user = User::find($request->id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->avatar = $filename;
+        $user->phone_number = $request->phone_number;
+        $user->save();
+        // dd($unit);
+        if ($user) {
             $responses['message'] = "Data updated successfully!";
             $responses['status'] = true;
             $responses['code'] = 200;
@@ -182,12 +182,12 @@ class ProductAPIController extends Controller
         $responses['status'] = false;
         $responses['code'] = 400;
 
-        if($id != null && $id != '') {
+        if ($id != null && $id != '') {
 
-            $delete = Product::find($id);
-            $delete->delete();
+            $unit = User::find($id);
+            $unit->delete();
 
-            if($delete) {
+            if ($unit) {
                 $responses['message'] = "Data deleted successfully!";
                 $responses['status'] = true;
                 $responses['code'] = 200;
