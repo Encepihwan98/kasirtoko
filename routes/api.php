@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UnitAPIController;
 use App\Http\Controllers\CategoryAPIController;
 use App\Http\Controllers\ProductAPIController;
+use App\Http\Controllers\TransactionAPIController;
+
 
 
 /*
@@ -22,9 +24,13 @@ use App\Http\Controllers\ProductAPIController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/transaksi/generate-pdf', [TransactionAPIController::class, 'getPDF']);
 
 Route::apiResources([
     'satuan-produk' => UnitAPIController::class,
     'kategori' => CategoryAPIController::class,
     'product' => ProductAPIController::class,
+    'transaksi' => TransactionAPIController::class,
 ]);
+
+
