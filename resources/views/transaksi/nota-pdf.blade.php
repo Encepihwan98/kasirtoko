@@ -33,11 +33,16 @@
         }
 
         .invoice table {
-            margin: 15px;
+            margin: 5px;
         }
 
-        .invoice h3 {
+        .invoice h5 {
             margin-left: 15px;
+        }
+
+        .invoice tfoot td{
+            border-top: 1px solid;
+            padding-top: 15px;
         }
 
         .information {
@@ -61,13 +66,10 @@
     <div class="information">
         <table width="100%">
             <tr>
-                <td align="left" style="width: 40%;">
-                    <h3>Nama User</h3>
+                <td align="left" style="width: 50%;">
+                    <h5>Logo</h5>
                     <pre>
-{{-- Street 15
-123456 City
-United Kingdom --}}
-<br /><br />
+
 Date: {{$data['created_at']}}
 Identifier: #{{$data['nota']}}
 Status: Paid
@@ -75,14 +77,10 @@ Status: Paid
 
 
                 </td>
-                <td align="center">
-                    <img src="/path/to/logo.png" alt="Logo" width="64" class="logo" />
-                </td>
-                <td align="right" style="width: 40%;">
+                <td align="right" style="width: 50%; padding-right: 15%;">
 
-                    <h3>CompanyName</h3>
+                    <h3>Kasir Toko</h3>
                     <pre>
-                    https://company.com
 
                     Street 26
                     123456 City
@@ -98,14 +96,14 @@ Status: Paid
     <br />
 
     <div class="invoice">
-        <h3>Nota #{{$data['nota']}}</h3>
+        {{-- <h5>Nota #{{$data['nota']}}</h5> --}}
         <table width="100%">
             <thead>
                 <tr>
-                    <th>Nama</th>
-                    <th>Quantity</th>
-                    <th>Harga Satuan</th>
+                    <th align="left">Nama</th>
                     <th>Jumlah</th>
+                    <th>Harga</th>
+                    <th>Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -116,8 +114,8 @@ Status: Paid
                     <tr>
                         <td>{{$detail['product']['name']}}/{{$detail['product']['unit']['name']}}</td>
                         <td align="center">{{$detail['qty']}}</td>
-                        <td align="center">Rp. {{number_format($detail['product']['price'],2,',','.')}}</td>
-                        <td align="center">Rp. {{number_format($detail['product']['price'] * $detail['qty'],2,',','.')}}</td>
+                        <td align="center">Rp. {{number_format($detail['product']['price'],0,',','.')}}</td>
+                        <td align="center">Rp. {{number_format($detail['product']['price'] * $detail['qty'],0,',','.')}}</td>
                     </tr>
                     @php
                         $total += $detail['product']['price'] * $detail['qty'];
@@ -126,8 +124,8 @@ Status: Paid
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="3" align="left">Total</td>
-                    <td align="center" class="gray">Rp. {{number_format($total,2,',','.')}}</td>
+                    <td colspan="3" align="left">Total Keseluruhan :</td>
+                    <td align="center" class="gray">Rp. {{number_format($total,0,',','.')}}</td>
                 </tr>
             </tfoot>
         </table>
