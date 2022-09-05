@@ -43,7 +43,7 @@ class CategoryAPIController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        // dd($request);
         # default responses
         $responses = [];
         $responses['message'] = "Bad request!";

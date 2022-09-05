@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Transaction;
+use App\Models\Transaction;
+use App\Models\Product;
 
 class TransactionDetail extends Model
 {
@@ -16,5 +17,13 @@ class TransactionDetail extends Model
     public function transaction()
     {
         return $this->belongsTo(Transaction::class);
+    }
+
+    /**
+     * Get the product that owns the transaction detail.
+     */
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

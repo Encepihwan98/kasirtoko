@@ -141,7 +141,8 @@
                 $('#modal-unit').modal('toggle');
                 setFormData('form-unit', JSON.parse(http.responseText).data)
                 document.getElementById('btn-submit').innerText = 'Update'
-
+            }
+        }
 
                 function get(page = 1) {
                     let http = new XMLHttpRequest()
@@ -224,8 +225,5 @@
             document.getElementById('input-search').addEventListener('input', function() {
                 get()
             })
-
-        }
-    }
 </script>
 @endsection
