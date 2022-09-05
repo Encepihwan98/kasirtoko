@@ -132,10 +132,9 @@ class TransactionAPIController extends Controller
                 // retreive all records from db
                 $data = Transaction::with('transaction_detail','transaction_detail.product','transaction_detail.product.unit')->latest()->first();
             }
-
-
+            $customPaper = array(0,0,225,500);
             // share data to view
-            $pdf = PDF::loadView('transaksi.nota-pdf', ['data' => $data])->setOptions(['defaultFont' => 'sans-serif']);
+            $pdf = PDF::loadView('transaksi.nota-pdf', ['data' => $data])->setOptions(['defaultFont' => 'sans-serif'])->setPaper($customPaper);
             // download PDF file with download method
             return $pdf->stream();
             // return view('transaksi.nota-pdf');
