@@ -6,6 +6,87 @@
             font-size: 0.8em;
         }
     </style>
+
+<div id="view-nota" class="text-center" style="background-color: grey; margin: auto; width: 330px; display: none">
+    <div id="nota-content">
+        <img src="{{ asset('assets/img/header.png') }}" width="300" alt="" srcset="">
+        <div id="nota-print-header" style="background-color: white; margin: auto; padding: 5px; width: 300px">
+            <div class="row">
+                <div class="col-6 text-left">
+                    <h6>
+                        Logo
+                    </h6>
+                    <br>
+                    <p class="nota-item-text" id="nota-print-date">
+                        Date: tanggal
+                    </p>
+                    <p class="nota-item-text" id="nota-print-id">
+                        Identifier: #nomor
+                    </p>
+                    <p class="nota-item-text">
+                        Status: UnPaid
+                    </p>
+                </div>
+                <div class="col-6 text-right">
+                    <h6>
+                        Kasir Toko
+                    </h6>
+                    <br>
+                    <p class="nota-item-text">
+                        Street 26, 123456 City, United Kingdom
+                    </p>
+                </div>
+            </div>
+            <hr style="border:1px dashed #d9e7e8!important; ">
+        </div>
+        <div id="nota-print-body" style="background-color: white; margin: auto; width: 300px; padding: 5px">
+            <div class="row">
+                <div class="col-12">
+                    <table width="100%" class="mb-3" id="nota-print-table">
+                        <thead>
+                            <tr>
+                                <th align="left">Nama</th>
+                                <th>Jumlah</th>
+                                <th>Harga</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td align="left">
+                                    <p class="nota-item-text">Nama</p>
+                                </td>
+                                <td>
+                                    <p class="nota-item-text">Nama</p>
+                                </td>
+                                <td>
+                                    <p class="nota-item-text">Nama</p>
+                                </td>
+                                <td>
+                                    <p class="nota-item-text">Nama</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <img src="{{ asset('assets/img/divider.png') }}" width="300" style="margin-top: -10px" alt=""
+            srcset="">
+        <div id="nota-print-footer"
+            style="background-color: white; margin: auto; margin-top: -10px; width: 300px; align-item: center; padding: 5px">
+            <div class="row">
+                <div class="col-6 mt-4 text-left">
+                    <h6>Total :</h6>
+                </div>
+                <div class="col-6 mt-4 text-right" id="nota-print-price-total">
+                    <p>Rp. 10000000</p>
+                </div>
+            </div>
+        </div>
+        <img src="{{ asset('assets/img/footer.png') }}" width="300" alt="" srcset="">
+    </div>
+</div>
     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
         <div class="row">
             <div class="col-lg-8">
@@ -98,8 +179,8 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" tabindex="-1" id="modal-nota" role="dialog"
-        aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal fade" tabindex="-1" id="modal-nota" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -117,6 +198,7 @@
                     <div class="container">
                         <div id="view-nota" class="text-center"
                             style="background-color: grey; margin: auto;  width: 330px">
+
                             <img src="{{ asset('assets/img/header.png') }}" width="300" alt=""
                                 srcset="">
                             <div id="nota-header"
@@ -149,8 +231,7 @@
                                 </div>
                                 <hr style="border:1px dashed #d9e7e8!important; ">
                             </div>
-                            <div id="nota-body"
-                                style="background-color: white; margin: auto; width: 300px; padding: 5px">
+                            <div id="nota-body" style="background-color: white; margin: auto; width: 300px; padding: 5px">
                                 <div class="row">
                                     <div class="col-12">
                                         <table width="100%" class="mb-3" id="nota-table">
@@ -202,7 +283,8 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Close</button>
-                    <button type="button" class="btn btn-primary" id="btn-print">Cetak Nota</button>
+                    <button type="button" class="btn btn-primary" id="btn-print" onclick="generatePDF()">Cetak
+                        Nota</button>
                 </div>
             </div>
         </div>
@@ -257,10 +339,36 @@
 @endsection
 
 @section('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         let csrf = document.querySelector('meta[name="csrf-token"]').content
         let urlPath = '/transaksi'
         let notaID = generateID(10)
+
+        function generatePDF() {
+            // Choose the element that our invoice is rendered in.
+            const element = document.getElementById('nota-content');
+            let opt = {
+                margin: 1,
+                filename: 'myfile.pdf',
+                image: {
+                    type: 'jpeg',
+                    quality: 0.98
+                },
+                html2canvas: {
+                    scale: 2
+                },
+                jsPDF: {
+                    unit: 'px',
+                    format: [310.0, 600.0],
+                    orientation: 'portrait'
+                }
+            };
+            // Choose the element and save the PDF for our user.
+            html2pdf().set(opt).from(element).save();
+        }
 
         function makeTableNota(data) {
             let today = new Date();
@@ -299,6 +407,14 @@
             $("#nota-id").append(`Identifier: #${notaID}`)
             $("#nota-date").empty()
             $("#nota-date").append(`Date: ${today}`)
+            $("#nota-print-table").empty()
+            $("#nota-print-table").append(heading, body)
+            $("#nota-print-price-total").empty()
+            $("#nota-print-price-total").append(`<p>${formatRupiah(total.toString(), 'Rp. ')}</p>`)
+            $("#nota-print-id").empty()
+            $("#nota-print-id").append(`Identifier: #${notaID}`)
+            $("#nota-print-date").empty()
+            $("#nota-print-date").append(`Date: ${today}`)
         }
 
         function makeTableTransaction(data) {
