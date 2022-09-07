@@ -7,8 +7,8 @@
                 <h3>Tabel Produk</h3>
             </div>
             <!-- <div class="col-lg-4">
-                    <button class="btn btn-primary mb-2">Tambah</button>
-                </div> -->
+                        <button class="btn btn-primary mb-2">Tambah</button>
+                    </div> -->
         </div>
         <div class="widget-content widget-content-area br-6">
             <div class="row">
@@ -65,52 +65,64 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="">
-                            <form id="form-product" enctype="multipart/form-data">
-                                <div class="form-group row mb-4">
-                                    <label for="name" class="col-xl-2 col-sm-3 col-sm-2 col-form-label">Nama
-                                        Barang</label>
-                                    <div class="col-xl-10 col-lg-9 col-sm-10">
-                                        <input type="hidden" id="form-id" name="id">
-                                        <input type="text" name="name" class="form-control" id="name"
-                                            placeholder="">
-                                    </div>
+                        <form id="form-product">
+                            <div class="form-group row mb-4">
+                                <label for="name" class="col-2 col-sm-3 col-form-label">Nama
+                                    Barang</label>
+                                <div class="col-10 col-sm-9">
+                                    <input type="hidden" id="form-id" name="id">
+                                    <input type="text" name="name" class="form-control" id="name"
+                                        placeholder="">
                                 </div>
-                                <div class="form-group row mb-4">
-                                    <label for="satuan" class="col-xl-2 col-sm-3 col-sm-2 col-form-label">Satuan</label>
-                                    <div class="col-xl-10 col-lg-9 col-sm-10">
-                                        <select class="form-control" name="unit_id" id="form-unit">
-                                            <option value="">Pilih Satuan</option>
-                                        </select>
-                                    </div>
+                            </div>
+                            {{-- <div class="form-group row mb-4">
+                                <label for="satuan" class="col-3 col-sm-4 col-form-label">Satuan</label>
+                                <div class="col-9 col-sm-8">
+                                    <select class="form-control" name="unit_id" id="form-unit">
+                                        <option value="">Pilih Satuan</option>
+                                    </select>
                                 </div>
-                                <div class="form-group row mb-4">
-                                    <label for="kategori"
-                                        class="col-xl-2 col-sm-3 col-sm-2 col-form-label">Kategori</label>
-                                    <div class="col-xl-10 col-lg-9 col-sm-10">
-                                        <select class="form-control" name="category_id" id="form-category">
-                                            <option value="">Pilih Kategori</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row mb-4">
-                                    <label for="harga" class="col-xl-2 col-sm-3 col-sm-2 col-form-label">Harga</label>
-                                    <div class="col-xl-10 col-lg-9 col-sm-10">
-                                        <input type="text" class="form-control" name="price" id="harga"
-                                            placeholder="">
-                                    </div>
-                                </div>
-                                <div class="form-group row mb-4">
-                                    <label for="harga" class="col-xl-2 col-sm-3 col-sm-2 col-form-label">Gambar</label>
-                                    <div class="col-xl-10 col-lg-9 col-sm-10">
-                                        <input type="file" id="image" name="image">
-                                        <img src="" width="100" height="100" id="preview">
-                                    </div>
 
+                            </div> --}}
+                            <div class="form-group row mb-4">
+                                <label for="kategori" class="col-2 col-sm-3 col-form-label">Kategori</label>
+                                <div class="col-10 col-sm-9">
+                                    <select class="form-control" name="category_id" id="form-category">
+                                        <option value="">Pilih Kategori</option>
+                                    </select>
                                 </div>
-                            </form>
+                            </div>
+                            <div class="card component-card_1" id="price-with-unit">
+                                <div class="card-body text-right">
+                                    <h5 class="card-title text-left">Custom Satuan Produk</h5>
+                                    <div class="form-group row mb-4">
+                                        <label for="harga" class="col-2 col-sm-3 col-form-label text-left">Harga</label>
+                                        <div class="col-10 col-sm-9 row" id="input-price">
+                                            <div class="col-5 col-sm-5">
+                                                <input type="text" class="form-control" name="price[]" id="harga-1"
+                                                    placeholder="">
+                                            </div>
+                                            <div class="col-4 col-sm-4">
+                                                <select class="form-control" name="unit_id[]" id="form-unit-1" onchange="setUnitName(1)">
+                                                    <option value="">Pilih Satuan</option>
+                                                </select>
+                                                <input type="hidden" name="unit_name[]" id="form-unit-name-1">
+                                            </div>
+                                            <button type="button" class="btn btn-sm btn-danger" id="btn-remove-product-1" onclick="removeInput(1)"><i class="far fa-trash-alt"></i></button>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary mr-3" id="btn-add-product">Tambah Satuan & Harga</button>
+                                </div>
+                            </div>
+                            {{-- <div class="form-group row mb-4">
+                                <label for="harga" class="col-3 col-sm-4 col-form-label">Gambar</label>
+                                <div class="col-9 col-sm-8">
+                                    <input type="file" id="image" name="image">
+                                    <img src="" width="100" height="100" id="preview">
+                                </div>
 
-                        </div>
+                            </div> --}}
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
@@ -128,19 +140,107 @@
     <script>
         let csrf = document.querySelector('meta[name="csrf-token"]').content
         let urlPath = '/product'
+        let unitDataUniversal = {}
+        let categoryDataUniversal = {}
+        let priceFormTotal = 1
+
+        function setUnitName(id) {
+            let selectedOption = document.getElementById(`form-unit-${id}`).options.selectedIndex
+            console.log(document.getElementById(`form-unit-${id}`).options.selectedIndex);
+            document.getElementById(`form-unit-name-${id}`).value = document.getElementById(`form-unit-${id}`).options[selectedOption].text
+        }
+
+        function removeElement(id) {
+            console.log(id);
+            var elem = document.getElementById(id);
+            return elem.parentNode.removeChild(elem);
+        }
+
+        function removeInput(id) {
+            let iPrice = document.getElementsByName("price[]")
+            if (iPrice.length > 0) {
+                let newSplice = Array.prototype.slice.call(iPrice)
+                for (let index = 0; index < iPrice.length; index++) {
+                    const idSplit = iPrice[index].id.split('-')
+                    if(id == idSplit[1]) {
+                        console.log('Found');
+                        removeElement(`form-unit-${id}`)
+                        removeElement(`form-unit-name-${id}`)
+                        removeElement(`harga-${id}`)
+                        removeElement(`btn-remove-product-${id}`)
+                        break
+                    }
+                }
+            }
+        }
+
+        function addInput(customVal = null) {
+            priceFormTotal+=1
+            let otherOpt = ''
+            for (var i = 0; i <= unitDataUniversal.data.length; i++) {
+                console.log(unitDataUniversal.data[i]);
+                if(unitDataUniversal.data[i]) {
+                    otherOpt += `<option value="${unitDataUniversal.data[i]['id']}">${unitDataUniversal.data[i]['name']}</option>`
+                }
+            }
+            if(customVal == null) {
+                let newInput = `<div class="col-5 col-sm-5">
+                                <input type="text" class="form-control" name="price[]" id="harga-${priceFormTotal}"
+                                    placeholder="">
+                            </div>
+                            <div class="col-4 col-sm-4">
+                                <select class="form-control" name="unit_id[]" id="form-unit-${priceFormTotal}" onchange="setUnitName(${priceFormTotal})">
+                                    <option value="">Pilih Satuan</option>
+                                    ${otherOpt}
+                                </select>
+                                <input type="hidden" name="unit_name[]" id="form-unit-name-${priceFormTotal}">
+                            </div>
+                            <button type="button" class="btn btn-sm btn-danger" id="btn-remove-product-${priceFormTotal}" onclick="removeInput(${priceFormTotal})"><i class="far fa-trash-alt"></i></button>`
+                $("#input-price").append(newInput)
+            } else {
+                $("#input-price").empty()
+                let newInput = ''
+                let index = 1
+                customVal.forEach(e => {
+                    newInput += `<div class="col-5 col-sm-5">
+                                <input type="text" class="form-control" name="price[]" value="${e['price']}" id="harga-${index}"
+                                    placeholder="">
+                            </div>
+                            <div class="col-4 col-sm-4">
+                                <select class="form-control" name="unit_id[]" id="form-unit-${index}" value="${e['unit_id']}"  onchange="setUnitName(${index})">
+                                    <option value="">Pilih Satuan</option>
+                                    <option value="${e['unit_id']}" selected disabled>${e['unit_name']}</option>
+                                    ${otherOpt}
+                                </select>
+                                <input type="hidden" name="unit_name[]" id="form-unit-name-${index}" value="${e['unit_name']}" >
+                            </div>
+                            <button type="button" class="btn btn-sm btn-danger" id="btn-remove-product-${index}" onclick="removeInput(${index})"><i class="far fa-trash-alt"></i></button>`
+                    index += 1
+                })
+                $("#input-price").append(newInput)
+            }
+        }
 
         function makeTable(data) {
             let heading =
-                `<thead><tr><th>No</th><th>Nama Barang</th><th>Satuan</th><th>Kategori</th><th>Harga</th><th class="no-content">Actions</th></tr></thead>`
+                `<thead><tr><th>No</th><th>Nama Barang</th><th>Satuan dan Harga</th><th>Kategori</th><th class="no-content">Actions</th></tr></thead>`
             let item = ''
             let index = 0
             data.data.data.forEach(element => {
+                let product_price = ''
+                let satuan = JSON.parse(element['price'])
+                if(satuan != null && satuan.length > 0) {
+                    satuan.forEach(e => {
+                        product_price += `${element['name']}/${e['unit_name']}: ${formatRupiah(e['price'].toString(), 'Rp. ')}<br>`
+                    })
+                }
+                console.log(JSON.parse(element['price']));
+
                 item += `<tr>
                             <td>${data.data.from + index}</td>
                             <td>${element['name']}</td>
-                            <td>${element['unit']['name']}</td>
+                            <td>${product_price}</td>
                             <td>${element['category']['name']}</td>
-                            <td>${formatRupiah(element['price'].toString(), 'Rp. ')}</td>
                             <td>
                                 <i class="far fa-edit" onclick="show('${element['id']}')"></i>
                                 <i class="ml-3 far fa-trash-alt" onclick="destroy('${element['id']}')"></i>
@@ -183,12 +283,16 @@
             http.onreadystatechange = function() { //Call a function when the state changes.
                 if (http.readyState == 4 && http.status == 200) {
                     let unitData = JSON.parse(http.responseText).data
-                    console.log(unitData.data[0].id);
+                    unitDataUniversal = unitData
+                    $("#form-unit-1").empty();
+                    let defOpt = document.createElement('option');
+                    defOpt.innerHTML = "Pilih Satuan";
+                    document.getElementById('form-unit-1').appendChild(defOpt);
                     for (var i = 0; i <= unitData.data.length; i++) {
                         var opt = document.createElement('option');
                         opt.value = unitData.data[i].id;
                         opt.innerHTML = unitData.data[i].name;
-                        document.getElementById('form-unit').appendChild(opt);
+                        document.getElementById('form-unit-1').appendChild(opt);
                     }
                 }
             }
@@ -204,7 +308,11 @@
             newhttp.onreadystatechange = function() { //Call a function when the state changes.
                 if (newhttp.readyState == 4 && newhttp.status == 200) {
                     let unitDataNew = JSON.parse(newhttp.responseText).data
-
+                    categoryDataUniversal = unitDataNew
+                    $("#form-category").empty();
+                    let defOpt = document.createElement('option');
+                    defOpt.innerHTML = "Pilih Kategori";
+                    document.getElementById('form-category').appendChild(defOpt);
                     for (var i = 0; i <= unitDataNew.data.length; i++) {
                         var opt = document.createElement('option');
                         opt.value = unitDataNew.data[i].id;
@@ -251,8 +359,9 @@
                 if (http.readyState == 4 && http.status == 200) {
                     $('#modal-product').modal('toggle');
                     let data = JSON.parse(http.responseText).data
-                    setFormData('form-product', JSON.parse(http.responseText).data)
-                    document.getElementById('preview').setAttribute('src', `public/upload/product/${data['image']}`)
+                    let priceData = JSON.parse(data.price)
+                    setFormData('form-product', data)
+                    addInput(priceData)
                     document.getElementById('btn-submit').innerText = 'Update'
                 }
             }
@@ -260,11 +369,11 @@
         }
 
         function store() {
-            const files = document.getElementById('image').files
             const formData = setAsFormData('form-product')
-            formData.append('image', files[0])
+            console.log(formData);
             let id = document.getElementById('form-id').value
-            let url = (document.getElementById('btn-submit').innerText == 'Update') ? `api${urlPath}/${id}?_method=PUT` : `api${urlPath}`
+            let url = (document.getElementById('btn-submit').innerText == 'Update') ? `api${urlPath}/${id}?_method=PUT` :
+                `api${urlPath}`
             let method = (document.getElementById('btn-submit').innerText == 'Update') ? 'PUT' : 'POST'
             fetch(url, {
                     method: 'POST',
@@ -272,6 +381,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data);
                     get()
                     $('#modal-product').modal('toggle');
                 })
@@ -302,9 +412,14 @@
 
         get()
 
-        document.getElementById("image").addEventListener("change", function() {
-            changeImage(this);
-        });
+        // document.getElementById("image").addEventListener("change", function() {
+        //     changeImage(this);
+        // });
+
+
+        document.getElementById("btn-add-product").addEventListener("click", function() {
+            addInput()
+        })
 
         document.getElementById("btn-submit").addEventListener("click", function() {
             store()
