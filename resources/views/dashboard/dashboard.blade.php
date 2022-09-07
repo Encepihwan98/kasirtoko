@@ -73,86 +73,39 @@
 
 @section('js')
 <script>
-    let csrf = document.querySelector('meta[name="csrf-token"]').content
-    let urlPath = '/satuan-produk'
+        let csrf = document.querySelector('meta[name="csrf-token"]').content
+        let urlPath = '/monthly-sales'
 
-    function makeTable(data) {
-        let heading = `<thead><tr><th>No</th><th>Satuan</th><th class="no-content">Actions</th></tr></thead>`
-        let item = ''
-        let index = 0
-        data.data.data.forEach(element => {
-            item += `<tr>
-                            <td>${data.data.from + index}</td>
-                            <td>${element['name']}</td>
-                            <td>
-                                <i class="far fa-edit" onclick="show('${element['id']}')"></i>
-                                <i class="ml-3 far fa-trash-alt" onclick="destroy('${element['id']}')"></i>
-                            </td>
-                        </tr>`
-            index += 1
-        })
-        let body = `<tbody>${item}</tbody>`
-        $("#table-unit").empty()
-        $("#table-unit").append(heading, body)
-    }
-
-    function get(page = 1) {
-        let http = new XMLHttpRequest()
-        let url = `api${urlPath}`
-        let params = filter(page)
-        http.open('GET', `${url}?${params}`, true)
-
-        //Send the proper header information along with the request
-        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-        http.setRequestHeader('X-CSRF-TOKEN', csrf)
-
-        http.onreadystatechange = function() { //Call a function when the state changes.
-            if (http.readyState == 4 && http.status == 200) {
-                // alert(http.responseText);
-                makeTable(JSON.parse(http.responseText))
-                makePagination(JSON.parse(http.responseText))
-            }
+        function makeDashboard(data){
+            // console.log(data.omset);
+            let omset = document.getElementById("omset");
+            omset.innerHTML =  data.omset;
         }
-
-        http.send()
-        document.getElementById('btn-submit').innerText = 'Save'
-    }
-
-    function show(id) {
-        let http = new XMLHttpRequest()
-        let url = `api${urlPath}`
-        http.open('GET', `${url}/${id}`, true)
-
-        //Send the proper header information along with the request
-        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-        http.setRequestHeader('X-CSRF-TOKEN', csrf)
-
-
 
         function get(page = 1) {
             let http = new XMLHttpRequest()
             let url = `api${urlPath}`
-            let params = filter(page)
-            http.open('GET', `${url}?${params}`, true)
+            http.open('GET', `${url}`, true)
 
             //Send the proper header information along with the request
             http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
             http.setRequestHeader('X-CSRF-TOKEN', csrf)
-
+            // alert("hai");
             http.onreadystatechange = function() { //Call a function when the state changes.
+                // alert(http.responseText);
                 if (http.readyState == 4 && http.status == 200) {
                     // alert(http.responseText);
-                    makeTable(JSON.parse(http.responseText))
-                    makePagination(JSON.parse(http.responseText), 'unit')
+                    makeDashboard(JSON.parse(http.responseText))
+                    // let data = JSON.parse(http.responseText)
+                    // alert(data);
+                    // makePagination(JSON.parse(http.responseText), 'category')
                 }
-
             }
+            http.send()
+            document.getElementById('btn-submit').innerText = 'Save'
         }
-        http.send()
-    }
 
+        get()
 
-
-    get()
-</script>
+    </script>
 @endsection
