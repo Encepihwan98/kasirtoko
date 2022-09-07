@@ -7,86 +7,77 @@
         }
     </style>
 
-<div id="view-nota" class="text-center" style="background-color: grey; margin: auto; width: 330px; display: none">
-    <div id="nota-content">
-        <img src="{{ asset('assets/img/header.png') }}" width="300" alt="" srcset="">
-        <div id="nota-print-header" style="background-color: white; margin: auto; padding: 5px; width: 300px">
-            <div class="row">
-                <div class="col-6 text-left">
-                    <h6>
-                        Logo
-                    </h6>
-                    <br>
-                    <p class="nota-item-text" id="nota-print-date">
-                        Date: tanggal
-                    </p>
-                    <p class="nota-item-text" id="nota-print-id">
-                        Identifier: #nomor
-                    </p>
-                    <p class="nota-item-text">
-                        Status: UnPaid
-                    </p>
+    <div id="view-nota" class="text-center" style="background-color: grey; margin: auto; width: 330px; display: none">
+        <div id="nota-content">
+            <img src="{{ asset('assets/img/header.png') }}" width="300" alt="" srcset="">
+            <div id="nota-print-header" style="background-color: white; margin: auto; padding: 5px; width: 300px">
+                <div class="row">
+                    <div class="col-6 text-left">
+                        <img src="{{ asset('assets/img/toko tidar.jpg') }}" width="150" alt="" srcset="">
+                    </div>
+                    <div class="col-6 text-right">
+                        <p class="nota-item-text" id="nota-print-date">
+                            Date: tanggal
+                        </p>
+                    </div>
+                    <div class="col-12 text-left">
+                        <br>
+                        <p class="nota-item-text" id="nota-print-id">
+                            Nota: #nomor
+                        </p>
+                    </div>
                 </div>
-                <div class="col-6 text-right">
-                    <h6>
-                        Kasir Toko
-                    </h6>
-                    <br>
-                    <p class="nota-item-text">
-                        Street 26, 123456 City, United Kingdom
-                    </p>
+                <hr style="border:1px dashed #d9e7e8!important; ">
+            </div>
+            <div id="nota-print-body" style="background-color: white; margin: auto; width: 300px; padding: 5px">
+                <div class="row">
+                    <div class="col-12">
+                        <table width="100%" class="mb-3" id="nota-print-table">
+                            <thead>
+                                <tr>
+                                    <th align="left">Nama</th>
+                                    <th>Jumlah</th>
+                                    <th>Harga</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td align="left">
+                                        <p class="nota-item-text">Nama</p>
+                                    </td>
+                                    <td>
+                                        <p class="nota-item-text">Nama</p>
+                                    </td>
+                                    <td>
+                                        <p class="nota-item-text">Nama</p>
+                                    </td>
+                                    <td>
+                                        <p class="nota-item-text">Nama</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <hr style="border:1px dashed #d9e7e8!important; ">
+            </div>
+            {{-- <img src="{{ asset('assets/img/divider.png') }}" width="300" style="margin-top: -10px" alt=""
+                srcset=""> --}}
+            <div id="nota-print-footer"
+                style="background-color: white; margin: auto; margin-top: -10px; width: 300px; align-item: center; padding: 5px">
+                <div class="row">
+                    <div class="col-6 mt-4 text-left">
+                        <h6>Total :</h6>
+                    </div>
+                    <div class="col-6 mt-4 text-right" id="nota-print-price-total">
+                        <p>Rp. 10000000</p>
+                    </div>
                 </div>
             </div>
-            <hr style="border:1px dashed #d9e7e8!important; ">
+            <img src="{{ asset('assets/img/footer.png') }}" width="300" alt="" srcset="">
         </div>
-        <div id="nota-print-body" style="background-color: white; margin: auto; width: 300px; padding: 5px">
-            <div class="row">
-                <div class="col-12">
-                    <table width="100%" class="mb-3" id="nota-print-table">
-                        <thead>
-                            <tr>
-                                <th align="left">Nama</th>
-                                <th>Jumlah</th>
-                                <th>Harga</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td align="left">
-                                    <p class="nota-item-text">Nama</p>
-                                </td>
-                                <td>
-                                    <p class="nota-item-text">Nama</p>
-                                </td>
-                                <td>
-                                    <p class="nota-item-text">Nama</p>
-                                </td>
-                                <td>
-                                    <p class="nota-item-text">Nama</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <img src="{{ asset('assets/img/divider.png') }}" width="300" style="margin-top: -10px" alt=""
-            srcset="">
-        <div id="nota-print-footer"
-            style="background-color: white; margin: auto; margin-top: -10px; width: 300px; align-item: center; padding: 5px">
-            <div class="row">
-                <div class="col-6 mt-4 text-left">
-                    <h6>Total :</h6>
-                </div>
-                <div class="col-6 mt-4 text-right" id="nota-print-price-total">
-                    <p>Rp. 10000000</p>
-                </div>
-            </div>
-        </div>
-        <img src="{{ asset('assets/img/footer.png') }}" width="300" alt="" srcset="">
     </div>
-</div>
     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
         <div class="row">
             <div class="col-lg-8">
@@ -99,10 +90,16 @@
                     <div class="col-lg-6 col-sm-6">
                         <form action="" class="my-4">
                             <div class="form-group mb-2">
-                                <label for="inputAddress">Pilih Produk</label>
+                                <label for="form-product-select">Pilih Produk</label>
                                 <select class="form-control basic" id="form-product-select" name="form-product-select"
-                                    onchange="setImage()">
+                                    onchange="setUnitProduct(this)">
                                     <option selected="selected">Pilih Produk</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="form-unit-select">Pilih Satuan</label>
+                                <select class="form-control basic" id="form-unit-select" name="form-unit-select">
+                                    <option selected="selected">Pilih Satuan</option>
                                 </select>
                             </div>
                             <div class="form-group mb-2">
@@ -130,9 +127,10 @@
                             <div class="form-group mb-2">
                                 <button type="button" class="btn btn-primary mt-3 mb-2" id="add-product">Tambah</button>
                                 <button type="button" class="btn btn-primary mt-3 mb-2" id="btn-submit">Bayar</button>
-                                <button type="button" id="btn-cetak" class="btn btn-primary mt-3 mb-2" data-toggle="modal"
-                                    data-target=".bd-example-modal-xl">Cetak Nota</button>
-                                <button type="button" id="btn-view" class="btn btn-primary mt-3 mb-2">Lihat Nota</button>
+                                <button type="button" id="btn-cetak" class="btn btn-primary mt-3 mb-2"
+                                    data-toggle="modal" data-target=".bd-example-modal-xl">Cetak Nota</button>
+                                <a href="#" id="btn-view" class="btn btn-primary mt-3 mb-2">Lihat
+                                    Nota</a>
                             </div>
 
                         </form>
@@ -143,10 +141,8 @@
                                 <h5 class="fs-1 ml-5" id="form-nota">Nota: Uxx898Ukljfflll </h5>
                             </div>
                             <div class="col-lg-12 col-sm-12 my-4 nota text-center">
-                                <h1 class="ml-5"><span class="text-danger" id="form-price-total">Rp 180.000</span> </h1>
-                            </div>
-                            <div class="col-lg-12 col-sm-12 my-4 nota text-center">
-                                <img src="" alt="" id="form-image" width="100" height="100">
+                                <h1 class="ml-5"><span class="text-danger" id="form-price-total">Rp 180.000</span>
+                                </h1>
                             </div>
                         </div>
                     </div>
@@ -205,27 +201,16 @@
                                 style="background-color: white; margin: auto; padding: 5px; width: 300px">
                                 <div class="row">
                                     <div class="col-6 text-left">
-                                        <h6>
-                                            Logo
-                                        </h6>
-                                        <br>
+                                        <img src="{{ asset('assets/img/toko tidar.jpg') }}" width="150" alt="" srcset="">
+                                    </div>
+                                    <div class="col-6 text-right">
                                         <p class="nota-item-text" id="nota-date">
                                             Date: tanggal
                                         </p>
-                                        <p class="nota-item-text" id="nota-id">
-                                            Identifier: #nomor
-                                        </p>
-                                        <p class="nota-item-text">
-                                            Status: UnPaid
-                                        </p>
                                     </div>
-                                    <div class="col-6 text-right">
-                                        <h6>
-                                            Kasir Toko
-                                        </h6>
-                                        <br>
-                                        <p class="nota-item-text">
-                                            Street 26, 123456 City, United Kingdom
+                                    <div class="col-12 text-left">
+                                        <p class="nota-item-text" id="nota-id">
+                                            Nota: #nomor
                                         </p>
                                     </div>
                                 </div>
@@ -362,21 +347,17 @@
                 },
                 jsPDF: {
                     unit: 'px',
-                    format: [310.0, 600.0],
+                    format: [310.0, element.offsetHeight+100],
                     orientation: 'portrait'
                 }
             };
             // Choose the element and save the PDF for our user.
             html2pdf().set(opt).from(element).save();
+            document.getElementById('view-nota').style.display = 'none'
         }
 
         function makeTableNota(data) {
-            let today = new Date();
-            let dd = String(today.getDate()).padStart(2, '0');
-            let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            let yyyy = today.getFullYear();
-
-            today = dd + '/' + mm + '/' + yyyy;
+            let today = new Date().toLocaleString().replace(",","").replace(/:.. /," ").replace("AM", "").replace("PM", "")
             let heading =
                 `<thead><tr><th>Nama</th><th>Jumlah</th><th>Harga</th><th>Total</th></tr></thead>`
             let item = ''
@@ -385,7 +366,7 @@
             if (data.length > 0) {
                 data.forEach(element => {
                     item += `<tr>
-                            <td>${element['name']}</td>
+                            <td>${element['name']}/${element['unit']}</td>
                             <td>${element['qty']}</td>
                             <td>${formatRupiah(element['price'], 'Rp. ')}</td>
                             <td>${formatRupiah((parseInt(element['price'])*parseInt(element['qty'])).toString(), 'Rp. ')}</td>
@@ -404,17 +385,17 @@
             $("#nota-price-total").empty()
             $("#nota-price-total").append(`<p>${formatRupiah(total.toString(), 'Rp. ')}</p>`)
             $("#nota-id").empty()
-            $("#nota-id").append(`Identifier: #${notaID}`)
+            $("#nota-id").append(`Nota: #${notaID}`)
             $("#nota-date").empty()
-            $("#nota-date").append(`Date: ${today}`)
+            $("#nota-date").append(`${today}`)
             $("#nota-print-table").empty()
             $("#nota-print-table").append(heading, body)
             $("#nota-print-price-total").empty()
             $("#nota-print-price-total").append(`<p>${formatRupiah(total.toString(), 'Rp. ')}</p>`)
             $("#nota-print-id").empty()
-            $("#nota-print-id").append(`Identifier: #${notaID}`)
+            $("#nota-print-id").append(`Nota: #${notaID}`)
             $("#nota-print-date").empty()
-            $("#nota-print-date").append(`Date: ${today}`)
+            $("#nota-print-date").append(`${today}`)
         }
 
         function makeTableTransaction(data) {
@@ -506,18 +487,42 @@
                 if (http.readyState == 4 && http.status == 200) {
                     let data = JSON.parse(http.responseText).data.data
                     if (data != null) {
+                        $("#form-product-select").empty();
+                        let defOpt = document.createElement('option');
+                        defOpt.innerHTML = "Pilih Produk";
+                        document.getElementById('form-product-select').appendChild(defOpt);
                         for (var i = 0; i <= data.length; i++) {
                             var opt = document.createElement('option');
                             opt.value =
-                                `${data[i]['id']}-${data[i]['price']}-${data[i]['name']}-${data[i]['unit']['name']}-${data[i]['image']}`
+                                `${data[i]['id']}-${data[i]['name']}-${data[i]['price']}`
                             opt.innerHTML =
-                                `${data[i]['name']}/${data[i]['unit']['name']} - ${formatRupiah(data[i]['price'].toString(), 'Rp. ')}`;
+                                `${data[i]['name']}`;
                             document.getElementById('form-product-select').appendChild(opt);
                         }
                     }
                 }
             }
             http.send()
+        }
+
+        function setUnitProduct(data) {
+            let unitData = data.value.split('-')
+            if (unitData != null) {
+                let priceData = JSON.parse(unitData[unitData.length - 1])
+                $("#form-unit-select").empty();
+                let defOpt = document.createElement('option');
+                defOpt.innerHTML = "Pilih Satuan";
+                document.getElementById('form-unit-select').appendChild(defOpt);
+                console.log(priceData);
+                for (var i = 0; i <= priceData.length; i++) {
+                    var opt = document.createElement('option');
+                    opt.value =
+                        `${priceData[i]['unit_id']}-${priceData[i]['unit_name']}-${priceData[i]['price']}`
+                    opt.innerHTML =
+                        `${formatRupiah(priceData[i]['price'].toString(), 'Rp. ')}/${priceData[i]['unit_name']}`;
+                    document.getElementById('form-unit-select').appendChild(opt);
+                }
+            }
         }
 
         function addQty(number, type) {
@@ -548,48 +553,41 @@
             if (document.getElementById('form-product-select').value == "Pilih Produk") {
                 alert('Pilih produk terlebih dahulu !')
             } else {
-                let currentStorage = JSON.parse(window.localStorage.getItem('products'))
-                let productSplit = document.getElementById('form-product-select').value.split('-')
-                let product = {
-                    'id': productSplit[0],
-                    'name': productSplit[2],
-                    'price': productSplit[1],
-                    'unit': productSplit[3],
-                    'qty': document.getElementById('form-qty').value
-                }
-                if (currentStorage == null) {
-                    window.localStorage.setItem('products', JSON.stringify([product]))
-                    makeTableProduct([product])
-                    makeTableNota([product])
+                if (document.getElementById('form-unit-select').value == "Pilih Satuan") {
+                    alert('Pilih satuan terlebih dahulu !')
                 } else {
-                    if (currentStorage.length > 0) {
-                        for (let index = 0; index < currentStorage.length; index++) {
-                            if (currentStorage[index]['id'] == productSplit[0]) {
-                                currentStorage[index] = product
-                                break
-                            } else if (currentStorage.length == (index + 1)) {
-                                currentStorage.push({
-                                    'id': productSplit[0],
-                                    'name': productSplit[2],
-                                    'price': productSplit[1],
-                                    'unit': productSplit[3],
-                                    'qty': document.getElementById('form-qty').value
-                                })
-                            }
-                        }
-                    } else {
-                        currentStorage.push({
-                            'id': productSplit[0],
-                            'name': productSplit[2],
-                            'price': productSplit[1],
-                            'unit': productSplit[3],
-                            'qty': document.getElementById('form-qty').value
-                        })
+                    let currentStorage = JSON.parse(window.localStorage.getItem('products'))
+                    let productSplit = document.getElementById('form-product-select').value.split('-')
+                    let unitSplit = document.getElementById('form-unit-select').value.split('-')
+                    let product = {
+                        'id': productSplit[0],
+                        'name': productSplit[1],
+                        'price': unitSplit[2],
+                        'unit': unitSplit[1],
+                        'qty': document.getElementById('form-qty').value
                     }
+                    if (currentStorage == null) {
+                        window.localStorage.setItem('products', JSON.stringify([product]))
+                        makeTableProduct([product])
+                        makeTableNota([product])
+                    } else {
+                        if (currentStorage.length > 0) {
+                            for (let index = 0; index < currentStorage.length; index++) {
+                                if (currentStorage[index]['id'] == productSplit[0] && currentStorage[index]['unit'] == unitSplit[1]) {
+                                    currentStorage[index] = product
+                                    break
+                                } else if (currentStorage.length == (index + 1)) {
+                                    currentStorage.push(product)
+                                }
+                            }
+                        } else {
+                            currentStorage.push(product)
+                        }
 
-                    window.localStorage.setItem('products', JSON.stringify(currentStorage))
-                    makeTableProduct(currentStorage)
-                    makeTableNota(currentStorage)
+                        window.localStorage.setItem('products', JSON.stringify(currentStorage))
+                        makeTableProduct(currentStorage)
+                        makeTableNota(currentStorage)
+                    }
                 }
             }
         }
@@ -669,6 +667,7 @@
 
         document.getElementById("btn-view").addEventListener("click", function() {
             $('#modal-nota').modal('toggle');
+            document.getElementById('view-nota').style.display='inline'
         })
 
 

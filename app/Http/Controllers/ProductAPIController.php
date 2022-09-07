@@ -60,19 +60,19 @@ class ProductAPIController extends Controller
             return response()->json($responses, 200);
         }
 
-        $filename = 'default.png';
+        $price = [];
 
-        if($request->file('image')){
-            $file= $request->file('image');
-            $filename= date('YmdHi').'-'.$file->getClientOriginalName();
-            $file-> move(public_path('public/upload/product/'), $filename);
+        if(isset($request->price) && count($request->price) > 0) {
+            foreach ($request->price as $key => $value) {
+                array_push($price, ['price' => $value, 'unit_id' => $request->unit_id[$key], 'unit_name' => $request->unit_name[$key]]);
+            }
+        } else {
+            $price[0] = ['price' => $request->price[0], 'unit_id' => $request->unit_id[0], 'unit_name' => $request->unit_name[0]];
         }
 
         $store = new Product;
         $store->name = $request->name;
-        $store->price = $request->price;
-        $store->image = $filename;
-        $store->unit_id = $request->unit_id;
+        $store->price = json_encode($price);
         $store->category_id = $request->category_id;
         $store->save();
 
@@ -142,19 +142,19 @@ class ProductAPIController extends Controller
             return response()->json($responses, 200);
         }
 
-        $filename = 'default.png';
+        $price = [];
 
-        if($request->file('image')){
-            $file= $request->file('image');
-            $filename= date('YmdHi').'-'.$file->getClientOriginalName();
-            $file-> move(public_path('public/upload/product/'), $filename);
+        if(isset($request->price) && count($request->price) > 0) {
+            foreach ($request->price as $key => $value) {
+                array_push($price, ['price' => $value, 'unit_id' => $request->unit_id[$key], 'unit_name' => $request->unit_name[$key]]);
+            }
+        } else {
+            $price[0] = ['price' => $request->price[0], 'unit_id' => $request->unit_id[0], 'unit_name' => $request->unit_name[0]];
         }
 
         $update = Product::find($request->id);
         $update->name = $request->name;
-        $update->price = $request->price;
-        $update->image = $filename;
-        $update->unit_id = $request->unit_id;
+        $update->price = json_encode($price);
         $update->category_id = $request->category_id;
         $update->save();
 
