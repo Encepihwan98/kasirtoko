@@ -11,21 +11,14 @@
             <div class="order-summary">
 
                 <div class="summary-list">
-                    <div class="w-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag">
-                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                            <line x1="3" y1="6" x2="21" y2="6"></line>
-                            <path d="M16 10a4 4 0 0 1-8 0"></path>
-                        </svg>
-                    </div>
                     <div class="w-summary-details">
 
                         <div class="w-summary-info">
-                            <h2>Income</h2>
-                            <p class="summary-count">$92,600</p>
+                            <h1>Rp. <span id="omset"></span></h1>
+                            <!-- <p class="summary-count">$92,600</p> -->
                         </div>
                     </div>
-                </div>      
+                </div>
             </div>
 
         </div>
@@ -76,4 +69,90 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+<script>
+    let csrf = document.querySelector('meta[name="csrf-token"]').content
+    let urlPath = '/satuan-produk'
+
+    function makeTable(data) {
+        let heading = `<thead><tr><th>No</th><th>Satuan</th><th class="no-content">Actions</th></tr></thead>`
+        let item = ''
+        let index = 0
+        data.data.data.forEach(element => {
+            item += `<tr>
+                            <td>${data.data.from + index}</td>
+                            <td>${element['name']}</td>
+                            <td>
+                                <i class="far fa-edit" onclick="show('${element['id']}')"></i>
+                                <i class="ml-3 far fa-trash-alt" onclick="destroy('${element['id']}')"></i>
+                            </td>
+                        </tr>`
+            index += 1
+        })
+        let body = `<tbody>${item}</tbody>`
+        $("#table-unit").empty()
+        $("#table-unit").append(heading, body)
+    }
+
+    function get(page = 1) {
+        let http = new XMLHttpRequest()
+        let url = `api${urlPath}`
+        let params = filter(page)
+        http.open('GET', `${url}?${params}`, true)
+
+        //Send the proper header information along with the request
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        http.setRequestHeader('X-CSRF-TOKEN', csrf)
+
+        http.onreadystatechange = function() { //Call a function when the state changes.
+            if (http.readyState == 4 && http.status == 200) {
+                // alert(http.responseText);
+                makeTable(JSON.parse(http.responseText))
+                makePagination(JSON.parse(http.responseText))
+            }
+        }
+
+        http.send()
+        document.getElementById('btn-submit').innerText = 'Save'
+    }
+
+    function show(id) {
+        let http = new XMLHttpRequest()
+        let url = `api${urlPath}`
+        http.open('GET', `${url}/${id}`, true)
+
+        //Send the proper header information along with the request
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        http.setRequestHeader('X-CSRF-TOKEN', csrf)
+
+
+
+        function get(page = 1) {
+            let http = new XMLHttpRequest()
+            let url = `api${urlPath}`
+            let params = filter(page)
+            http.open('GET', `${url}?${params}`, true)
+
+            //Send the proper header information along with the request
+            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+            http.setRequestHeader('X-CSRF-TOKEN', csrf)
+
+            http.onreadystatechange = function() { //Call a function when the state changes.
+                if (http.readyState == 4 && http.status == 200) {
+                    // alert(http.responseText);
+                    makeTable(JSON.parse(http.responseText))
+                    makePagination(JSON.parse(http.responseText), 'unit')
+                }
+
+            }
+        }
+        http.send()
+    }
+
+
+
+    get()
+</script>
 @endsection

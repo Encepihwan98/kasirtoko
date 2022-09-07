@@ -7,7 +7,7 @@
             <h3>Tabel Satuan Produk</h3>
         </div>
         <!-- <div class="col-lg-4">
-                                <button class="btn btn-primary mb-2">Tambah</button>
+                                <buttton class="btn btn-primary mb-2">Tambah</buttton>
                             </div> -->
     </div>
     <div class="widget-content widget-content-area br-6">

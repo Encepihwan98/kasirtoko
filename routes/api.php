@@ -11,6 +11,7 @@ use App\Http\Controllers\ProductAPIController;
 use App\Http\Controllers\UserApiController;
 
 use App\Http\Controllers\TransactionAPIController;
+use App\Http\Controllers\TransactionController;
 
 
 
@@ -37,6 +38,7 @@ Route::apiResources([
     'product' => ProductAPIController::class,
     'users' => UserApiController::class,
     'transaksi' => TransactionAPIController::class,
+    'monthly-sales' => TransactionController::class,
 ]);
 
 
