@@ -13,27 +13,17 @@
             <div id="nota-print-header" style="background-color: white; margin: auto; padding: 5px; width: 300px">
                 <div class="row">
                     <div class="col-6 text-left">
-                        <h6>
-                            Logo
-                        </h6>
-                        <br>
+                        <img src="{{ asset('assets/img/toko tidar.jpg') }}" width="150" alt="" srcset="">
+                    </div>
+                    <div class="col-6 text-right">
                         <p class="nota-item-text" id="nota-print-date">
                             Date: tanggal
                         </p>
-                        <p class="nota-item-text" id="nota-print-id">
-                            Identifier: #nomor
-                        </p>
-                        <p class="nota-item-text">
-                            Status: UnPaid
-                        </p>
                     </div>
-                    <div class="col-6 text-right">
-                        <h6>
-                            Kasir Toko
-                        </h6>
+                    <div class="col-12 text-left">
                         <br>
-                        <p class="nota-item-text">
-                            Street 26, 123456 City, United Kingdom
+                        <p class="nota-item-text" id="nota-print-id">
+                            Nota: #nomor
                         </p>
                     </div>
                 </div>
@@ -70,9 +60,10 @@
                         </table>
                     </div>
                 </div>
+                <hr style="border:1px dashed #d9e7e8!important; ">
             </div>
-            <img src="{{ asset('assets/img/divider.png') }}" width="300" style="margin-top: -10px" alt=""
-                srcset="">
+            {{-- <img src="{{ asset('assets/img/divider.png') }}" width="300" style="margin-top: -10px" alt=""
+                srcset=""> --}}
             <div id="nota-print-footer"
                 style="background-color: white; margin: auto; margin-top: -10px; width: 300px; align-item: center; padding: 5px">
                 <div class="row">
@@ -210,27 +201,16 @@
                                 style="background-color: white; margin: auto; padding: 5px; width: 300px">
                                 <div class="row">
                                     <div class="col-6 text-left">
-                                        <h6>
-                                            Logo
-                                        </h6>
-                                        <br>
+                                        <img src="{{ asset('assets/img/toko tidar.jpg') }}" width="150" alt="" srcset="">
+                                    </div>
+                                    <div class="col-6 text-right">
                                         <p class="nota-item-text" id="nota-date">
                                             Date: tanggal
                                         </p>
-                                        <p class="nota-item-text" id="nota-id">
-                                            Identifier: #nomor
-                                        </p>
-                                        <p class="nota-item-text">
-                                            Status: UnPaid
-                                        </p>
                                     </div>
-                                    <div class="col-6 text-right">
-                                        <h6>
-                                            Kasir Toko
-                                        </h6>
-                                        <br>
-                                        <p class="nota-item-text">
-                                            Street 26, 123456 City, United Kingdom
+                                    <div class="col-12 text-left">
+                                        <p class="nota-item-text" id="nota-id">
+                                            Nota: #nomor
                                         </p>
                                     </div>
                                 </div>
@@ -367,21 +347,17 @@
                 },
                 jsPDF: {
                     unit: 'px',
-                    format: [310.0, 600.0],
+                    format: [310.0, element.offsetHeight+100],
                     orientation: 'portrait'
                 }
             };
             // Choose the element and save the PDF for our user.
             html2pdf().set(opt).from(element).save();
+            document.getElementById('view-nota').style.display = 'none'
         }
 
         function makeTableNota(data) {
-            let today = new Date();
-            let dd = String(today.getDate()).padStart(2, '0');
-            let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            let yyyy = today.getFullYear();
-
-            today = dd + '/' + mm + '/' + yyyy;
+            let today = new Date().toLocaleString().replace(",","").replace(/:.. /," ").replace("AM", "").replace("PM", "")
             let heading =
                 `<thead><tr><th>Nama</th><th>Jumlah</th><th>Harga</th><th>Total</th></tr></thead>`
             let item = ''
@@ -409,17 +385,17 @@
             $("#nota-price-total").empty()
             $("#nota-price-total").append(`<p>${formatRupiah(total.toString(), 'Rp. ')}</p>`)
             $("#nota-id").empty()
-            $("#nota-id").append(`Identifier: #${notaID}`)
+            $("#nota-id").append(`Nota: #${notaID}`)
             $("#nota-date").empty()
-            $("#nota-date").append(`Date: ${today}`)
+            $("#nota-date").append(`${today}`)
             $("#nota-print-table").empty()
             $("#nota-print-table").append(heading, body)
             $("#nota-print-price-total").empty()
             $("#nota-print-price-total").append(`<p>${formatRupiah(total.toString(), 'Rp. ')}</p>`)
             $("#nota-print-id").empty()
-            $("#nota-print-id").append(`Identifier: #${notaID}`)
+            $("#nota-print-id").append(`Nota: #${notaID}`)
             $("#nota-print-date").empty()
-            $("#nota-print-date").append(`Date: ${today}`)
+            $("#nota-print-date").append(`${today}`)
         }
 
         function makeTableTransaction(data) {
@@ -691,6 +667,7 @@
 
         document.getElementById("btn-view").addEventListener("click", function() {
             $('#modal-nota').modal('toggle');
+            document.getElementById('view-nota').style.display='inline'
         })
 
 
