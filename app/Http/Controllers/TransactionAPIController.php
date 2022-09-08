@@ -63,22 +63,12 @@ class TransactionAPIController extends Controller
 
         $store = new Transaction;
         $store->user_id = '1';
+        $store->products = $request->products;
         $store->nota = $request->nota;
         $store->status = 1;
         $store->save();
 
         if($store) {
-            $product = json_decode($request->products);
-            if(count($product) > 0) {
-                foreach ($product as $key => $value) {
-                    $store_detail = new TransactionDetail;
-                    $store_detail->transaction_id = $store->id;
-                    $store_detail->product_id = $value->id;
-                    $store_detail->qty = $value->qty;
-                    $store_detail->save();
-                }
-            }
-
             $responses['message'] = "Data stored successfully!";
             $responses['status'] = true;
             $responses['code'] = 200;
