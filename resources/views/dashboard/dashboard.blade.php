@@ -87,7 +87,7 @@
             let url = `api${urlPath}`
             http.open('GET', `${url}`, true)
 
-            //Send the proper header information along with the request
+            //Send the proper header information along withf the request
             http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
             http.setRequestHeader('X-CSRF-TOKEN', csrf)
             // alert("hai");
