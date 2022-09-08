@@ -17,6 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('nota');
+            $table->longText('products');
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

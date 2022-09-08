@@ -7,22 +7,20 @@
         }
     </style>
 
-    <div id="view-nota" class="text-center" style="background-color: grey; margin: auto; width: 330px; display: none">
+    <div id="view-nota" class="text-center" style="background-color: grey; margin: auto; width: 350px; display: none">
         <div id="nota-content">
             <img src="{{ asset('assets/img/header.png') }}" width="300" alt="" srcset="">
             <div id="nota-print-header" style="background-color: white; margin: auto; padding: 5px; width: 300px">
                 <div class="row">
-                    <div class="col-6 text-left">
-                        <img src="{{ asset('assets/img/toko tidar.jpg') }}" width="150" alt="" srcset="">
-                    </div>
-                    <div class="col-6 text-right">
-                        <p class="nota-item-text" id="nota-print-date">
-                            Date: tanggal
-                        </p>
+                    <div class="col-12 text-center">
+                        <img src="{{ asset('assets/img/toko tidar.jpg') }}" width="250" alt="" srcset="">
                     </div>
                     <div class="col-12 text-left">
                         <br>
-                        <p class="nota-item-text" id="nota-print-id">
+                        <p style="color: black; font-weight: bold; font-family: arial;" id="nota-date">
+                            Date: tanggal
+                        </p>
+                        <p style="color: black; font-weight: bold; font-family: arial;" id="nota-id">
                             Nota: #nomor
                         </p>
                     </div>
@@ -44,7 +42,7 @@
                             <tbody>
                                 <tr>
                                     <td align="left">
-                                        <p class="nota-item-text">Nama</p>
+                                        <p class="nota-item-text" width="150">Nama</p>
                                     </td>
                                     <td>
                                         <p class="nota-item-text">Nama</p>
@@ -68,10 +66,10 @@
                 style="background-color: white; margin: auto; margin-top: -10px; width: 300px; align-item: center; padding: 5px">
                 <div class="row">
                     <div class="col-6 mt-4 text-left">
-                        <h6>Total :</h6>
+                        <h6 style="color: black; font-weight: bold; font-family: arial;">Total :</h6>
                     </div>
                     <div class="col-6 mt-4 text-right" id="nota-print-price-total">
-                        <p>Rp. 10000000</p>
+                        <p style="color: black; font-weight: bold; font-family: arial;">Rp. 10000000</p>
                     </div>
                 </div>
             </div>
@@ -127,8 +125,8 @@
                             <div class="form-group mb-2">
                                 <button type="button" class="btn btn-primary mt-3 mb-2" id="add-product">Tambah</button>
                                 <button type="button" class="btn btn-primary mt-3 mb-2" id="btn-submit">Bayar</button>
-                                <button type="button" id="btn-cetak" class="btn btn-primary mt-3 mb-2"
-                                    data-toggle="modal" data-target=".bd-example-modal-xl">Cetak Nota</button>
+                                <a href="#" id="btn-cetak" class="btn btn-primary mt-3 mb-2"
+                                    data-toggle="modal" data-target=".bd-example-modal-xl">Cetak Nota</a>
                                 <a href="#" id="btn-view" class="btn btn-primary mt-3 mb-2">Lihat
                                     Nota</a>
                             </div>
@@ -193,23 +191,23 @@
                 <div class="modal-body" id="modal-body">
                     <div class="container">
                         <div id="view-nota" class="text-center"
-                            style="background-color: grey; margin: auto;  width: 330px">
+                            style="background-color: grey; margin: auto;  width: 350px">
 
                             <img src="{{ asset('assets/img/header.png') }}" width="300" alt=""
                                 srcset="">
                             <div id="nota-header"
                                 style="background-color: white; margin: auto; padding: 5px; width: 300px">
                                 <div class="row">
-                                    <div class="col-6 text-left">
-                                        <img src="{{ asset('assets/img/toko tidar.jpg') }}" width="150" alt="" srcset="">
-                                    </div>
-                                    <div class="col-6 text-right">
-                                        <p class="nota-item-text" id="nota-date">
-                                            Date: tanggal
-                                        </p>
+                                    <div class="col-12 text-center">
+                                        <img src="{{ asset('assets/img/toko tidar.jpg') }}" width="250" alt=""
+                                            srcset="">
                                     </div>
                                     <div class="col-12 text-left">
-                                        <p class="nota-item-text" id="nota-id">
+                                        <br>
+                                        <p style="color: black" id="nota-print-date">
+                                            Date: tanggal
+                                        </p>
+                                        <p style="color: black" id="nota-print-id">
                                             Nota: #nomor
                                         </p>
                                     </div>
@@ -247,17 +245,16 @@
                                         </table>
                                     </div>
                                 </div>
+                                <hr style="border:1px dashed #d9e7e8!important; ">
                             </div>
-                            <img src="{{ asset('assets/img/divider.png') }}" width="300" style="margin-top: -10px"
-                                alt="" srcset="">
                             <div id="nota-footer"
                                 style="background-color: white; margin: auto; margin-top: -10px; width: 300px; align-item: center; padding: 5px">
                                 <div class="row">
                                     <div class="col-6 mt-4 text-left">
-                                        <h6>Total :</h6>
+                                        <h6 style="color: black">Total :</h6>
                                     </div>
                                     <div class="col-6 mt-4 text-right" id="nota-price-total">
-                                        <p>Rp. 10000000</p>
+                                        <p style="color: black">Rp. 10000000</p>
                                     </div>
                                 </div>
                             </div>
@@ -337,7 +334,7 @@
             const element = document.getElementById('nota-content');
             let opt = {
                 margin: 1,
-                filename: 'myfile.pdf',
+                // filename: 'myfile.',
                 image: {
                     type: 'jpeg',
                     quality: 0.98
@@ -347,29 +344,35 @@
                 },
                 jsPDF: {
                     unit: 'px',
-                    format: [310.0, element.offsetHeight+100],
+                    format: [300.0, element.offsetHeight + 100],
                     orientation: 'portrait'
                 }
             };
             // Choose the element and save the PDF for our user.
-            html2pdf().set(opt).from(element).save();
+            html2pdf().set(opt).from(element).output('img').save();
+            // $('#modal-nota').modal('toggle');
             document.getElementById('view-nota').style.display = 'none'
         }
 
+        function print(data) {
+            document.getElementById('view-nota').style.display = 'inline'
+            makeTableNota(data)
+            generatePDF()
+        }
+
         function makeTableNota(data) {
-            let today = new Date().toLocaleString().replace(",","").replace(/:.. /," ").replace("AM", "").replace("PM", "")
-            let heading =
-                `<thead><tr><th>Nama</th><th>Jumlah</th><th>Harga</th><th>Total</th></tr></thead>`
+            let today = new Date().toLocaleString().replace(",", "").replace(/:.. /, " ").replace("AM", "").replace("PM", "")
+            let heading = `<thead><tr><th>Nama</th><th>Jumlah</th><th>Harga</th><th>Total</th></tr></thead>`
             let item = ''
             let index = 0
             let total = 0
             if (data.length > 0) {
                 data.forEach(element => {
-                    item += `<tr>
-                            <td>${element['name']}/${element['unit']}</td>
+                    item += `<tr style="color: black; font-weight: bold; font-family: arial;">
+                            <td align="left" width="150">${element['name']}/${element['unit']}</td>
                             <td>${element['qty']}</td>
-                            <td>${formatRupiah(element['price'], 'Rp. ')}</td>
-                            <td>${formatRupiah((parseInt(element['price'])*parseInt(element['qty'])).toString(), 'Rp. ')}</td>
+                            <td>${formatRupiah(element['price'], '')}</td>
+                            <td>${formatRupiah((parseInt(element['price'])*parseInt(element['qty'])).toString(), '')}</td>
                         </tr>`
                     total += (element['price'] * element['qty'])
                     index += 1
@@ -379,23 +382,23 @@
             }
 
             let body = `<tbody>${item}</tbody>`
-            console.log(body)
+
             $("#nota-table").empty()
-            $("#nota-table").append(heading, body)
+            $("#nota-table").append(body)
             $("#nota-price-total").empty()
-            $("#nota-price-total").append(`<p>${formatRupiah(total.toString(), 'Rp. ')}</p>`)
+            $("#nota-price-total").append(`<p style="color: black; font-weight: bold; font-family: arial;">${formatRupiah(total.toString(), 'Rp. ')}</p>`)
             $("#nota-id").empty()
             $("#nota-id").append(`Nota: #${notaID}`)
             $("#nota-date").empty()
-            $("#nota-date").append(`${today}`)
+            $("#nota-date").append(`Tanggal: ${today}`)
             $("#nota-print-table").empty()
-            $("#nota-print-table").append(heading, body)
+            $("#nota-print-table").append(body)
             $("#nota-print-price-total").empty()
-            $("#nota-print-price-total").append(`<p>${formatRupiah(total.toString(), 'Rp. ')}</p>`)
+            $("#nota-print-price-total").append(`<p style="color: black; font-weight: bold; font-family: arial;">${formatRupiah(total.toString(), 'Rp. ')}</p>`)
             $("#nota-print-id").empty()
             $("#nota-print-id").append(`Nota: #${notaID}`)
             $("#nota-print-date").empty()
-            $("#nota-print-date").append(`${today}`)
+            $("#nota-print-date").append(`Tanggal: ${today}`)
         }
 
         function makeTableTransaction(data) {
@@ -407,10 +410,9 @@
             if (data.length > 0) {
                 data.forEach(element => {
                     let total = 0
-                    for (let index = 0; index < element['transaction_detail'].length; index++) {
-                        total += element['transaction_detail'][index]['qty'] * element['transaction_detail'][index][
-                            'product'
-                        ]['price']
+                    let products = JSON.parse(element['products'])
+                    for (let index = 0; index < products.length; index++) {
+                        total += products[index]['qty'] * products[index]['price']
                     }
                     item += `<tr>
                             <td>${index+1}</td>
@@ -419,7 +421,7 @@
                             <td>${element['created_at']}</td>
                             <td>${formatRupiah(total.toString(), 'Rp. ')}</td>
                             <td>
-                            <a href='/api/transaksi/generate-pdf?type=nota&id=${element["id"]}' target="_blank"><i class="far fa-file"></i></a>
+                            <button type="button" onclick='print(${element['products']})'><i class="far fa-file"></i></button>
                             </td>
                         </tr>`
                     index += 1
@@ -573,7 +575,8 @@
                     } else {
                         if (currentStorage.length > 0) {
                             for (let index = 0; index < currentStorage.length; index++) {
-                                if (currentStorage[index]['id'] == productSplit[0] && currentStorage[index]['unit'] == unitSplit[1]) {
+                                if (currentStorage[index]['id'] == productSplit[0] && currentStorage[index]['unit'] ==
+                                    unitSplit[1]) {
                                     currentStorage[index] = product
                                     break
                                 } else if (currentStorage.length == (index + 1)) {
@@ -583,7 +586,6 @@
                         } else {
                             currentStorage.push(product)
                         }
-
                         window.localStorage.setItem('products', JSON.stringify(currentStorage))
                         makeTableProduct(currentStorage)
                         makeTableNota(currentStorage)
@@ -666,17 +668,10 @@
         })
 
         document.getElementById("btn-view").addEventListener("click", function() {
-            $('#modal-nota').modal('toggle');
-            document.getElementById('view-nota').style.display='inline'
+            $('#modal-nota').modal('toggle')
+            let currentStorage = JSON.parse(window.localStorage.getItem('products'))
+            makeTableNota(currentStorage)
+            document.getElementById('view-nota').style.display = 'inline'
         })
-
-
-        // document.getElementById('input-show').addEventListener('change', function() {
-        //     get()
-        // })
-
-        // document.getElementById('input-search').addEventListener('input', function() {
-        //     get()
-        // })
     </script>
 @endsection
