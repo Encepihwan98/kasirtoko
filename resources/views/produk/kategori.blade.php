@@ -93,6 +93,7 @@
             let heading = `<thead><tr><th>No</th><th>Kategori</th><th class="no-content">Actions</th></tr></thead>`
             let item = ''
             let index = 0
+            // alert(data);
             data.data.data.forEach(element => {
                 item += `<tr>
                             <td>${data.data.from + index}</td>

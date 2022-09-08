@@ -21,19 +21,19 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="fullName">Nama Lengkap</label>
-                                                <input type="text" class="form-control mb-4" id="fullName" placeholder="Full Name" value="Jimmy Turner">
+                                                <input type="text" value="{{ Auth::user()->name }}" class="form-control mb-4" id="fullName" placeholder="Full Name" value="Jimmy Turner">
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="fullName">Email</label>
-                                                <input type="email" class="form-control mb-4" id="email" placeholder="Full Name" value="Jimmy Turner">
+                                                <input type="email" value="{{ Auth::user()->email }}" class="form-control mb-4" id="email" placeholder="Full Name" value="Jimmy Turner">
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="fullName">No Hp</label>
-                                                <input type="text" class="form-control mb-4" id="nohp" placeholder="Full Name" value="Jimmy Turner">
+                                                <input type="text" value="{{ Auth::user()->phone_number }}" class="form-control mb-4" id="nohp" placeholder="Full Name" value="Jimmy Turner">
                                             </div>
                                         </div>
                                     </div>

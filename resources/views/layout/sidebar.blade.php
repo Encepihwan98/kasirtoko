@@ -5,14 +5,14 @@
             <figure class="user-cover-image"></figure>
             <div class="user-info">
                 <img src="assets/img/90x90.jpg" alt="avatar">
-                <h6 class="">Sonia Shaw</h6>
-                <p class="">Project Leader</p>
+                <h6 class="">{{ Auth::user()->name }}</h6>
+                <p class="">{{ Auth::user()->email }}</p>
             </div>
         </div>
         <div class="shadow-bottom"></div>
         <ul class="list-unstyled menu-categories" id="accordionExample">
             <li class="menu active">
-                <a href="/" aria-expanded="true" class="dropdown-toggle">
+                <a href="/dashboard" aria-expanded="true" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
                             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -68,7 +68,7 @@
             </li>
 
             <li class="menu">
-                <a href="/user" aria-expanded="false" class="dropdown-toggle">
+                <a href="/users" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
                             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>

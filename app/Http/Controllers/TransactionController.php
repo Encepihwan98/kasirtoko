@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\TransactionDetail;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -14,7 +16,27 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        $responses = [];
+        $responses['message'] = "Data get successfully!";
+        $responses['status'] = true;
+        $responses['code'] = 200;
+
+        $data = Transaction::join('transaction_details','transaction_details.transaction_id','=','transactions.id')
+        ->join('products','transaction_details.product_id','=','products.id')
+        ->whereMonth('transactions.created_at', date('m'))
+        ->select('transaction_details.id','products.price')
+        ->get();
+
+        // dd(date('m'));
+        $omsetMonth = 0;
+        foreach ($data as $value) {
+            $omsetMonth += $value->price;
+        }
+
+        $responses['data'] = $data;
+        $responses['omset'] = $omsetMonth;
+
+        return response()->json($responses, 200);
     }
 
     /**
@@ -24,7 +46,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**

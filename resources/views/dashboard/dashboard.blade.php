@@ -11,21 +11,14 @@
             <div class="order-summary">
 
                 <div class="summary-list">
-                    <div class="w-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag">
-                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                            <line x1="3" y1="6" x2="21" y2="6"></line>
-                            <path d="M16 10a4 4 0 0 1-8 0"></path>
-                        </svg>
-                    </div>
                     <div class="w-summary-details">
 
                         <div class="w-summary-info">
-                            <h2>Income</h2>
-                            <p class="summary-count">$92,600</p>
+                            <h1>Rp. <span id="omset"></span></h1>
+                            <!-- <p class="summary-count">$92,600</p> -->
                         </div>
                     </div>
-                </div>      
+                </div>
             </div>
 
         </div>
@@ -76,4 +69,43 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+<script>
+        let csrf = document.querySelector('meta[name="csrf-token"]').content
+        let urlPath = '/monthly-sales'
+
+        function makeDashboard(data){
+            // console.log(data.omset);
+            let omset = document.getElementById("omset");
+            omset.innerHTML =  data.omset;
+        }
+
+        function get(page = 1) {
+            let http = new XMLHttpRequest()
+            let url = `api${urlPath}`
+            http.open('GET', `${url}`, true)
+
+            //Send the proper header information along with the request
+            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+            http.setRequestHeader('X-CSRF-TOKEN', csrf)
+            // alert("hai");
+            http.onreadystatechange = function() { //Call a function when the state changes.
+                // alert(http.responseText);
+                if (http.readyState == 4 && http.status == 200) {
+                    // alert(http.responseText);
+                    makeDashboard(JSON.parse(http.responseText))
+                    // let data = JSON.parse(http.responseText)
+                    // alert(data);
+                    // makePagination(JSON.parse(http.responseText), 'category')
+                }
+            }
+            http.send()
+            document.getElementById('btn-submit').innerText = 'Save'
+        }
+
+        get()
+
+    </script>
 @endsection
