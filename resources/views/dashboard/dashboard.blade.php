@@ -20,7 +20,7 @@
                 </div>
             </div>
             <!-- <div class="w-chart">
-                <div id="total-orders"></div>
+                <digv id="total-orders"></digv>
             </div> -->
         </div>
     </div>
