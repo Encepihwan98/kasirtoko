@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->foreignId('unit_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
             $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('name');
-            $table->longText('price')->default("0");
+            $table->longText('price');
             $table->string('image');
             $table->timestamps();
         });

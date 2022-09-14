@@ -41,4 +41,6 @@ Route::apiResources([
     'monthly-sales' => TransactionController::class,
 ]);
 
+Route::get('omset-period',[TransactionController::class,'omsetMonthPeriode']);
+
 

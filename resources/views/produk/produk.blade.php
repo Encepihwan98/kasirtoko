@@ -125,8 +125,10 @@
                         </form>
                     </div>
                     <div class="modal-footer">
+                        <!-- <input type="reset" class="btn btn-secondary"> -->
                         <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
                         <button type="button" class="btn btn-primary" id="btn-submit">Save</button>
+                        
                     </div>
                 </div>
             </div>
