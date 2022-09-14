@@ -149,6 +149,7 @@
         });
     </script> -->
     <script src="{{ asset('plugins/select2/select2.min.js') }}"></script>
+<<<<<<< HEAD
     <!-- <script src="{{ asset('plugins/select2/custom-select2.js') }}"></script> -->
     <script src="{{ asset('plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap-touchspin/custom-bootstrap-touchspin.js') }}"></script>
@@ -157,6 +158,16 @@
         $('[data-toggle="tooltip"]').tooltip()
     </script> -->
     <!-- <script src="{{ asset('assets/js/elements/custom-search.js') }}"></script> -->
+=======
+    <script src="{{ asset('plugins/select2/custom-select2.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-touchspin/custom-bootstrap-touchspin.js') }}"></script>
+    <script>
+        checkall('todoAll', 'todochkbox');
+        $('[data-toggle="tooltip"]').tooltip()
+    </script>
+    <script src="{{ asset('assets/js/elements/custom-search.js') }}"></script>
+>>>>>>> db9cf0d137c36c750876a3e7732353c6d9351d6a
 
     <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
     <!-- END PAGE LEVEL SCRIPTS -->

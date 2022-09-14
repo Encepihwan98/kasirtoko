@@ -75,6 +75,18 @@
                                         placeholder="">
                                 </div>
                             </div>
+<<<<<<< HEAD
+=======
+                            {{-- <div class="form-group row mb-4">
+                                <label for="satuan" class="col-3 col-sm-4 col-form-label">Satuan</label>
+                                <div class="col-9 col-sm-8">
+                                    <select class="form-control" name="unit_id" id="form-unit">
+                                        <option value="">Pilih Satuan</option>
+                                    </select>
+                                </div>
+
+                            </div> --}}
+>>>>>>> db9cf0d137c36c750876a3e7732353c6d9351d6a
                             <div class="form-group row mb-4">
                                 <label for="kategori" class="col-2 col-sm-3 col-form-label">Kategori</label>
                                 <div class="col-10 col-sm-9">
@@ -105,6 +117,17 @@
                                     <button type="button" class="btn btn-primary mr-3" id="btn-add-product">Tambah Satuan & Harga</button>
                                 </div>
                             </div>
+<<<<<<< HEAD
+=======
+                            {{-- <div class="form-group row mb-4">
+                                <label for="harga" class="col-3 col-sm-4 col-form-label">Gambar</label>
+                                <div class="col-9 col-sm-8">
+                                    <input type="file" id="image" name="image">
+                                    <img src="" width="100" height="100" id="preview">
+                                </div>
+
+                            </div> --}}
+>>>>>>> db9cf0d137c36c750876a3e7732353c6d9351d6a
                         </form>
                     </div>
                     <div class="modal-footer">

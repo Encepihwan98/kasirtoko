@@ -33,4 +33,8 @@ class CreateProductsTable extends Migration
     {
         Schema::dropIfExists('products');
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> db9cf0d137c36c750876a3e7732353c6d9351d6a

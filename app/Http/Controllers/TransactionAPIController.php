@@ -27,15 +27,10 @@ class TransactionAPIController extends Controller
         $search = $request->search;
         $order_by = $request->order_by;
         $order_type = $request->order_type;
-        $from = $request->from != null ? $request->from : date("Y-m-d");
-        $to = $request->to != null ? $request->to : date("Y-m-d", time() + 86400);
 
         $data = Transaction::when($search, function ($query, $search) {
             $query->where('name', 'like', "%".$search."%");
-        })
-        ->whereBetween('created_at', [$from, $to])
-        ->orderBy($order_by, $order_type)
-        ->paginate($show);
+        })->with('transaction_detail','transaction_detail.product','transaction_detail.product.unit')->orderBy($order_by, $order_type)->paginate($show);
         $responses['data'] = $data;
 
         return response()->json($responses, 200);
