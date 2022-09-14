@@ -15,7 +15,7 @@
                 </div>
                 <div class="w-content">
                     <span class="w-numeric-title">Omset Hari Ini</span>
-                    <span class="w-value"> Rp. <span id="omset"></span> </span>
+                    <span class="w-value"><span id="omset"></span> </span>
                     <!-- <span class="w-numeric-title">Total Orders</span> -->
                 </div>
             </div>
@@ -32,7 +32,7 @@
             <div class="w-numeric-value">
                 <div class="w-content">
                     <span class="w-numeric-title">Omset Bulan Ini</span>
-                    <span class="w-value">Rp. <span id="omsetMonth"></span> </span>
+                    <span class="w-value"><span id="omsetMonth"></span> </span>
                 </div>
                 <div class="w-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign">
@@ -92,9 +92,9 @@
         let omset = document.getElementById("omset");
         let omsetMonth = document.getElementById("omsetMonth");
         let omsetYear = document.getElementById("omsetYear");
-        omset.innerHTML = data.omsetDay;
-        omsetMonth.innerHTML = data.omset;
-        omsetYear.innerHTML = data.omsetYear;
+        omset.innerHTML = formatRupiah(data.omsetDay.toString(), 'Rp. ');
+        omsetMonth.innerHTML = formatRupiah(data.omset.toString(), 'Rp. ');
+        omsetYear.innerHTML = formatRupiah(data.omsetYear.toString(), 'Rp. ');
     }
 
     function makeChart(data) {
