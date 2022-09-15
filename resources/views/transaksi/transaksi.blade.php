@@ -882,6 +882,7 @@ Total            RP. 111.200.000
             window.localStorage.setItem('last_products', window.localStorage.getItem('current_products'))
             window.localStorage.removeItem('current_products');
             loadData()
+            get()
         })
         .catch(error => {
             console.error(error)
