@@ -107,12 +107,12 @@
                                                 <option selected="selected" disabled="disabled">Pilih Produk</option>
                                             </select>
                                             <br>
-                                            <select class="form-control my-select" id="form-unit-select-1" name="form-unit-select[]" onchange="updateTable('1')">
+                                            <select class="form-control my-select" id="form-unit-select-1" name="form-unit-select[]" onchange="inputQty('1')">
                                                 <option selected="selected" disabled="disabled">Pilih Satuan</option>
                                             </select>
                                         </td>
                                         <td>
-                                            <input id="form-qty-1" class="form-control" style="width: 80px" type="number" value="1" min="1" name="form-qty[]" oninput="updateTable('1')">
+                                            <input id="form-qty-1" class="form-control" style="width: 80px" type="number" value="1" min="1" name="form-qty[]" oninput="updateTable('1')" onkeydown="nextInput(this)">
                                         </td>
                                         <td>
                                             <p id="price-1">Rp. 0</p>
@@ -236,15 +236,36 @@
     let context = canvas.getContext("2d");
     context.drawImage(image, 0, 0, canvas.width, canvas.height);
     let imageData = context.getImageData(0, 0, canvas.width, canvas.height).data;
-    function preparePayment() {
-        if (confirm('Cetak struk?')) {
-            setTextBody(JSON.parse(window.localStorage.getItem('current_products')))
-            printNow()
-            store()
-        } else {
-            store()
+
+    function inputQty(id) {
+        document.getElementById(`form-qty-${id}`).focus()
+        updateTable(id)
+        // $(`#form-unit-select-${id}`).select2('close')
+    }
+
+    function nextInput(val) {
+        if(event.keyCode == 13) {
+            createColumn()
+            $(`#form-product-select-${itemLen}`).select2('open');
         }
     }
+
+    function preparePayment() {
+        let products = JSON.parse(window.localStorage.getItem('current_products'))
+        if(products != null) {
+            if (confirm('Cetak struk?')) {
+                setTextBody(JSON.parse(window.localStorage.getItem('current_products')))
+                printNow()
+                store()
+            } else {
+                store()
+            }
+        } else {
+            alert('transaksi minimal 1 barang!')
+        }
+        
+    }
+
     function reOrder() {
         let iProduct = document.getElementsByName("form-product-select[]")
         if (iProduct.length > 0) {
@@ -254,10 +275,12 @@
             }
         }
     }
+
     function removeElement(id) {
         var elem = document.getElementById(id);
         return elem.parentNode.removeChild(elem);
     }
+
     function removeInput(id) {
         let iProduct = document.getElementsByName("form-product-select[]")
         if (iProduct.length > 1) {
@@ -283,6 +306,7 @@
         reOrder()
         updateTotal()
     }
+
     function updateTotal() {
         let price = 0
         let iProduct = document.getElementsByName("form-product-select[]")
@@ -299,11 +323,13 @@
         }
         document.getElementById(`price-total`).innerHTML = formatRupiah(price.toString(), 'Rp. ')
     }
+
     function updateTable(id) {
         let products = document.getElementById(`form-product-select-${id}`).value.split("-")
         let error = false
-        if(products == null && products.length == 0) {
+        if(products == null || products.length < 2) {
             alert('Tolong pilih produk terlebih dahulu')
+            loadData()
         } else {
             // init localstorage
             let currentStorage = JSON.parse(window.localStorage.getItem('current_products'))
@@ -403,12 +429,12 @@
                                         ${optionProduct}
                                     </select>
                                     <br>
-                                    <select class="form-control my-select" id="form-unit-select-${currentStorage[index]['table_id']}" onchange="updateTable('${currentStorage[index]['table_id']}')" name="form-unit-select[]">
+                                    <select class="form-control my-select" id="form-unit-select-${currentStorage[index]['table_id']}" onchange="inputQty('${currentStorage[index]['table_id']}')" name="form-unit-select[]">
                                         <option selected="selected" value="${currentStorage[index]['id']}-${currentStorage[index]['unit']}-${currentStorage[index]['price']}" disabled="disabled">${currentStorage[index]['unit']}</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <input id="form-qty-${currentStorage[index]['table_id']}" class="form-control" style="width: 80px" type="number" min="1" name="form-qty[]" value="${currentStorage[index]['qty']}" oninput="updateTable('${currentStorage[index]['table_id']}')">
+                                    <input id="form-qty-${currentStorage[index]['table_id']}" class="form-control" style="width: 80px" type="number" min="1" name="form-qty[]" value="${currentStorage[index]['qty']}" oninput="updateTable('${currentStorage[index]['table_id']}')" onkeydown="nextInput(this)">
                                 </td>
                                 <td>
                                     <p id="price-${currentStorage[index]['table_id']}">${formatRupiah(currentStorage[index]['price'].toString(), 'Rp. ' )}</p>
@@ -453,12 +479,12 @@
                                     ${optionProduct}
                                 </select>
                                 <br>
-                                <select class="form-control my-select" id="form-unit-select-${nextItem}" onchange="updateTable('${nextItem}')" name="form-unit-select[]">
+                                <select class="form-control my-select" id="form-unit-select-${nextItem}" onchange="inputQty('${nextItem}')" name="form-unit-select[]">
                                     <option selected="selected" disabled="disabled">Pilih Satuan</option>
                                 </select>
                             </td>
                             <td>
-                                <input id="form-qty-${nextItem}" class="form-control" style="width: 80px" type="number" value="1" min="1" name="form-qty[]" oninput="updateTable('${nextItem}')">
+                                <input id="form-qty-${nextItem}" class="form-control" style="width: 80px" type="number" value="1" min="1" name="form-qty[]" oninput="updateTable('${nextItem}')" onkeydown="nextInput(this)">
                             </td>
                             <td>
                                 <p id="price-${nextItem}">Rp. 0</p>
@@ -829,7 +855,6 @@ Total            RP. 111.200.000
             defOpt.disabled = true
             defOpt.selected = true
             document.getElementById(`form-unit-select-${index}`).appendChild(defOpt);
-            console.log(priceData);
             for (var i = 0; i <= priceData.length; i++) {
                 if (priceData[i] != null) {
                     var opt = document.createElement('option');
@@ -838,6 +863,7 @@ Total            RP. 111.200.000
                     document.getElementById(`form-unit-select-${index}`).appendChild(opt);
                 }
             }
+            $(`#form-unit-select-${index}`).select2('open')
         }
     }
     function get(page = 1, date = null) {
