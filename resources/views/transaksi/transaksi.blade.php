@@ -112,7 +112,7 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input id="form-qty-1" class="form-control" style="width: 80px" type="number" value="1" min="1" name="form-qty[]" oninput="updateTable('1')" onkeydown="nextInput(this)">
+                                            <input id="form-qty-1" class="form-control" style="width: 80px" type="number" value="1" min="1" step=".0" name="form-qty[]" oninput="updateTable('1')" onkeydown="nextInput(this)">
                                         </td>
                                         <td>
                                             <p id="price-1">Rp. 0</p>
@@ -237,9 +237,14 @@
     context.drawImage(image, 0, 0, canvas.width, canvas.height);
     let imageData = context.getImageData(0, 0, canvas.width, canvas.height).data;
 
+    function hideSidebar() {
+        $('.header').addClass('expand-header')
+        $('.main-container').addClass('sidebar-closed sbar-open')
+    }
     function inputQty(id) {
         document.getElementById(`form-qty-${id}`).focus()
         updateTable(id)
+        hideSidebar()
         // $(`#form-unit-select-${id}`).select2('close')
     }
 
@@ -248,6 +253,7 @@
             createColumn()
             $(`#form-product-select-${itemLen}`).select2('open');
         }
+        hideSidebar()
     }
 
     function preparePayment() {
@@ -315,13 +321,14 @@
                 console.log(price);
                 const idSplit = iProduct[index].id.split('-')
                 let priceProduct = document.getElementById(`form-unit-select-${idSplit[idSplit.length-1]}`).value.split("-")
-                let qty = parseInt(document.getElementById(`form-qty-${idSplit[idSplit.length-1]}`).value)
+                let qty = parseFloat(document.getElementById(`form-qty-${idSplit[idSplit.length-1]}`).value)
                 console.log(priceProduct[priceProduct.length-1]);
                 console.log(qty);
                 price += parseInt(priceProduct[priceProduct.length-1]) * qty
             }
         }
         document.getElementById(`price-total`).innerHTML = formatRupiah(price.toString(), 'Rp. ')
+        hideSidebar()
     }
 
     function updateTable(id) {
@@ -340,7 +347,7 @@
                 let qtyData = document.getElementById(`form-qty-${id}`).value
                 let priceDefault = (typeof products[products.length-1] === 'string' || products[products.length-1] instanceof String) ? 0 : parseInt(JSON.parse(products[products.length-1])[0]['price'])
                 let price = (units != null && units.length > 0) ? parseInt(units[units.length-1]) : priceDefault
-                let qty = qtyData != null ? parseInt(qtyData) : 1
+                let qty = qtyData != null ? parseFloat(qtyData).toFixed(1) : 1.0
                 // set localstorage
                 let product = {
                     'nota': notaID,
@@ -362,7 +369,7 @@
                 let qtyData = document.getElementById(`form-qty-${id}`).value
                 let priceDefault = (typeof products[products.length-1] === 'string' || products[products.length-1] instanceof String) ? 0 : parseInt(JSON.parse(products[products.length-1])[0]['price'])
                 let price = (units != null && units.length > 0) ? parseInt(units[units.length-1]) : priceDefault
-                let qty = qtyData != null ? parseInt(qtyData) : 1
+                let qty = qtyData != null ? parseFloat(qtyData).toFixed(1) : 1.0
                 // set localstorage
                 let product = {
                     'nota': notaID,
@@ -399,6 +406,7 @@
                 }
             }
         }
+        hideSidebar()
     }
     function selectRefresh() {
         $('.my-select').select2({
@@ -418,7 +426,7 @@
         let currentStorage = JSON.parse(window.localStorage.getItem('current_products'))
         if(currentStorage != null) {
             for (let index = 0; index < currentStorage.length; index++) {
-                let priceTotal = parseInt(currentStorage[index]['price']) * parseInt(currentStorage[index]['qty'])
+                let priceTotal = parseInt(currentStorage[index]['price']) * parseFloat(currentStorage[index]['qty'])
                 itemLen = parseInt(currentStorage[index]['table_id'])
                 total += priceTotal
                 newElement += `<tr id="product-${currentStorage[index]['table_id']}">
@@ -434,7 +442,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input id="form-qty-${currentStorage[index]['table_id']}" class="form-control" style="width: 80px" type="number" min="1" name="form-qty[]" value="${currentStorage[index]['qty']}" oninput="updateTable('${currentStorage[index]['table_id']}')" onkeydown="nextInput(this)">
+                                    <input id="form-qty-${currentStorage[index]['table_id']}" class="form-control" style="width: 80px" type="number" min="1" name="form-qty[]" value="${currentStorage[index]['qty']}" step=".0" oninput="updateTable('${currentStorage[index]['table_id']}')" onkeydown="nextInput(this)">
                                 </td>
                                 <td>
                                     <p id="price-${currentStorage[index]['table_id']}">${formatRupiah(currentStorage[index]['price'].toString(), 'Rp. ' )}</p>
@@ -459,6 +467,7 @@
             updateTotal()
         }
         selectRefresh()
+        hideSidebar()
     }
     function createColumn(data = null) {
         let element = $('#table-product')
@@ -594,7 +603,7 @@
             let unitSplit = v['unit'].split('')
             let qtySplit = v['qty'].toString().split('')
             
-            let price = parseInt(v['price']) * parseInt(v['qty'])
+            let price = parseInt(v['price']) * parseFloat(v['qty'])
             itemTotal+=1
             total += price
             // QTY
@@ -846,7 +855,8 @@ Total            RP. 111.200.000
         http.send()
     }
     function setUnitProduct(data, index) {
-        let unitData = data.value.split('-') 
+        
+        let unitData = data.value.split('-')
         if (unitData != null) {
             let priceData = JSON.parse(unitData[unitData.length - 1]) 
             $(`#form-unit-select-${index}`).empty();
@@ -914,6 +924,10 @@ Total            RP. 111.200.000
             console.error(error)
         })
     }
+
+    $(document).on('focus blur', 'select, textarea, input[type=text], input[type=date], input[type=password], input[type=email], input[type=number]', function(e){
+        hideSidebar()
+    });
     getProduct()
     get()
     selectRefresh()
