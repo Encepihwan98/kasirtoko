@@ -170,6 +170,9 @@
     <script src="{{ asset('assets/js/users/account-settings.js') }}"></script>
 
     <script>
+        function floatToString(num) {
+            return num.toFixed(Math.max(1, num.toString().substr(num.toString().indexOf(".")+1).length));
+        }
         function isNumeric(str) {
             if (typeof str != "string") return false // we only process strings!
             return !isNaN(str) &&

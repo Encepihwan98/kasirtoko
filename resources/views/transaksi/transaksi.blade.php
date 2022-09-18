@@ -215,6 +215,7 @@
     let notaID = generateID(6)
     let itemLen = 1
     let bodyMessage = ''
+    let bodyMessages = []
     let productMaster = []
     var f3 = flatpickr(document.getElementById('rangeCalendarFlatpickr'), {
         mode: "range"
@@ -226,6 +227,7 @@
     let printCharacteristic;
     let index = 0;
     let data;
+    let numBodyMessage = 0;
     // progress.hidden = true;
     let image = document.querySelector('#images');
     // Use the canvas to get image data
@@ -318,12 +320,9 @@
         let iProduct = document.getElementsByName("form-product-select[]")
         if (iProduct.length > 0) {
             for (let index = 0; index < iProduct.length; index++) {
-                console.log(price);
                 const idSplit = iProduct[index].id.split('-')
                 let priceProduct = document.getElementById(`form-unit-select-${idSplit[idSplit.length-1]}`).value.split("-")
                 let qty = parseFloat(document.getElementById(`form-qty-${idSplit[idSplit.length-1]}`).value)
-                console.log(priceProduct[priceProduct.length-1]);
-                console.log(qty);
                 price += parseInt(priceProduct[priceProduct.length-1]) * qty
             }
         }
@@ -595,26 +594,22 @@
         let totalLen = 20
         let totalAllText = ''
         bodyMessage = ''
-        // let products = JSON.parse(data)
-        console.log(data);
         
         data.forEach((v) => {
             let produkSplit = v['name'].split('')
             let unitSplit = v['unit'].split('')
-            let qtySplit = v['qty'].toString().split('')
             
             let price = parseInt(v['price']) * parseFloat(v['qty'])
             itemTotal+=1
             total += price
             // QTY
-            let qtyText = ''
-            for (let index = 0; index < qtyLen; index++) {
-                if(qtySplit.length > index) {
-                    qtyText += qtySplit[index]
-                } else {
-                    qtyText += ' '
-                }
+            let qtyText = v.qty.split(".")[1] == 0 ? v.qty.split(".")[0] : v.qty.toString()
+            let qtyFixLen = qtyLen - qtyText.length
+            for (let i = 0; i < qtyFixLen; i++) {
+                console.log(`${i} < ${(qtyLen-qtyText.length)}`);
+                qtyText += ' '
             }
+            
             // UNIT
             let unitText = ''
             for (let index = 0; index < unitLen; index++) {
@@ -653,10 +648,14 @@
         })
         let totalIndex = 0
         let totalTxtLen = (total.toString().length <= 6) ? total.toString().length : total.toString().length+1
-        for (let index = 0; index < (priceLen-totalTxtLen); index++) {
+        for (let index = 0; index < ((priceLen+1)-totalTxtLen); index++) {
             totalAllText += ' '
         }
         totalAllText += formatRupiah(total.toString(), 'Rp. ')
+        let itemTotalText = itemTotal
+        for (let index = 0; index < (3 - itemTotal.toString().length); index++) {
+            itemTotalText += ' '
+        }
         
         let format1 = `
         
@@ -665,9 +664,12 @@ TGL: ${today}    #${data[0]['nota']}
 printData.forEach((v) => {
     format1 += `\n${v}`
 })
+printData.forEach((v) => {
+    format1 += `\n${v}`
+})
 format1 += `
 --------------------------------
-${itemTotal} Item  Total  :  ${totalAllText}
+${itemTotalText} Item  Total: ${totalAllText}
 
    Terimakasih Sudah Berbelanja 
 
@@ -693,27 +695,136 @@ Total            RP. 111.200.000
    Terimakasih Sudah Berbelanja 
 `
         bodyMessage = format1
+        let lenString = 0
+        let lastIncrement = 0
+        bodyMessages = []
+        format1.split("\n").forEach((v,i) => {
+            if(lenString < 512) {
+                console.log(lenString);
+                if((lenString + v.length) >= 480 && (lenString + v.length) <= 512) {
+                    bodyMessages.push(format1.split("\n").slice(lastIncrement, i).join("\n"));
+                    console.log(`panjang ${lenString}`);
+                    lenString = 0;
+                    lastIncrement = i;
+                } else {
+                    lenString += v.length;
+                }
+
+                if (i === format1.split("\n").length - 1){
+                    bodyMessages.push(format1.split("\n").slice(lastIncrement, i).join("\n"));
+                }
+            }
+        });
+        console.log(bodyMessages);
+        
     }
-    function sendTextData() {
-        // console.log(data);
-        
-        // Get the bytes for the text
+    function sendTextData1() {
         let encoder = new TextEncoder("utf-8");
-        
-        // Add line feed + carriage return chars to text
-        let text = encoder.encode(bodyMessage + '\u000A\u000D');
+        let text = encoder.encode(bodyMessages[0] + '\u000A\u000D');
         return printCharacteristic.writeValue(text).then(() => {
             console.log('Write done.');
         });
     }
-    function sendPrinterData() {
+    function sendTextData2() {
+        let encoder = new TextEncoder("utf-8");
+        let text = encoder.encode(bodyMessages[1] + '\u000A\u000D');
+        return printCharacteristic.writeValue(text).then(() => {
+            console.log('Write done.');
+        });
+    }
+    function sendTextData3() {
+        let encoder = new TextEncoder("utf-8");
+        let text = encoder.encode(bodyMessages[2] + '\u000A\u000D');
+        return printCharacteristic.writeValue(text).then(() => {
+            console.log('Write done.');
+        });
+    }
+    function sendTextData4() {
+        let encoder = new TextEncoder("utf-8");
+        let text = encoder.encode(bodyMessages[3] + '\u000A\u000D');
+        return printCharacteristic.writeValue(text).then(() => {
+            console.log('Write done.');
+        });
+    }
+    function sendTextData5() {
+        let encoder = new TextEncoder("utf-8");
+        let text = encoder.encode(bodyMessages[4] + '\u000A\u000D');
+        return printCharacteristic.writeValue(text).then(() => {
+            console.log('Write done.');
+        });
+    }
+    async function sendTextData(data) {
+        // console.log(data);
+        
+        // Get the bytes for the text
+        let encoder = new TextEncoder("utf-8");
+        let text = encoder.encode(data + '\u000A\u000D');
+        return printCharacteristic.writeValue(text).then(() => {
+            console.log('Write done.');
+        });
+
+        // Add line feed + carriage return chars to text
+        // let text = encoder.encode(data + '\u000A\u000D');
+        // return printCharacteristic.writeValue(text).then(() => {
+        //     console.log('Write done.');
+        // });
+    }
+    function setSendData(i) {
+        if(i > 0) {
+            sendTextData1()
+            if(i > 1) {
+                sendTextData2()
+                if(i > 2) {
+                    sendTextData3()
+                    if(i > 3) {
+                        sendTextData4()
+                        if(i > 4) {
+                            sendTextData5()
+                        }
+                    }
+                }
+            }
+        } else {
+            sendTextData()
+        }
+    }
+    async function sendPrinterData() {
         // Print an image followed by the text
-        sendImageData()
-            .then(sendTextData)
-            .then(() => {
+        let test = sendImageData()
+        if(bodyMessage.length > 512) {
+            let text1 = bodyMessages[0];
+            let text2 = bodyMessages[1];
+            let text3 = bodyMessages[2];
+            let text4 = bodyMessages[3];
+
+            let i = bodyMessages.length
+            if(i == 1) {
+                test.then(sendTextData1)
+            } else if(i == 2) {
+                test.then(sendTextData1).then(sendTextData2)
+            } else if(i == 3) {
+                test.then(sendTextData1).then(sendTextData2).then(sendTextData3)
+            } else if(i == 4) {
+                test.then(sendTextData1).then(sendTextData2).then(sendTextData3).then(sendTextData4)
+            } else {
+                test.then(sendTextData1).then(sendTextData2).then(sendTextData3).then(sendTextData4).then(sendTextData5) 
+            }
+
+            // sendImageData().then(await setSendData(bodyMessages.length)).then(() => {
+            //     // progress.hidden = true;
+            // })
+            // .catch(handleError);
+        } else {
+            test.then(sendTextData).then(() => {
                 // progress.hidden = true;
             })
             .catch(handleError);
+            // sendImageData().then(sendTextData).then(() => {
+            //     // progress.hidden = true;
+            // })
+            // .catch(handleError);
+        }
+        return test
     }
     function printNow() {
         // pro?gress.hidden = false;
@@ -733,7 +844,9 @@ Total            RP. 111.200.000
                 .then(characteristic => {
                     // Cache the characteristic
                     printCharacteristic = characteristic;
+                    // bodyMessage.split('\n').forEach(v => {
                     sendPrinterData();
+                    // });
                     notaID = generateID(6)
                 })
                 .catch(handleError);
@@ -776,7 +889,6 @@ Total            RP. 111.200.000
         }
     }
     function makeTableTransaction(data) {
-        console.log(data);
         let heading =
             `<thead>
                 <tr>
@@ -816,7 +928,6 @@ Total            RP. 111.200.000
                 </tr>`
         }
         let body = `<tbody>${item}</tbody>`
-        console.log(body)
         $("#table-transaction").empty()
         $("#table-transaction").append(heading, body)
         // document.getElementById('form-price-total').innerText = formatRupiah(total.toString(), 'Rp. ')
@@ -855,7 +966,6 @@ Total            RP. 111.200.000
         http.send()
     }
     function setUnitProduct(data, index) {
-        
         let unitData = data.value.split('-')
         if (unitData != null) {
             let priceData = JSON.parse(unitData[unitData.length - 1]) 
@@ -877,7 +987,6 @@ Total            RP. 111.200.000
         }
     }
     function get(page = 1, date = null) {
-        console.log(date);
         let dateQuery = ''
         if(date != null) {
             let splitDate = date.value.split(" ")
@@ -887,13 +996,11 @@ Total            RP. 111.200.000
                 let currentDate = new Date()
                 dateQuery = `&from=${splitDate[0]}&to=${currentDate.getFullYear()}-${("0" + (currentDate.getMonth()+1)).slice(-2)}-${("0" + (currentDate.getDate()+1)).slice(-2)}`
             }
-            
         }
         let http = new XMLHttpRequest() 
         let url = `api${urlPath}`
         let params = `page=1&search=&show=10&order_by=id&order_type=desc${dateQuery}`
-        http.open('GET', `${url}?${params}`,
-            true) //Send the proper header information along with the request
+        http.open('GET', `${url}?${params}`, true) //Send the proper header information along with the request
         http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
         http.setRequestHeader('X-CSRF-TOKEN', csrf) 
         http.onreadystatechange = function() { //Call a function when the state changes.
