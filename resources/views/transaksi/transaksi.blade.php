@@ -239,10 +239,11 @@
 
     function hideSidebar() {
         $('.header').addClass('expand-header')
-        $('.main-container').addClass('sidebar-closed sbar-open')
+        $('.main-container').addClass('sidebar-closed')
     }
     function inputQty(id) {
         document.getElementById(`form-qty-${id}`).focus()
+        document.getElementById(`form-unit-select`).focus()
         updateTable(id)
         hideSidebar()
         // $(`#form-unit-select-${id}`).select2('close')
@@ -875,6 +876,7 @@ Total            RP. 111.200.000
             }
             $(`#form-unit-select-${index}`).select2('open')
         }
+        hideSidebar()
     }
     function get(page = 1, date = null) {
         console.log(date);

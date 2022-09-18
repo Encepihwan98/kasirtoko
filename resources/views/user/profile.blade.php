@@ -3,7 +3,7 @@
 @section('content')
 <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
     <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
-        <form id="general-info" class="section general-info">
+        <form id="general-info" enctype="multipart/form-data" class="section general-info">
             <div class="info">
                 <h6 class="">Informasi Pribadi</h6>
                 <div class="row">
@@ -11,7 +11,7 @@
                         <div class="row">
                             <div class="col-xl-4 col-lg-4 col-sm-4 col-md-4">
                                 <div class="upload mt-4 pr-md-4">
-                                    <input type="file" id="input-file-max-fs" class="dropify" data-default-file="assets/img/200x200.jpg" data-max-file-size="2M" />
+                                    <input type="file" id="input-file-max-fs" class="dropify" data-default-file="{{asset('public/upload/user/'.Auth::user()->avatar )}}" data-max-file-size="2M" />
                                     <p class="mt-2"><i class="flaticon-cloud-upload mr-1"></i> Upload Picture</p>
                                 </div>
                             </div>
