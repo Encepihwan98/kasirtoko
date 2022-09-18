@@ -582,6 +582,7 @@
         });
     }
     function setTextBody(data) {
+        numBodyMessage = 0
         let today = new Date();
         today = `${("0" + today.getDate()).slice(-2)}/${("0" + (today.getMonth()+1)).slice(-2)}/${today.getFullYear()} ${("0" + today.getHours()).slice(-2)}:${("0" + today.getMinutes()).slice(-2)}`
         let printData = []
@@ -603,7 +604,7 @@
             itemTotal+=1
             total += price
             // QTY
-            let qtyText = v.qty.split(".")[1] == 0 ? v.qty.split(".")[0] : v.qty.toString()
+            let qtyText = v.qty.toString().split(".")[1] == 0 ? v.qty.toString().split(".")[0] : v.qty.toString()
             let qtyFixLen = qtyLen - qtyText.length
             for (let i = 0; i < qtyFixLen; i++) {
                 console.log(`${i} < ${(qtyLen-qtyText.length)}`);
@@ -664,9 +665,6 @@ TGL: ${today}    #${data[0]['nota']}
 printData.forEach((v) => {
     format1 += `\n${v}`
 })
-printData.forEach((v) => {
-    format1 += `\n${v}`
-})
 format1 += `
 --------------------------------
 ${itemTotalText} Item  Total: ${totalAllText}
@@ -703,7 +701,6 @@ Total            RP. 111.200.000
                 console.log(lenString);
                 if((lenString + v.length) >= 480 && (lenString + v.length) <= 512) {
                     bodyMessages.push(format1.split("\n").slice(lastIncrement, i).join("\n"));
-                    console.log(`panjang ${lenString}`);
                     lenString = 0;
                     lastIncrement = i;
                 } else {
@@ -716,115 +713,36 @@ Total            RP. 111.200.000
             }
         });
         console.log(bodyMessages);
-        
     }
-    function sendTextData1() {
-        let encoder = new TextEncoder("utf-8");
-        let text = encoder.encode(bodyMessages[0] + '\u000A\u000D');
-        return printCharacteristic.writeValue(text).then(() => {
-            console.log('Write done.');
-        });
-    }
-    function sendTextData2() {
-        let encoder = new TextEncoder("utf-8");
-        let text = encoder.encode(bodyMessages[1] + '\u000A\u000D');
-        return printCharacteristic.writeValue(text).then(() => {
-            console.log('Write done.');
-        });
-    }
-    function sendTextData3() {
-        let encoder = new TextEncoder("utf-8");
-        let text = encoder.encode(bodyMessages[2] + '\u000A\u000D');
-        return printCharacteristic.writeValue(text).then(() => {
-            console.log('Write done.');
-        });
-    }
-    function sendTextData4() {
-        let encoder = new TextEncoder("utf-8");
-        let text = encoder.encode(bodyMessages[3] + '\u000A\u000D');
-        return printCharacteristic.writeValue(text).then(() => {
-            console.log('Write done.');
-        });
-    }
-    function sendTextData5() {
-        let encoder = new TextEncoder("utf-8");
-        let text = encoder.encode(bodyMessages[4] + '\u000A\u000D');
-        return printCharacteristic.writeValue(text).then(() => {
-            console.log('Write done.');
-        });
-    }
-    async function sendTextData(data) {
+    function sendTextData() {
         // console.log(data);
         
         // Get the bytes for the text
         let encoder = new TextEncoder("utf-8");
-        let text = encoder.encode(data + '\u000A\u000D');
+        let text 
+        if(bodyMessage.length > 512) {
+            text = encoder.encode(bodyMessages[numBodyMessage] + '\u000A\u000D');
+        } else {
+            text = encoder.encode(bodyMessage + '\u000A\u000D');
+        }
         return printCharacteristic.writeValue(text).then(() => {
+            numBodyMessage += 1;
             console.log('Write done.');
         });
-
-        // Add line feed + carriage return chars to text
-        // let text = encoder.encode(data + '\u000A\u000D');
-        // return printCharacteristic.writeValue(text).then(() => {
-        //     console.log('Write done.');
-        // });
     }
-    function setSendData(i) {
-        if(i > 0) {
-            sendTextData1()
-            if(i > 1) {
-                sendTextData2()
-                if(i > 2) {
-                    sendTextData3()
-                    if(i > 3) {
-                        sendTextData4()
-                        if(i > 4) {
-                            sendTextData5()
-                        }
-                    }
-                }
-            }
-        } else {
-            sendTextData()
-        }
-    }
-    async function sendPrinterData() {
+    function sendPrinterData() {
         // Print an image followed by the text
         let test = sendImageData()
         if(bodyMessage.length > 512) {
-            let text1 = bodyMessages[0];
-            let text2 = bodyMessages[1];
-            let text3 = bodyMessages[2];
-            let text4 = bodyMessages[3];
-
-            let i = bodyMessages.length
-            if(i == 1) {
-                test.then(sendTextData1)
-            } else if(i == 2) {
-                test.then(sendTextData1).then(sendTextData2)
-            } else if(i == 3) {
-                test.then(sendTextData1).then(sendTextData2).then(sendTextData3)
-            } else if(i == 4) {
-                test.then(sendTextData1).then(sendTextData2).then(sendTextData3).then(sendTextData4)
-            } else {
-                test.then(sendTextData1).then(sendTextData2).then(sendTextData3).then(sendTextData4).then(sendTextData5) 
-            }
-
-            // sendImageData().then(await setSendData(bodyMessages.length)).then(() => {
-            //     // progress.hidden = true;
-            // })
-            // .catch(handleError);
+            bodyMessages.forEach(v => {
+                test = test.then(sendTextData)
+            });
         } else {
             test.then(sendTextData).then(() => {
                 // progress.hidden = true;
             })
             .catch(handleError);
-            // sendImageData().then(sendTextData).then(() => {
-            //     // progress.hidden = true;
-            // })
-            // .catch(handleError);
         }
-        return test
     }
     function printNow() {
         // pro?gress.hidden = false;
@@ -844,9 +762,7 @@ Total            RP. 111.200.000
                 .then(characteristic => {
                     // Cache the characteristic
                     printCharacteristic = characteristic;
-                    // bodyMessage.split('\n').forEach(v => {
                     sendPrinterData();
-                    // });
                     notaID = generateID(6)
                 })
                 .catch(handleError);
