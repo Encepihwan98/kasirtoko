@@ -1,4 +1,5 @@
 var App = function() {
+    
     var MediaSize = {
         xl: 1200,
         lg: 992,
@@ -44,7 +45,6 @@ var App = function() {
             $('.sidebarCollapse').on('click', function (sidebar) {
                 sidebar.preventDefault();
                 getSidebar = $('.sidebar-wrapper');
-                    console.log('drill 1')
                 if ($recentSubmenu === true) {
                     console.log('drill 2')
                     if ($('.collapse.submenu').hasClass('show')) {

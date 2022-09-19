@@ -7,75 +7,6 @@
         font-size: 0.8em;
     }
 </style>
-
-<div id="view-nota" class="text-center" style="background-color: grey; margin: auto; width: 350px; display: none">
-    <div id="nota-content">
-        <img src="{{ asset('assets/img/header.png') }}" width="300" alt="" srcset="">
-        <div id="nota-print-header" style="background-color: white; margin: auto; padding: 5px; width: 300px">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <img src="{{ asset('assets/img/logo-toko.png') }}" width="250" alt="" srcset="" id="images">
-                </div>
-                <div class="col-12 text-left">
-                    <br>
-                    <p style="color: black; font-weight: bold; font-family: arial;" id="nota-date">
-                        Date: tanggal
-                    </p>
-                    <p style="color: black; font-weight: bold; font-family: arial;" id="nota-id">
-                        Nota: #nomor
-                    </p>
-                </div>
-            </div>
-            <hr style="border:1px dashed #d9e7e8!important; ">
-        </div>
-        <div id="nota-print-body" style="background-color: white; margin: auto; width: 300px; padding: 5px">
-            <div class="row">
-                <div class="col-12">
-                    <table width="100%" class="mb-3" id="nota-print-table">
-                        <thead>
-                            <tr>
-                                <th align="left">Nama</th>
-                                <th>Jumlah</th>
-                                <th>Harga</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td align="left">
-                                    <p class="nota-item-text" width="150">Nama</p>
-                                </td>
-                                <td>
-                                    <p class="nota-item-text">Nama</p>
-                                </td>
-                                <td>
-                                    <p class="nota-item-text">Nama</p>
-                                </td>
-                                <td>
-                                    <p class="nota-item-text">Nama</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <hr style="border:1px dashed #d9e7e8!important; ">
-        </div>
-        {{-- <img src="{{ asset('assets/img/divider.png') }}" width="300" style="margin-top: -10px" alt=""
-        srcset=""> --}}
-        <div id="nota-print-footer" style="background-color: white; margin: auto; margin-top: -10px; width: 300px; align-item: center; padding: 5px">
-            <div class="row">
-                <div class="col-6 mt-4 text-left">
-                    <h6 style="color: black; font-weight: bold; font-family: arial;">Total :</h6>
-                </div>
-                <div class="col-6 mt-4 text-right" id="nota-print-price-total">
-                    <p style="color: black; font-weight: bold; font-family: arial;">Rp. 10000000</p>
-                </div>
-            </div>
-        </div>
-        <img src="{{ asset('assets/img/footer.png') }}" width="300" alt="" srcset="">
-    </div>
-</div>
 <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
     <div class="row">
         <div class="col-lg-8">
@@ -103,16 +34,16 @@
                                     <tr id="product-1">
                                         <td id="num-1">1</td>
                                         <td id="select-form-1">
-                                            <select class="form-control my-select" id="form-product-select-1" name="form-product-select[]" onchange="setUnitProduct(this, '1')">
+                                            <select class="form-control my-select" id="form-product-select-1" name="form-product-select[]" onchange="setUnitProduct(this, '1')" onclick="hideSidebar()">
                                                 <option selected="selected" disabled="disabled">Pilih Produk</option>
                                             </select>
                                             <br>
-                                            <select class="form-control my-select" id="form-unit-select-1" name="form-unit-select[]" onchange="inputQty('1')">
+                                            <select class="form-control my-select" id="form-unit-select-1" name="form-unit-select[]" onchange="inputQty('1')" onclick="hideSidebar()">
                                                 <option selected="selected" disabled="disabled">Pilih Satuan</option>
                                             </select>
                                         </td>
                                         <td>
-                                            <input id="form-qty-1" class="form-control" style="width: 80px" type="number" value="1" min="1" step=".0" name="form-qty[]" oninput="updateTable('1')" onkeydown="nextInput(this)">
+                                            <input id="form-qty-1" class="form-control" style="width: 80px" type="number" value="1" min="1" step=".0" name="form-qty[]" oninput="updateTable('1')" onclick="hideSidebar()" onkeydown="nextInput(this)">
                                         </td>
                                         <td>
                                             <p id="price-1">Rp. 0</p>
@@ -141,7 +72,7 @@
                                         <td colspan="6" class="text-center">
                                             <button type="button" class="btn btn-success" onclick="createColumn()">Tambah</button> &nbsp;
                                             <button type="button" class="btn btn-primary" onclick="preparePayment()">Bayar</button> &nbsp;
-                                            <button type="button" class="btn btn-secondary" onclick="print()">Print</button> &nbsp;
+                                            <button type="button" class="btn btn-secondary" onclick="preparePrint()">Print</button> &nbsp;
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".bd-example-modal-xl">Lihat Nota</button>
                                         </td>
                                     </tr>
@@ -150,6 +81,102 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" id="modal-nota" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+        aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-title">Cetak Nota</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="container">
+                    <div id="view-nota" class="text-center"
+                        style="background-color: grey; margin: auto;  width: 350px">
+
+                        <img src="{{ asset('assets/img/header.png') }}" width="300" alt=""
+                            srcset="">
+                        <div id="nota-header" style="background-color: white; margin: auto; padding: 5px; width: 300px">
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <img src="{{ asset('assets/img/logo-toko.png') }}" width="250" alt="" srcset="" id="images">
+                                </div>
+                                <div class="col-6 pt-3 text-left">
+                                    <p style="color: black" id="nota-print-date">
+                                        TGL: tanggal
+                                    </p>
+                                </div>
+                                <div class="col-6 pt-3 text-right">
+                                    <p style="color: black" id="nota-print-id">
+                                        #nomor
+                                    </p>
+                                </div>
+                            </div>
+                            <hr style="border:1px dashed #d9e7e8!important; ">
+                        </div>
+                        <div id="nota-body" style="background-color: white; margin: auto; width: 300px; padding: 5px">
+                            <div class="row">
+                                <div class="col-12">
+                                    <table width="100%" class="mb-3" id="nota-table">
+                                        <thead>
+                                            <tr>
+                                                <th align="left">Nama</th>
+                                                <th>Jumlah</th>
+                                                <th>Harga</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td align="left">
+                                                    <p class="nota-item-text">Nama</p>
+                                                </td>
+                                                <td>
+                                                    <p class="nota-item-text">Nama</p>
+                                                </td>
+                                                <td>
+                                                    <p class="nota-item-text">Nama</p>
+                                                </td>
+                                                <td>
+                                                    <p class="nota-item-text">Nama</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <hr style="border:1px dashed #d9e7e8!important; ">
+                        </div>
+                        <div id="nota-footer"
+                            style="background-color: white; margin: auto; margin-top: -10px; width: 300px; align-item: center; padding: 5px">
+                            <div class="row">
+                                <div class="col-3 mt-4 text-left" id="nota-item-total">
+                                    <h6 style="color: black">Total :</h6>
+                                </div>
+                                <div class="col-9 mt-4 text-right" id="nota-price-total">
+                                    <p style="color: black">Rp. 10000000</p>
+                                </div>
+                            </div>
+                        </div>
+                        <img src="{{ asset('assets/img/footer.png') }}" width="300" alt=""
+                            srcset="">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Close</button>
+                <button type="button" class="btn btn-primary" id="btn-print" onclick="print()">Cetak Nota</button>
             </div>
         </div>
     </div>
@@ -240,9 +267,10 @@
     let imageData = context.getImageData(0, 0, canvas.width, canvas.height).data;
 
     function hideSidebar() {
-        $('.header').addClass('expand-header')
-        $('.main-container').addClass('sidebar-closed sbar-open')
+        $('.header').addClass('navbar-expand-sm expand-header')
+        $('.main-container').addClass('sidebar-closed')
     }
+
     function inputQty(id) {
         document.getElementById(`form-qty-${id}`).focus()
         updateTable(id)
@@ -273,6 +301,18 @@
         }
         
     }
+
+    function preparePrint() {
+        let products = JSON.parse(window.localStorage.getItem('current_products'))
+        if(products != null) {
+            $('#modal-nota').modal('toggle');
+        } else {
+            alert('transaksi minimal 1 barang!')
+        }
+        
+    }
+
+    
 
     function reOrder() {
         let iProduct = document.getElementsByName("form-product-select[]")
@@ -326,11 +366,14 @@
                 price += parseInt(priceProduct[priceProduct.length-1]) * qty
             }
         }
+        let currentStorage = window.localStorage.getItem('current_products') != null ? JSON.parse(window.localStorage.getItem('current_products')) : JSON.parse(window.localStorage.getItem('last_products'))
+        makeTableNota(currentStorage)
         document.getElementById(`price-total`).innerHTML = formatRupiah(price.toString(), 'Rp. ')
         hideSidebar()
     }
 
     function updateTable(id) {
+        hideSidebar()
         let products = document.getElementById(`form-product-select-${id}`).value.split("-")
         let error = false
         if(products == null || products.length < 2) {
@@ -405,7 +448,6 @@
                 }
             }
         }
-        hideSidebar()
     }
     function selectRefresh() {
         $('.my-select').select2({
@@ -424,6 +466,7 @@
         let total = 0
         let currentStorage = JSON.parse(window.localStorage.getItem('current_products'))
         if(currentStorage != null) {
+            makeTableNota(currentStorage)
             for (let index = 0; index < currentStorage.length; index++) {
                 let priceTotal = parseInt(currentStorage[index]['price']) * parseFloat(currentStorage[index]['qty'])
                 itemLen = parseInt(currentStorage[index]['table_id'])
@@ -431,17 +474,17 @@
                 newElement += `<tr id="product-${currentStorage[index]['table_id']}">
                                 <td id="num-${currentStorage[index]['table_id']}">${index+1}</td>
                                 <td id="select-form-${currentStorage[index]['table_id']}">
-                                    <select class="form-control my-select" id="form-product-select-${currentStorage[index]['table_id']}" onchange="setUnitProduct(this, ${currentStorage[index]['table_id']})" name="form-product-select[]">
+                                    <select class="form-control my-select" id="form-product-select-${currentStorage[index]['table_id']}" onchange="setUnitProduct(this, ${currentStorage[index]['table_id']})" name="form-product-select[]" hideSidebar()">
                                         <option selected="selected" value="${currentStorage[index]['id']}-${currentStorage[index]['name']}" disabled="disabled">${currentStorage[index]['name']}</option>
                                         ${optionProduct}
                                     </select>
                                     <br>
-                                    <select class="form-control my-select" id="form-unit-select-${currentStorage[index]['table_id']}" onchange="inputQty('${currentStorage[index]['table_id']}')" name="form-unit-select[]">
+                                    <select class="form-control my-select" id="form-unit-select-${currentStorage[index]['table_id']}" onchange="inputQty('${currentStorage[index]['table_id']}')" name="form-unit-select[]" onclick="hideSidebar()">
                                         <option selected="selected" value="${currentStorage[index]['id']}-${currentStorage[index]['unit']}-${currentStorage[index]['price']}" disabled="disabled">${currentStorage[index]['unit']}</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <input id="form-qty-${currentStorage[index]['table_id']}" class="form-control" style="width: 80px" type="number" min="1" name="form-qty[]" value="${currentStorage[index]['qty']}" step=".0" oninput="updateTable('${currentStorage[index]['table_id']}')" onkeydown="nextInput(this)">
+                                    <input id="form-qty-${currentStorage[index]['table_id']}" class="form-control" style="width: 80px" type="number" min="1" name="form-qty[]" value="${currentStorage[index]['qty']}" step=".0" oninput="updateTable('${currentStorage[index]['table_id']}')" onkeydown="nextInput(this)" onclick="hideSidebar()">
                                 </td>
                                 <td>
                                     <p id="price-${currentStorage[index]['table_id']}">${formatRupiah(currentStorage[index]['price'].toString(), 'Rp. ' )}</p>
@@ -482,17 +525,17 @@
         newElement = `<tr id="product-${nextItem}">
                             <td id="num-${nextItem}">${document.getElementsByName("form-product-select[]").length+1}</td>
                             <td id="select-form-${nextItem}">
-                                <select class="form-control my-select" id="form-product-select-${nextItem}" onchange="setUnitProduct(this, ${nextItem})" name="form-product-select[]">
+                                <select class="form-control my-select" id="form-product-select-${nextItem}" onchange="setUnitProduct(this, ${nextItem})" name="form-product-select[]" onclick="hideSidebar()">
                                     <option selected="selected" disabled="disabled">Pilih Produk</option>
                                     ${optionProduct}
                                 </select>
                                 <br>
-                                <select class="form-control my-select" id="form-unit-select-${nextItem}" onchange="inputQty('${nextItem}')" name="form-unit-select[]">
+                                <select class="form-control my-select" id="form-unit-select-${nextItem}" onchange="inputQty('${nextItem}')" name="form-unit-select[]" onclick="">
                                     <option selected="selected" disabled="disabled">Pilih Satuan</option>
                                 </select>
                             </td>
                             <td>
-                                <input id="form-qty-${nextItem}" class="form-control" style="width: 80px" type="number" value="1" min="1" name="form-qty[]" oninput="updateTable('${nextItem}')" onkeydown="nextInput(this)">
+                                <input id="form-qty-${nextItem}" class="form-control" style="width: 80px" type="number" value="1" min="1" name="form-qty[]" oninput="updateTable('${nextItem}')" onkeydown="nextInput(this)" onclick="hideSidebar()">
                             </td>
                             <td>
                                 <p id="price-${nextItem}">Rp. 0</p>
@@ -800,10 +843,108 @@ Total            RP. 111.200.000
         if(printData != null) {
             setTextBody(printData)
             printNow()
+            if($('#modal-nota').hasClass('show')) {
+                $('#modal-nota').modal('toggle');
+            }
         } else {
             alert('Lakukan transaksi terlebih dahulu!')
         }
     }
+    function makeTableNota(data) {
+            let today = new Date().toLocaleString().replace(",", "").replace(/:.. /, " ").replace("AM", "").replace("PM", "")
+            let heading = `<thead><tr><th>Nama</th><th>Jumlah</th><th>Harga</th><th>Total</th></tr></thead>`
+            let item = ''
+            let index = 0
+            let total = 0
+            if (data.length > 0) {
+                data.forEach(element => {
+                    item += `<tr style="color: black; font-weight: bold; font-family: arial;">
+                            <td align="left" width="150">${element['name']}</td>
+                            <td>${element['qty']}</td>
+                            <td>${element['unit']}</td>
+                            <td>${formatRupiah((element['price']*parseFloat(element['qty'])).toString(), '')}</td>
+                        </tr>`
+                    total += (element['price'] * element['qty'])
+                    index += 1
+                })
+            } else {
+                item += `<tr><td colspan="4" class="text-center">Data Kosong</td></tr>`
+            }
+            let body = `<tbody>${item}</tbody>`
+            $("#nota-table").empty()
+            $("#nota-table").append(body)
+            $("#nota-item-total").empty()
+            $("#nota-item-total").append(`<p><span style="color: black; font-weight: bold; font-family: arial;">${index}</span> Item</p>`)
+            $("#nota-price-total").empty()
+            $("#nota-price-total").append(`<p>Total : <span style="color: black; font-weight: bold; font-family: arial;">${formatRupiah(total.toString(), 'Rp. ')}</span></p>`)
+            $("#nota-id").empty()
+            $("#nota-id").append(`Nota: #${notaID}`)
+            $("#nota-date").empty()
+            $("#nota-date").append(`Tanggal: ${today}`)
+        }
+        function makeTableTransaction(data) {
+            console.log(data);
+            let heading =
+                `<thead><tr><th>No</th><th>Nama</th><th>Nota</th><th>Tanggal</th><th>Total</th><th class="no-content">Actions</th></tr></thead>`
+            let item = ''
+            let index = 0
+            if (data.length > 0) {
+                data.forEach(element => {
+                    let total = 0
+                    let products = JSON.parse(element['products'])
+                    for (let index = 0; index < products.length; index++) {
+                        total += products[index]['qty'] * products[index]['price']
+                    }
+                    item += `<tr>
+                            <td>${index+1}</td>
+                            <td>User</td>
+                            <td>${element['nota']}</td>
+                            <td>${element['created_at']}</td>
+                            <td>${formatRupiah(total.toString(), 'Rp. ')}</td>
+                            <td>
+                            <button type="button" onclick='print(${element['products']})'><i class="far fa-file"></i></button>
+                            </td>
+                        </tr>`
+                    index += 1
+                })
+            } else {
+                item += `<tr><td colspan="6" class="text-center">Data Kosong</td></tr>`
+            }
+            let body = `<tbody>${item}</tbody>`
+            console.log(body)
+            $("#table-transaction").empty()
+            $("#table-transaction").append(heading, body)
+            // document.getElementById('form-price-total').innerText = formatRupiah(total.toString(), 'Rp. ')
+        }
+        function makeTableProduct(data) {
+            let heading =
+                `<thead><tr><th>No</th><th>Nama</th><th>Qty</th><th>Harga</th><th>Jumlah</th><th class="no-content">Actions</th></tr></thead>`
+            let item = ''
+            let index = 0
+            let total = 0
+            if (data.length > 0) {
+                data.forEach(element => {
+                    item += `<tr>
+                            <td>${index+1}</td>
+                            <td>${element['name']}/${element['unit']}</td>
+                            <td>${element['qty']}</td>
+                            <td>${formatRupiah(element['price'].toString(), 'Rp. ')}</td>
+                            <td>${formatRupiah((element['price']*element['qty']).toString(), 'Rp. ')}</td>
+                            <td>
+                                <i class="ml-3 far fa-trash-alt" onclick="removeItem('${element['id']}')"></i>
+                            </td>
+                        </tr>`
+                    total += (element['price'] * element['qty'])
+                    index += 1
+                })
+            } else {
+                item += `<tr><td colspan="6" class="text-center">Data Kosong</td></tr>`
+            }
+            let body = `<tbody>${item}</tbody>`
+            $("#table-product").empty()
+            $("#table-product").append(heading, body)
+            document.getElementById('form-price-total').innerText = formatRupiah(total.toString(), 'Rp. ')
+        }
     function makeTableTransaction(data) {
         let heading =
             `<thead>
@@ -948,9 +1089,11 @@ Total            RP. 111.200.000
         })
     }
 
-    $(document).on('focus blur', 'select, textarea, input[type=text], input[type=date], input[type=password], input[type=email], input[type=number]', function(e){
+    const listener = () => {
         hideSidebar()
-    });
+    }
+
+    window.visualViewport.addEventListener('resize', listener)
     getProduct()
     get()
     selectRefresh()
