@@ -304,13 +304,7 @@
     }
 
     function preparePrint() {
-        let products = JSON.parse(window.localStorage.getItem('current_products'))
-        if(products != null) {
-            $('#modal-nota').modal('toggle');
-        } else {
-            alert('transaksi minimal 1 barang!')
-        }
-        
+        $('#modal-nota').modal('toggle');
     }
 
     
