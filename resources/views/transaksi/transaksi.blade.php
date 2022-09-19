@@ -215,6 +215,7 @@
     let notaID = generateID(6)
     let itemLen = 1
     let bodyMessage = ''
+    let bodyMessages = []
     let productMaster = []
     var f3 = flatpickr(document.getElementById('rangeCalendarFlatpickr'), {
         mode: "range"
@@ -226,6 +227,7 @@
     let printCharacteristic;
     let index = 0;
     let data;
+    let numBodyMessage = 0;
     // progress.hidden = true;
     let image = document.querySelector('#images');
     // Use the canvas to get image data
@@ -320,13 +322,10 @@
         let iProduct = document.getElementsByName("form-product-select[]")
         if (iProduct.length > 0) {
             for (let index = 0; index < iProduct.length; index++) {
-                // console.log(price);
                 const idSplit = iProduct[index].id.split('-')
                 let priceProduct = document.getElementById(`form-unit-select-${idSplit[idSplit.length-1]}`).value.split("-")
                 let qty = parseFloat(document.getElementById(`form-qty-${idSplit[idSplit.length-1]}`).value)
-                // console.log(priceProduct[priceProduct.length - 1]);
-                // console.log(qty);
-                price += parseInt(priceProduct[priceProduct.length - 1]) * qty
+                price += parseInt(priceProduct[priceProduct.length-1]) * qty
             }
         }
         document.getElementById(`price-total`).innerHTML = formatRupiah(price.toString(), 'Rp. ')
@@ -594,6 +593,7 @@
     }
 
     function setTextBody(data) {
+        numBodyMessage = 0
         let today = new Date();
         today = `${("0" + today.getDate()).slice(-2)}/${("0" + (today.getMonth()+1)).slice(-2)}/${today.getFullYear()} ${("0" + today.getHours()).slice(-2)}:${("0" + today.getMinutes()).slice(-2)}`
         let printData = []
@@ -606,26 +606,22 @@
         let totalLen = 20
         let totalAllText = ''
         bodyMessage = ''
-        // let products = JSON.parse(data)
-        // console.log(data);
-
+        
         data.forEach((v) => {
             let produkSplit = v['name'].split('')
             let unitSplit = v['unit'].split('')
-            let qtySplit = v['qty'].toString().split('')
-
+            
             let price = parseInt(v['price']) * parseFloat(v['qty'])
             itemTotal += 1
             total += price
             // QTY
-            let qtyText = ''
-            for (let index = 0; index < qtyLen; index++) {
-                if (qtySplit.length > index) {
-                    qtyText += qtySplit[index]
-                } else {
-                    qtyText += ' '
-                }
+            let qtyText = v.qty.toString().split(".")[1] == 0 ? v.qty.toString().split(".")[0] : v.qty.toString()
+            let qtyFixLen = qtyLen - qtyText.length
+            for (let i = 0; i < qtyFixLen; i++) {
+                console.log(`${i} < ${(qtyLen-qtyText.length)}`);
+                qtyText += ' '
             }
+            
             // UNIT
             let unitText = ''
             for (let index = 0; index < unitLen; index++) {
@@ -663,12 +659,16 @@
             }
         })
         let totalIndex = 0
-        let totalTxtLen = (total.toString().length <= 6) ? total.toString().length : total.toString().length + 1
-        for (let index = 0; index < (priceLen - totalTxtLen); index++) {
+        let totalTxtLen = (total.toString().length <= 6) ? total.toString().length : total.toString().length+1
+        for (let index = 0; index < ((priceLen+1)-totalTxtLen); index++) {
             totalAllText += ' '
         }
         totalAllText += formatRupiah(total.toString(), 'Rp. ')
-
+        let itemTotalText = itemTotal
+        for (let index = 0; index < (3 - itemTotal.toString().length); index++) {
+            itemTotalText += ' '
+        }
+        
         let format1 = `
         
 TGL: ${today}    #${data[0]['nota']}
@@ -678,7 +678,7 @@ TGL: ${today}    #${data[0]['nota']}
         })
         format1 += `
 --------------------------------
-${itemTotal} Item  Total  :  ${totalAllText}
+${itemTotalText} Item  Total: ${totalAllText}
 
    Terimakasih Sudah Berbelanja 
 
@@ -704,6 +704,26 @@ Total            RP. 111.200.000
    Terimakasih Sudah Berbelanja 
 `
         bodyMessage = format1
+        let lenString = 0
+        let lastIncrement = 0
+        bodyMessages = []
+        format1.split("\n").forEach((v,i) => {
+            if(lenString < 512) {
+                console.log(lenString);
+                if((lenString + v.length) >= 480 && (lenString + v.length) <= 512) {
+                    bodyMessages.push(format1.split("\n").slice(lastIncrement, i).join("\n"));
+                    lenString = 0;
+                    lastIncrement = i;
+                } else {
+                    lenString += v.length;
+                }
+
+                if (i === format1.split("\n").length - 1){
+                    bodyMessages.push(format1.split("\n").slice(lastIncrement, i).join("\n"));
+                }
+            }
+        });
+        console.log(bodyMessages);
     }
 
     function sendTextData() {
@@ -711,22 +731,31 @@ Total            RP. 111.200.000
 
         // Get the bytes for the text
         let encoder = new TextEncoder("utf-8");
-
-        // Add line feed + carriage return chars to text
-        let text = encoder.encode(bodyMessage + '\u000A\u000D');
+        let text  = "";
+        if(bodyMessage.length > 512) {
+            text = encoder.encode(bodyMessages[numBodyMessage] + '\u000A\u000D');
+        } else {
+            text = encoder.encode(bodyMessage + '\u000A\u000D');
+        }
         return printCharacteristic.writeValue(text).then(() => {
-            // console.log('Write done.');
+            numBodyMessage += 1;
+            console.log('Write done.');
         });
     }
 
     function sendPrinterData() {
         // Print an image followed by the text
-        sendImageData()
-            .then(sendTextData)
-            .then(() => {
+        let test = sendImageData()
+        if(bodyMessage.length > 512) {
+            bodyMessages.forEach(v => {
+                test = test.then(sendTextData)
+            });
+        } else {
+            test.then(sendTextData).then(() => {
                 // progress.hidden = true;
             })
             .catch(handleError);
+        }
     }
 
     function printNow() {
@@ -793,7 +822,6 @@ Total            RP. 111.200.000
     }
 
     function makeTableTransaction(data) {
-        console.log(data);
         let heading =
             `<thead>
                 <tr>
@@ -833,7 +861,6 @@ Total            RP. 111.200.000
                 </tr>`
         }
         let body = `<tbody>${item}</tbody>`
-        console.log(body)
         $("#table-transaction").empty()
         $("#table-transaction").append(heading, body)
         // document.getElementById('form-price-total').innerText = formatRupiah(total.toString(), 'Rp. ')
@@ -874,7 +901,6 @@ Total            RP. 111.200.000
     }
 
     function setUnitProduct(data, index) {
-
         let unitData = data.value.split('-')
         if (unitData != null) {
             let priceData = JSON.parse(unitData[unitData.length - 1])
@@ -898,7 +924,6 @@ Total            RP. 111.200.000
     }
 
     function get(page = 1, date = null) {
-        console.log(date);
         let dateQuery = ''
         if (date != null) {
             let splitDate = date.value.split(" ")
@@ -908,13 +933,11 @@ Total            RP. 111.200.000
                 let currentDate = new Date()
                 dateQuery = `&from=${splitDate[0]}&to=${currentDate.getFullYear()}-${("0" + (currentDate.getMonth()+1)).slice(-2)}-${("0" + (currentDate.getDate()+1)).slice(-2)}`
             }
-
         }
         let http = new XMLHttpRequest()
         let url = `api${urlPath}`
         let params = `page=1&search=&show=10&order_by=id&order_type=desc${dateQuery}`
-        http.open('GET', `${url}?${params}`,
-            true) //Send the proper header information along with the request
+        http.open('GET', `${url}?${params}`, true) //Send the proper header information along with the request
         http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
         http.setRequestHeader('X-CSRF-TOKEN', csrf)
         http.onreadystatechange = function() { //Call a function when the state changes.
