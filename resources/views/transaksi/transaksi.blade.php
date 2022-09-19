@@ -124,7 +124,7 @@
                                             <button type="button" class="btn btn-danger" id="remove-item-1" onclick="removeInput('1')">
                                                 <i class="far fa-trash-alt"></i>
                                             </button>
-                                            
+
                                         </td>
                                     </tr>
                                 </tbody>
@@ -169,7 +169,7 @@
             <div class="modal-body row" id="modal-body">
                 <div class="col-12 col-lg-12">
                     <h5 class="col-lg-2 col-2">Filter tanggal: </h5>
-                    <input id="rangeCalendarFlatpickr" class="col-lg-3 col-4 form-control flatpickr flatpickr-input active ml-3 mb-4" type="text" placeholder="Select Date.." readonly="readonly" onchange="get('1', this)">   
+                    <input id="rangeCalendarFlatpickr" class="col-lg-3 col-4 form-control flatpickr flatpickr-input active ml-3 mb-4" type="text" placeholder="Select Date.." readonly="readonly" onchange="get('1', this)">
                 </div>
                 <div id="tableStriped" class="col-lg-12 col-12 layout-spacing">
                     <div class="widget-content widget-content-area">
@@ -241,16 +241,17 @@
         $('.header').addClass('expand-header')
         $('.main-container').addClass('sidebar-closed')
     }
+
     function inputQty(id) {
         document.getElementById(`form-qty-${id}`).focus()
-        document.getElementById(`form-unit-select`).focus()
+        document.getElementById(`form-unit-select-${id}`).focus()
         updateTable(id)
         hideSidebar()
         // $(`#form-unit-select-${id}`).select2('close')
     }
 
     function nextInput(val) {
-        if(event.keyCode == 13) {
+        if (event.keyCode == 13) {
             createColumn()
             $(`#form-product-select-${itemLen}`).select2('open');
         }
@@ -259,7 +260,7 @@
 
     function preparePayment() {
         let products = JSON.parse(window.localStorage.getItem('current_products'))
-        if(products != null) {
+        if (products != null) {
             if (confirm('Cetak struk?')) {
                 setTextBody(JSON.parse(window.localStorage.getItem('current_products')))
                 printNow()
@@ -270,7 +271,7 @@
         } else {
             alert('transaksi minimal 1 barang!')
         }
-        
+
     }
 
     function reOrder() {
@@ -278,7 +279,7 @@
         if (iProduct.length > 0) {
             for (let index = 0; index < iProduct.length; index++) {
                 const idSplit = iProduct[index].id.split('-')
-                document.getElementById(`num-${idSplit[idSplit.length-1]}`).innerHTML = index+1
+                document.getElementById(`num-${idSplit[idSplit.length-1]}`).innerHTML = index + 1
             }
         }
     }
@@ -294,7 +295,7 @@
             let newSplice = Array.prototype.slice.call(iProduct)
             for (let index = 0; index < iProduct.length; index++) {
                 const idSplit = iProduct[index].id.split('-')
-                if(id == idSplit[idSplit.length-1]) {
+                if (id == idSplit[idSplit.length - 1]) {
                     removeElement(`product-${id}`)
                     let currentStorage = JSON.parse(window.localStorage.getItem('current_products'))
                     for (let index = 0; index < currentStorage.length; index++) {
@@ -303,7 +304,7 @@
                             break
                         }
                     }
-                    window.localStorage.setItem('current_products',JSON.stringify(currentStorage)) 
+                    window.localStorage.setItem('current_products', JSON.stringify(currentStorage))
                     break
                 }
             }
@@ -319,13 +320,13 @@
         let iProduct = document.getElementsByName("form-product-select[]")
         if (iProduct.length > 0) {
             for (let index = 0; index < iProduct.length; index++) {
-                console.log(price);
+                // console.log(price);
                 const idSplit = iProduct[index].id.split('-')
                 let priceProduct = document.getElementById(`form-unit-select-${idSplit[idSplit.length-1]}`).value.split("-")
                 let qty = parseFloat(document.getElementById(`form-qty-${idSplit[idSplit.length-1]}`).value)
-                console.log(priceProduct[priceProduct.length-1]);
-                console.log(qty);
-                price += parseInt(priceProduct[priceProduct.length-1]) * qty
+                // console.log(priceProduct[priceProduct.length - 1]);
+                // console.log(qty);
+                price += parseInt(priceProduct[priceProduct.length - 1]) * qty
             }
         }
         document.getElementById(`price-total`).innerHTML = formatRupiah(price.toString(), 'Rp. ')
@@ -335,7 +336,7 @@
     function updateTable(id) {
         let products = document.getElementById(`form-product-select-${id}`).value.split("-")
         let error = false
-        if(products == null || products.length < 2) {
+        if (products == null || products.length < 2) {
             alert('Tolong pilih produk terlebih dahulu')
             loadData()
         } else {
@@ -346,8 +347,8 @@
                 // init data
                 let units = document.getElementById(`form-unit-select-${id}`).value.split("-")
                 let qtyData = document.getElementById(`form-qty-${id}`).value
-                let priceDefault = (typeof products[products.length-1] === 'string' || products[products.length-1] instanceof String) ? 0 : parseInt(JSON.parse(products[products.length-1])[0]['price'])
-                let price = (units != null && units.length > 0) ? parseInt(units[units.length-1]) : priceDefault
+                let priceDefault = (typeof products[products.length - 1] === 'string' || products[products.length - 1] instanceof String) ? 0 : parseInt(JSON.parse(products[products.length - 1])[0]['price'])
+                let price = (units != null && units.length > 0) ? parseInt(units[units.length - 1]) : priceDefault
                 let qty = qtyData != null ? parseFloat(qtyData).toFixed(1) : 1.0
                 // set localstorage
                 let product = {
@@ -359,17 +360,17 @@
                     'unit': units[1],
                     'qty': qty
                 }
-                window.localStorage.setItem('current_products', JSON.stringify([product])) 
-                window.localStorage.setItem('last_products', JSON.stringify([product])) 
+                window.localStorage.setItem('current_products', JSON.stringify([product]))
+                window.localStorage.setItem('last_products', JSON.stringify([product]))
                 document.getElementById(`price-${id}`).innerHTML = formatRupiah(price.toString(), 'Rp. ')
-                document.getElementById(`total-${id}`).innerHTML = formatRupiah((price*qty).toString(), 'Rp. ')
+                document.getElementById(`total-${id}`).innerHTML = formatRupiah((price * qty).toString(), 'Rp. ')
                 updateTotal()
             } else {
                 // init data
                 let units = document.getElementById(`form-unit-select-${id}`).value.split("-")
                 let qtyData = document.getElementById(`form-qty-${id}`).value
-                let priceDefault = (typeof products[products.length-1] === 'string' || products[products.length-1] instanceof String) ? 0 : parseInt(JSON.parse(products[products.length-1])[0]['price'])
-                let price = (units != null && units.length > 0) ? parseInt(units[units.length-1]) : priceDefault
+                let priceDefault = (typeof products[products.length - 1] === 'string' || products[products.length - 1] instanceof String) ? 0 : parseInt(JSON.parse(products[products.length - 1])[0]['price'])
+                let price = (units != null && units.length > 0) ? parseInt(units[units.length - 1]) : priceDefault
                 let qty = qtyData != null ? parseFloat(qtyData).toFixed(1) : 1.0
                 // set localstorage
                 let product = {
@@ -383,11 +384,11 @@
                 }
                 if (currentStorage.length > 0) {
                     for (let index = 0; index < currentStorage.length; index++) {
-                        if(id != currentStorage[index]['table_id'] && currentStorage[index]['id'] == products[0] && currentStorage[index]['unit'] == units[1]) {
+                        if (id != currentStorage[index]['table_id'] && currentStorage[index]['id'] == products[0] && currentStorage[index]['unit'] == units[1]) {
                             alert('Barang dengan unit yang sama sudah dimasukan sebelumnya, silahkan ubah barang/unit!')
                             error = true
                             break
-                        }else if (currentStorage[index]['id'] == products[0] && currentStorage[index]['unit'] == units[1]) {
+                        } else if (currentStorage[index]['id'] == products[0] && currentStorage[index]['unit'] == units[1]) {
                             currentStorage[index] = product
                             break
                         } else if (currentStorage.length == (index + 1)) {
@@ -398,9 +399,9 @@
                     currentStorage.push(product)
                 }
                 window.localStorage.setItem('current_products', JSON.stringify(currentStorage))
-                if(!error) {
+                if (!error) {
                     document.getElementById(`price-${id}`).innerHTML = formatRupiah(price.toString(), 'Rp. ')
-                    document.getElementById(`total-${id}`).innerHTML = formatRupiah((price*qty).toString(), 'Rp. ')
+                    document.getElementById(`total-${id}`).innerHTML = formatRupiah((price * qty).toString(), 'Rp. ')
                     updateTotal()
                 } else {
                     loadData()
@@ -409,23 +410,25 @@
         }
         hideSidebar()
     }
+
     function selectRefresh() {
         $('.my-select').select2({
             closeOnSelect: true
         });
     }
+
     function loadData() {
         let element = $('#table-product')
         let optionProduct = ``
         let newElement = ''
-        if(productMaster != null) {
+        if (productMaster != null) {
             productMaster.forEach((v) => {
                 optionProduct += `<option value='${v['id']}-${v['name']}-${v['price']}'>${v['name']}</option>`
             })
         }
         let total = 0
         let currentStorage = JSON.parse(window.localStorage.getItem('current_products'))
-        if(currentStorage != null) {
+        if (currentStorage != null) {
             for (let index = 0; index < currentStorage.length; index++) {
                 let priceTotal = parseInt(currentStorage[index]['price']) * parseFloat(currentStorage[index]['qty'])
                 itemLen = parseInt(currentStorage[index]['table_id'])
@@ -460,7 +463,7 @@
             }
             element.empty()
             element.append(newElement)
-            document.getElementById("price-total").innerHTML = formatRupiah(total.toString(), 'Rp. ' )
+            document.getElementById("price-total").innerHTML = formatRupiah(total.toString(), 'Rp. ')
         } else {
             itemLen = 0
             element.empty()
@@ -470,13 +473,14 @@
         selectRefresh()
         hideSidebar()
     }
+
     function createColumn(data = null) {
         let element = $('#table-product')
-        itemLen+=1
+        itemLen += 1
         let nextItem = itemLen
         let optionProduct = ``
         let newElement = ''
-        if(productMaster != null) {
+        if (productMaster != null) {
             productMaster.forEach((v) => {
                 optionProduct += `<option value='${v['id']}-${v['name']}-${v['price']}'>${v['name']}</option>`
             })
@@ -511,6 +515,7 @@
         element.append(newElement)
         selectRefresh()
     }
+
     function getDarkPixel(x, y) {
         // Return the pixels that will be printed black
         let red = imageData[((canvas.width * y) + x) * 4];
@@ -518,23 +523,24 @@
         let blue = imageData[((canvas.width * y) + x) * 4 + 2];
         return (red + green + blue) > 0 ? 1 : 0;
     }
+
     function getImagePrintData() {
         if (imageData == null) {
-            console.log('No image to print!');
+            // console.log('No image to print!');
             return new Uint8Array([]);
         }
         // Each 8 pixels in a row is represented by a byte
         let printData = new Uint8Array(canvas.width / 8 * canvas.height + 8);
         let offset = 0;
         // Set the header bytes for printing the image
-        printData[0] = 29;  // Print raster bitmap
+        printData[0] = 29; // Print raster bitmap
         printData[1] = 118; // Print raster bitmap
         printData[2] = 48; // Print raster bitmap
-        printData[3] = 0;  // Normal 203.2 DPI
+        printData[3] = 0; // Normal 203.2 DPI
         printData[4] = canvas.width / 8; // Number of horizontal data bits (LSB)
         printData[5] = 0; // Number of horizontal data bits (MSB)
         printData[6] = canvas.height % 256; // Number of vertical data bits (LSB)
-        printData[7] = canvas.height / 256;  // Number of vertical data bits (MSB)
+        printData[7] = canvas.height / 256; // Number of vertical data bits (MSB)
         offset = 7;
         // Loop through image rows in bytes
         for (let i = 0; i < canvas.height; ++i) {
@@ -542,19 +548,21 @@
                 let k8 = k * 8;
                 //  Pixel to bit position mapping
                 printData[++offset] = getDarkPixel(k8 + 0, i) * 128 + getDarkPixel(k8 + 1, i) * 64 +
-                            getDarkPixel(k8 + 2, i) * 32 + getDarkPixel(k8 + 3, i) * 16 +
-                            getDarkPixel(k8 + 4, i) * 8 + getDarkPixel(k8 + 5, i) * 4 +
-                            getDarkPixel(k8 + 6, i) * 2 + getDarkPixel(k8 + 7, i);
+                    getDarkPixel(k8 + 2, i) * 32 + getDarkPixel(k8 + 3, i) * 16 +
+                    getDarkPixel(k8 + 4, i) * 8 + getDarkPixel(k8 + 5, i) * 4 +
+                    getDarkPixel(k8 + 6, i) * 2 + getDarkPixel(k8 + 7, i);
             }
         }
         return printData;
     }
+
     function handleError(error) {
-        console.log(error);
+        // console.log(error);
         // progress.hidden = true;
         printCharacteristic = null;
         // dialog.open();
     }
+
     function sendNextImageDataBatch(resolve, reject) {
         // Can only write 512 bytes at a time to the characteristic
         // Need to send the image data in 512 byte batches
@@ -576,6 +584,7 @@
             }
         }
     }
+
     function sendImageData() {
         index = 0;
         data = getImagePrintData();
@@ -583,6 +592,7 @@
             sendNextImageDataBatch(resolve, reject);
         });
     }
+
     function setTextBody(data) {
         let today = new Date();
         today = `${("0" + today.getDate()).slice(-2)}/${("0" + (today.getMonth()+1)).slice(-2)}/${today.getFullYear()} ${("0" + today.getHours()).slice(-2)}:${("0" + today.getMinutes()).slice(-2)}`
@@ -597,20 +607,20 @@
         let totalAllText = ''
         bodyMessage = ''
         // let products = JSON.parse(data)
-        console.log(data);
-        
+        // console.log(data);
+
         data.forEach((v) => {
             let produkSplit = v['name'].split('')
             let unitSplit = v['unit'].split('')
             let qtySplit = v['qty'].toString().split('')
-            
+
             let price = parseInt(v['price']) * parseFloat(v['qty'])
-            itemTotal+=1
+            itemTotal += 1
             total += price
             // QTY
             let qtyText = ''
             for (let index = 0; index < qtyLen; index++) {
-                if(qtySplit.length > index) {
+                if (qtySplit.length > index) {
                     qtyText += qtySplit[index]
                 } else {
                     qtyText += ' '
@@ -619,31 +629,31 @@
             // UNIT
             let unitText = ''
             for (let index = 0; index < unitLen; index++) {
-                if(unitSplit.length > index) {
+                if (unitSplit.length > index) {
                     unitText += unitSplit[index]
                 } else {
                     unitText += ' '
                 }
             }
-            
-            
+
+
             // PRICE
             let priceIndex = 0
             let totalText = ''
-            let priceLength = (price.toString().length <= 6) ? price.toString().length : price.toString().length+1
-            for (let index = 0; index < (priceLen-(priceLength)); index++) {
+            let priceLength = (price.toString().length <= 6) ? price.toString().length : price.toString().length + 1
+            for (let index = 0; index < (priceLen - (priceLength)); index++) {
                 totalText += ' '
             }
             totalText += formatRupiah(price.toString(), ' ')
             // PRODUCT
-            if(v['name'].length >= productLen) {
-                let productName = produkSplit.slice(0,productLen-1).join('')
-                productName+= ` `
+            if (v['name'].length >= productLen) {
+                let productName = produkSplit.slice(0, productLen - 1).join('')
+                productName += ` `
                 printData.push(`${productName}${qtyText}${unitText}${totalText}`)
             } else {
                 let productName = ''
                 for (let index = 0; index < productLen; index++) {
-                    if(produkSplit.length > index) {
+                    if (produkSplit.length > index) {
                         productName += produkSplit[index]
                     } else {
                         productName += ' '
@@ -653,20 +663,20 @@
             }
         })
         let totalIndex = 0
-        let totalTxtLen = (total.toString().length <= 6) ? total.toString().length : total.toString().length+1
-        for (let index = 0; index < (priceLen-totalTxtLen); index++) {
+        let totalTxtLen = (total.toString().length <= 6) ? total.toString().length : total.toString().length + 1
+        for (let index = 0; index < (priceLen - totalTxtLen); index++) {
             totalAllText += ' '
         }
         totalAllText += formatRupiah(total.toString(), 'Rp. ')
-        
+
         let format1 = `
         
 TGL: ${today}    #${data[0]['nota']}
 --------------------------------`
-printData.forEach((v) => {
-    format1 += `\n${v}`
-})
-format1 += `
+        printData.forEach((v) => {
+            format1 += `\n${v}`
+        })
+        format1 += `
 --------------------------------
 ${itemTotal} Item  Total  :  ${totalAllText}
 
@@ -674,7 +684,7 @@ ${itemTotal} Item  Total  :  ${totalAllText}
 
 
 `
-console.log(format1);
+        console.log(format1);
         let format2 = `
 Tanggal : 20-04-2020 16:00:00
 Nota : #930123120492
@@ -695,18 +705,20 @@ Total            RP. 111.200.000
 `
         bodyMessage = format1
     }
+
     function sendTextData() {
         // console.log(data);
-        
+
         // Get the bytes for the text
         let encoder = new TextEncoder("utf-8");
-        
+
         // Add line feed + carriage return chars to text
         let text = encoder.encode(bodyMessage + '\u000A\u000D');
         return printCharacteristic.writeValue(text).then(() => {
-            console.log('Write done.');
+            // console.log('Write done.');
         });
     }
+
     function sendPrinterData() {
         // Print an image followed by the text
         sendImageData()
@@ -716,6 +728,7 @@ Total            RP. 111.200.000
             })
             .catch(handleError);
     }
+
     function printNow() {
         // pro?gress.hidden = false;
         if (printCharacteristic == null) {
@@ -742,6 +755,7 @@ Total            RP. 111.200.000
             sendPrinterData();
         }
     }
+
     function generatePDF() {
         // Choose the element that our invoice is rendered in.
         const element = document.getElementById('nota-content');
@@ -767,15 +781,17 @@ Total            RP. 111.200.000
         // $('#modal-nota').modal('toggle');
         document.getElementById('view-nota').style.display = 'none'
     }
+
     function print(data = null) {
         let printData = (data != null) ? data : JSON.parse(window.localStorage.getItem('last_products'))
-        if(printData != null) {
+        if (printData != null) {
             setTextBody(printData)
             printNow()
         } else {
             alert('Lakukan transaksi terlebih dahulu!')
         }
     }
+
     function makeTableTransaction(data) {
         console.log(data);
         let heading =
@@ -822,6 +838,7 @@ Total            RP. 111.200.000
         $("#table-transaction").append(heading, body)
         // document.getElementById('form-price-total').innerText = formatRupiah(total.toString(), 'Rp. ')
     }
+
     function getProduct(page = 1) {
         let http = new XMLHttpRequest()
         let url = `api/product`
@@ -855,11 +872,12 @@ Total            RP. 111.200.000
         }
         http.send()
     }
+
     function setUnitProduct(data, index) {
-        
+
         let unitData = data.value.split('-')
         if (unitData != null) {
-            let priceData = JSON.parse(unitData[unitData.length - 1]) 
+            let priceData = JSON.parse(unitData[unitData.length - 1])
             $(`#form-unit-select-${index}`).empty();
             let defOpt = document.createElement('option');
             defOpt.innerHTML = "Pilih Satuan";
@@ -878,56 +896,58 @@ Total            RP. 111.200.000
         }
         hideSidebar()
     }
+
     function get(page = 1, date = null) {
         console.log(date);
         let dateQuery = ''
-        if(date != null) {
+        if (date != null) {
             let splitDate = date.value.split(" ")
-            if(splitDate.length == 3) {
+            if (splitDate.length == 3) {
                 dateQuery = `&from=${splitDate[0]}&to=${splitDate[splitDate.length-1]}`
             } else {
                 let currentDate = new Date()
                 dateQuery = `&from=${splitDate[0]}&to=${currentDate.getFullYear()}-${("0" + (currentDate.getMonth()+1)).slice(-2)}-${("0" + (currentDate.getDate()+1)).slice(-2)}`
             }
-            
+
         }
-        let http = new XMLHttpRequest() 
+        let http = new XMLHttpRequest()
         let url = `api${urlPath}`
         let params = `page=1&search=&show=10&order_by=id&order_type=desc${dateQuery}`
         http.open('GET', `${url}?${params}`,
             true) //Send the proper header information along with the request
         http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-        http.setRequestHeader('X-CSRF-TOKEN', csrf) 
+        http.setRequestHeader('X-CSRF-TOKEN', csrf)
         http.onreadystatechange = function() { //Call a function when the state changes.
-            if(http.readyState == 4 && http.status == 200) {
-                let data = JSON.parse(http.responseText).data.data 
+            if (http.readyState == 4 && http.status == 200) {
+                let data = JSON.parse(http.responseText).data.data
                 makeTableTransaction(data)
             }
         }
         http.send()
     }
+
     function store() {
-        const formData = new FormData() 
+        const formData = new FormData()
         let url = `api${urlPath}`;
-        formData.append('nota', JSON.parse(window.localStorage.getItem('last_products'))[0]['nota']) 
-        formData.append('products', window.localStorage.getItem('current_products')) 
+        formData.append('nota', JSON.parse(window.localStorage.getItem('last_products'))[0]['nota'])
+        formData.append('products', window.localStorage.getItem('current_products'))
         fetch(url, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            window.localStorage.setItem('last_products', window.localStorage.getItem('current_products'))
-            window.localStorage.removeItem('current_products');
-            loadData()
-            get()
-        })
-        .catch(error => {
-            console.error(error)
-        })
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.localStorage.setItem('last_products', window.localStorage.getItem('current_products'))
+                window.localStorage.removeItem('current_products');
+                loadData()
+                get()
+            })
+            .catch(error => {
+                console.error(error)
+            })
     }
 
-    $(document).on('focus blur', 'select, textarea, input[type=text], input[type=date], input[type=password], input[type=email], input[type=number]', function(e){
+    $(document).on('focus blur', 'select, textarea, input[type=text], input[type=date], input[type=password], input[type=email], input[type=number]', function(e) {
         hideSidebar()
     });
     getProduct()
