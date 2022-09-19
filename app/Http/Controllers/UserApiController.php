@@ -62,7 +62,7 @@ class UserApiController extends Controller
         if ($request->file('image')) {
             $file = $request->file('image');
             $filename = date('YmdHi') . '-' . $file->getClientOriginalName();
-            $file->move(public_path('public/upload/product/'), $filename);
+            $file->move(public_path('public/upload/user/'), $filename);
         }
 
         $user = new User;
@@ -147,7 +147,7 @@ class UserApiController extends Controller
         if ($request->file('image')) {
             $file = $request->file('image');
             $filename = date('YmdHi') . '-' . $file->getClientOriginalName();
-            $file->move(public_path('public/upload/product/'), $filename);
+            $file->move(public_path('public/upload/user/'), $filename);
         }
 
         $user = User::find($request->id);

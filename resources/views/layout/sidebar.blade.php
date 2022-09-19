@@ -4,7 +4,7 @@
         <div class="profile-info">
             <figure class="user-cover-image"></figure>
             <div class="user-info">
-                <img src="assets/img/90x90.jpg" alt="avatar">
+                <img src="{{asset('public/upload/user/'.Auth::user()->avatar )}}" alt="avatar">
                 <h6 class="">{{ Auth::user()->name }}</h6>
                 <p class="">{{ Auth::user()->email }}</p>
             </div>
@@ -58,9 +58,9 @@
                     <li>
                         <a href="/produk">List Produk</a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="/kategori">Kategori Produk</a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="/satuan-produk">Satuan Produk</a>
                     </li>

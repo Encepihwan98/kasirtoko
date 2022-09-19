@@ -73,7 +73,7 @@ class ProductAPIController extends Controller
         $store = new Product;
         $store->name = $request->name;
         $store->price = json_encode($price);
-        $store->category_id = $request->category_id;
+        // $store->category_id = $request->category_id;
         $store->save();
 
         if($store) {
@@ -155,7 +155,7 @@ class ProductAPIController extends Controller
         $update = Product::find($request->id);
         $update->name = $request->name;
         $update->price = json_encode($price);
-        $update->category_id = $request->category_id;
+        // $update->category_id = $request->category_id;
         $update->save();
 
         if($update) {

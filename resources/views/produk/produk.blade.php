@@ -75,14 +75,14 @@
                                         placeholder="">
                                 </div>
                             </div>
-                            <div class="form-group row mb-4">
+                            <!-- <div class="form-group row mb-4">
                                 <label for="kategori" class="col-2 col-sm-3 col-form-label">Kategori</label>
                                 <div class="col-10 col-sm-9">
                                     <select class="form-control" name="category_id" id="form-category">
                                         <option value="">Pilih Kategori</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="card component-card_1" id="price-with-unit">
                                 <div class="card-body text-right">
                                     <h5 class="card-title text-left">Custom Satuan Produk</h5>
@@ -208,7 +208,7 @@
 
         function makeTable(data) {
             let heading =
-                `<thead><tr><th>No</th><th>Nama Barang</th><th>Satuan dan Harga</th><th>Kategori</th><th class="no-content">Actions</th></tr></thead>`
+                `<thead><tr><th>No</th><th>Nama Barang</th><th>Satuan dan Harga</th><th class="no-content">Actions</th></tr></thead>`
             let item = ''
             let index = 0
             data.data.data.forEach(element => {
@@ -225,7 +225,7 @@
                             <td>${data.data.from + index}</td>
                             <td>${element['name']}</td>
                             <td>${product_price}</td>
-                            <td>${element['category']['name']}</td>
+                            
                             <td>
                                 <i class="far fa-edit" onclick="show('${element['id']}')"></i>
                                 <i class="ml-3 far fa-trash-alt" onclick="destroy('${element['id']}')"></i>
