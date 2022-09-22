@@ -6,6 +6,20 @@
     .nota-item-text {
         font-size: 0.8em;
     }
+    .select2 {
+        color: black !important;
+        font-weight: 900;
+    }
+    .select2-dropdown {
+        color: black;
+        font-weight: 900;
+    }
+    .select2-results__option {
+        color: black !important;
+    }
+    .select2-container--default .select2-results__option--highlighted[aria-selected] {
+        color: #4361ee !important;
+    }
 </style>
 <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
     <div class="row">
@@ -34,22 +48,22 @@
                                     <tr id="product-1">
                                         <td id="num-1">1</td>
                                         <td id="select-form-1">
-                                            <select class="form-control my-select" id="form-product-select-1" name="form-product-select[]" onchange="setUnitProduct(this, '1')" onclick="hideSidebar()">
+                                            <select class="form-control my-select text-black font-weight-bold" id="form-product-select-1" name="form-product-select[]" onchange="setUnitProduct(this, '1')" onclick="hideSidebar()">
                                                 <option selected="selected" disabled="disabled">Pilih Produk</option>
                                             </select>
                                             <br>
-                                            <select class="form-control my-select" id="form-unit-select-1" name="form-unit-select[]" onchange="inputQty('1')" onclick="hideSidebar()">
+                                            <select class="form-control my-select text-black font-weight-bold" id="form-unit-select-1" name="form-unit-select[]" onchange="inputQty('1')" onclick="hideSidebar()">
                                                 <option selected="selected" disabled="disabled">Pilih Satuan</option>
                                             </select>
                                         </td>
                                         <td>
-                                            <input id="form-qty-1" class="form-control" style="width: 80px" type="number" value="1" min="1" step=".0" name="form-qty[]" oninput="updateTable('1')" onclick="hideSidebar()" onkeydown="nextInput(this)">
+                                            <input id="form-qty-1" class="form-control text-black font-weight-bold" style="width: 80px" type="number" value="1" min="1" step=".0" name="form-qty[]" oninput="updateTable('1')" onclick="hideSidebar()" onkeydown="nextInput(this)">
                                         </td>
                                         <td>
-                                            <p id="price-1">Rp. 0</p>
+                                            <p id="price-1" class="text-black font-weight-bold">Rp. 0</p>
                                         </td>
                                         <td>
-                                            <p id="total-1">Rp. 0</p>
+                                            <p id="total-1" class="text-black font-weight-bold">Rp. 0</p>
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-danger" id="remove-item-1" onclick="removeInput('1')">
@@ -307,8 +321,6 @@
         $('#modal-nota').modal('toggle');
     }
 
-    
-
     function reOrder() {
         let iProduct = document.getElementsByName("form-product-select[]")
         if (iProduct.length > 0) {
@@ -440,6 +452,7 @@
                     updateTotal()
                 } else {
                     loadData()
+                    updateTotal()
                 }
             }
         }
@@ -471,23 +484,23 @@
                 newElement += `<tr id="product-${currentStorage[index]['table_id']}">
                                 <td id="num-${currentStorage[index]['table_id']}">${index+1}</td>
                                 <td id="select-form-${currentStorage[index]['table_id']}">
-                                    <select class="form-control my-select" id="form-product-select-${currentStorage[index]['table_id']}" onchange="setUnitProduct(this, ${currentStorage[index]['table_id']})" name="form-product-select[]" hideSidebar()">
+                                    <select class="form-control my-select text-black font-weight-bold" id="form-product-select-${currentStorage[index]['table_id']}" onchange="setUnitProduct(this, ${currentStorage[index]['table_id']})" name="form-product-select[]" hideSidebar()">
                                         <option selected="selected" value="${currentStorage[index]['id']}-${currentStorage[index]['name']}" disabled="disabled">${currentStorage[index]['name']}</option>
                                         ${optionProduct}
                                     </select>
                                     <br>
-                                    <select class="form-control my-select" id="form-unit-select-${currentStorage[index]['table_id']}" onchange="inputQty('${currentStorage[index]['table_id']}')" name="form-unit-select[]" onclick="hideSidebar()">
+                                    <select class="form-control my-select text-black font-weight-bold" id="form-unit-select-${currentStorage[index]['table_id']}" onchange="inputQty('${currentStorage[index]['table_id']}')" name="form-unit-select[]" onclick="hideSidebar()">
                                         <option selected="selected" value="${currentStorage[index]['id']}-${currentStorage[index]['unit']}-${currentStorage[index]['price']}" disabled="disabled">${currentStorage[index]['unit']}</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <input id="form-qty-${currentStorage[index]['table_id']}" class="form-control" style="width: 80px" type="number" min="1" name="form-qty[]" value="${currentStorage[index]['qty']}" step=".0" oninput="updateTable('${currentStorage[index]['table_id']}')" onkeydown="nextInput(this)" onclick="hideSidebar()">
+                                    <input id="form-qty-${currentStorage[index]['table_id']}" class="form-control text-black font-weight-bold" style="width: 80px" type="number" min="1" name="form-qty[]" value="${currentStorage[index]['qty']}" step=".0" oninput="updateTable('${currentStorage[index]['table_id']}')" onkeydown="nextInput(this)" onclick="hideSidebar()">
                                 </td>
                                 <td>
-                                    <p id="price-${currentStorage[index]['table_id']}">${formatRupiah(currentStorage[index]['price'].toString(), 'Rp. ' )}</p>
+                                    <p class="text-black font-weight-bold" id="price-${currentStorage[index]['table_id']}">${formatRupiah(currentStorage[index]['price'].toString(), 'Rp. ' )}</p>
                                 </td>
                                 <td>
-                                    <p id="total-${currentStorage[index]['table_id']}">${formatRupiah(priceTotal.toString(), 'Rp. ' )}</p>
+                                    <p class="text-black font-weight-bold" id="total-${currentStorage[index]['table_id']}">${formatRupiah(priceTotal.toString(), 'Rp. ' )}</p>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-danger" id="remove-item-${currentStorage[index]['table_id']}" onclick="removeInput('${currentStorage[index]['table_id']}')">
@@ -523,23 +536,23 @@
         newElement = `<tr id="product-${nextItem}">
                             <td id="num-${nextItem}">${document.getElementsByName("form-product-select[]").length+1}</td>
                             <td id="select-form-${nextItem}">
-                                <select class="form-control my-select" id="form-product-select-${nextItem}" onchange="setUnitProduct(this, ${nextItem})" name="form-product-select[]" onclick="hideSidebar()">
+                                <select class="form-control my-select text-black font-weight-bold" id="form-product-select-${nextItem}" onchange="setUnitProduct(this, ${nextItem})" name="form-product-select[]" onclick="hideSidebar()">
                                     <option selected="selected" disabled="disabled">Pilih Produk</option>
                                     ${optionProduct}
                                 </select>
                                 <br>
-                                <select class="form-control my-select" id="form-unit-select-${nextItem}" onchange="inputQty('${nextItem}')" name="form-unit-select[]" onclick="">
+                                <select class="form-control my-select text-black font-weight-bold" id="form-unit-select-${nextItem}" onchange="inputQty('${nextItem}')" name="form-unit-select[]" onclick="">
                                     <option selected="selected" disabled="disabled">Pilih Satuan</option>
                                 </select>
                             </td>
                             <td>
-                                <input id="form-qty-${nextItem}" class="form-control" style="width: 80px" type="number" value="1" min="1" name="form-qty[]" oninput="updateTable('${nextItem}')" onkeydown="nextInput(this)" onclick="hideSidebar()">
+                                <input id="form-qty-${nextItem}" class="form-control text-black font-weight-bold" style="width: 80px" type="number" value="" min="1" name="form-qty[]" oninput="updateTable('${nextItem}')" onkeydown="nextInput(this)" onclick="hideSidebar()">
                             </td>
                             <td>
-                                <p id="price-${nextItem}">Rp. 0</p>
+                                <p class="text-black font-weight-bold" id="price-${nextItem}">Rp. 0</p>
                             </td>
                             <td>
-                                <p id="total-${nextItem}">Rp. 0</p>
+                                <p class="text-black font-weight-bold" id="total-${nextItem}">Rp. 0</p>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-danger" id="remove-item-${nextItem}" onclick="removeInput('${nextItem}')">
