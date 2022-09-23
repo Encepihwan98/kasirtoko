@@ -43,7 +43,7 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input id="form-qty-1" class="form-control" style="width: 80px" type="number" value="1" min="1" step=".0" name="form-qty[]" oninput="updateTable('1')" onclick="hideSidebar()" onkeydown="nextInput(this)">
+                                            <input id="form-qty-1" class="form-control" style="width: 80px" type="number" value="" min="1" step=".0" name="form-qty[]" oninput="updateTable('1')" onclick="hideSidebar()" onkeydown="nextInput(this)">
                                         </td>
                                         <td>
                                             <p id="price-1">Rp. 0</p>
@@ -86,7 +86,7 @@
     </div>
 </div>
 <div class="modal fade" tabindex="-1" id="modal-nota" role="dialog" aria-labelledby="myExtraLargeModalLabel"
-        aria-hidden="true">
+        aria-hidden="true" style="z-index: 10000;">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -176,7 +176,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Close</button>
-                <button type="button" class="btn btn-primary" id="btn-print" onclick="print(null, 'cetak')">Cetak Nota</button>
+                <button type="button" class="btn btn-primary" id="btn-print" onclick="print(null, 'print')">Cetak Nota</button>
             </div>
         </div>
     </div>
@@ -303,8 +303,17 @@
 
     }
 
-    function preparePrint() {
+    function preparePrint(data = null) { 
         $('#modal-nota').modal('toggle');
+        console.log(data);
+        if(data != null) {
+            makeTableNota(data)
+            document.getElementById('btn-print').onclick = function() { print(data); }
+        } else {
+            let currentStorage = JSON.parse(window.localStorage.getItem('current_products'))
+            makeTableNota(currentStorage)
+            document.getElementById('btn-print').onclick = function() { print(null, 'print'); }
+        }
     }
 
     
@@ -533,7 +542,7 @@
                                 </select>
                             </td>
                             <td>
-                                <input id="form-qty-${nextItem}" class="form-control" style="width: 80px" type="number" value="1" min="1" name="form-qty[]" oninput="updateTable('${nextItem}')" onkeydown="nextInput(this)" onclick="hideSidebar()">
+                                <input id="form-qty-${nextItem}" class="form-control" style="width: 80px" type="number" value="" min="1" name="form-qty[]" oninput="updateTable('${nextItem}')" onkeydown="nextInput(this)" onclick="hideSidebar()">
                             </td>
                             <td>
                                 <p id="price-${nextItem}">Rp. 0</p>
@@ -848,7 +857,7 @@ Total            RP. 111.200.000
     }
 
     function print(data = null, isHasData = null) {
-        let printData = (data != null) ? data : isHasData != null ? JSON.parse(window.localStorage.getItem('current_products')) : JSON.parse(window.localStorage.getItem('last_products'))
+        let printData = (data != null) ? data : isHasData != null ? JSON.parse(window.localStorage.getItem('last_products')) : JSON.parse(window.localStorage.getItem('current_products'))
         if (printData != null) {
             setTextBody(printData)
             printNow()
@@ -911,7 +920,7 @@ Total            RP. 111.200.000
                             <td>${element['created_at']}</td>
                             <td>${formatRupiah(total.toString(), 'Rp. ')}</td>
                             <td>
-                            <button type="button" onclick='print(${element['products']})'><i class="far fa-file"></i></button>
+                                <button type="button" onclick='preparePrint(${element['products']})'><i class="far fa-file"></i></button>
                             </td>
                         </tr>`
                     index += 1
@@ -983,7 +992,7 @@ Total            RP. 111.200.000
                 <td>${element['created_at']}</td>
                 <td>${formatRupiah(total.toString(), 'Rp. ')}</td>
                 <td>
-                    <button type="button" onclick='print(${element['products']})'><i class="far fa-file"></i></button>
+                    <button type="button" onclick='preparePrint(${element['products']})'><i class="far fa-file"></i></button>
                 </td>
                 </tr>`
                 index += 1
