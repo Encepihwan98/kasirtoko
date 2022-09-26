@@ -262,15 +262,10 @@
     var f3 = flatpickr(document.getElementById('rangeCalendarFlatpickr'), {
         mode: "range"
     });
-    // let progress = document.querySelector('#progress');
-    // let dialog = document.querySelector('#dialog');
-    // let message = document.querySelector('#message');
-    // let printButton = document.querySelector('#print');
     let printCharacteristic;
     let index = 0;
     let data;
     let numBodyMessage = 0;
-    // progress.hidden = true;
     let image = document.querySelector('#images');
     // Use the canvas to get image data
     let canvas = document.createElement('canvas');
@@ -302,23 +297,41 @@
         hideSidebar()
     }
 
+    function checkInput(data) {
+        for (let index = 0; index < data.length; index++) {
+            if(data[index].qty == "NaN" || data[index].qty == "undefined" || data[index].qty == "null") {
+                alert("Tolong input qty!")
+                break
+            } else if(data[index].unit == "NaN" || data[index].unit == "undefined" || data[index].unit == "null") {
+                alert("Tolong input unit!")
+                break
+            } else if((index+1) == data.length) {
+                return true
+            }
+        }
+
+        return false
+    }
+
     function preparePayment() {
         let products = JSON.parse(window.localStorage.getItem('current_products'))
         if (products != null) {
-            if (confirm('Cetak struk?')) {
-                setTextBody(JSON.parse(window.localStorage.getItem('current_products')))
-                printNow()
-                store()
-            } else {
-                store()
-            }
+            if(checkInput(products)) {
+                if (confirm('Cetak struk?')) {
+                    setTextBody(JSON.parse(window.localStorage.getItem('current_products')))
+                    printNow()
+                    store()
+                } else {
+                    store()
+
+            }}
         } else {
             alert('transaksi minimal 1 barang!')
         }
 
     }
 
-    function preparePrint(data = null) { 
+    function preparePrint(data = null) {
         $('#modal-nota').modal('toggle');
         console.log(data);
         if(data != null) {
