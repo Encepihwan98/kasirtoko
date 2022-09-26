@@ -38,7 +38,7 @@
             </li>
         </ul>
         <ul class="navbar-item flex-row navbar-dropdown">
-            <li class="nav-item dropdown language-dropdown more-dropdown">
+            <!-- <li class="nav-item dropdown language-dropdown more-dropdown">
                 <div class="dropdown  custom-dropdown-icon">
                     <a class="dropdown-toggle btn" href="#" role="button" id="langDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/img/ca.png" class="flag-width" alt="flag"><span>English</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
                             <polyline points="6 9 12 15 18 9"></polyline>
@@ -51,7 +51,7 @@
                         <a class="dropdown-item" data-img-value="ca" data-value="English" href="javascript:void(0);"><img src="assets/img/ca.png" class="flag-width" alt="flag"> English</a>
                     </div>
                 </div>
-            </li>
+            </li> -->
 
             <li class="nav-item dropdown user-profile-dropdown  order-lg-0 order-1">
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
