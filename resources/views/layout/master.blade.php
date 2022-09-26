@@ -286,13 +286,18 @@
             return formData
         }
 
-        function setFormData(elementID, data) {
+        function setFormData(elementID, data, isClear = false) {
             let form = document.getElementById(elementID)
             for (let i = 0; i < form.elements.length; i++) {
                 let e = form.elements[i]
-                if (e.name != 'image') {
-                    e.value = data[e.name];
-
+                if(isClear) {
+                    if (e.name != 'image') {
+                        e.value = null;
+                    }
+                } else {
+                    if (e.name != 'image') {
+                        e.value = data[e.name];
+                    }
                 }
             }
         }

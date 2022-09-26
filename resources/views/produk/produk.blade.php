@@ -39,7 +39,7 @@
                 </div>
                 <div class="mx-2 my-2 col-md-2 col-lg-2 col-md-2 col-2 col-sm-2">
                     <button type="button" class="btn btn-primary mb-2" data-toggle="modal"
-                        data-target=".bd-example-modal-xl">Tambah</button>
+                        data-target=".bd-example-modal-xl" onclick="clearInput()">Tambah</button>
                 </div>
             </div>
             <div class="table-responsive">
@@ -65,7 +65,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="form-product">
+                        <form id="form-product" autocomplete="off">
                             <div class="form-group row mb-4">
                                 <label for="name" class="col-2 col-sm-3 col-form-label">Nama
                                     Barang</label>
@@ -75,14 +75,6 @@
                                         placeholder="">
                                 </div>
                             </div>
-                            <!-- <div class="form-group row mb-4">
-                                <label for="kategori" class="col-2 col-sm-3 col-form-label">Kategori</label>
-                                <div class="col-10 col-sm-9">
-                                    <select class="form-control" name="category_id" id="form-category">
-                                        <option value="">Pilih Kategori</option>
-                                    </select>
-                                </div>
-                            </div> -->
                             <div class="card component-card_1" id="price-with-unit">
                                 <div class="card-body text-right">
                                     <h5 class="card-title text-left">Custom Satuan Produk</h5>
@@ -108,10 +100,9 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <!-- <input type="reset" class="btn btn-secondary"> -->
-                        <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                        <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Cancel</button>
+                        <button class="btn btn-danger" onclick="clearInput()">Clear</button>
                         <button type="button" class="btn btn-primary" id="btn-submit">Save</button>
-                        
                     </div>
                 </div>
             </div>
@@ -129,6 +120,12 @@
         let categoryDataUniversal = {}
         let priceFormTotal = 1
 
+        function clearInput() {
+            removeInput(0, true)
+            setFormData('form-product', null, true)
+            document.getElementById('btn-submit').innerText = 'Save'
+        }
+
         function setUnitName(id) {
             let selectedOption = document.getElementById(`form-unit-${id}`).options.selectedIndex
             console.log(document.getElementById(`form-unit-${id}`).options.selectedIndex);
@@ -141,19 +138,26 @@
             return elem.parentNode.removeChild(elem);
         }
 
-        function removeInput(id) {
+        function removeInput(id, isAll = false) {
             let iPrice = document.getElementsByName("price[]")
             if (iPrice.length > 0) {
                 let newSplice = Array.prototype.slice.call(iPrice)
                 for (let index = 0; index < iPrice.length; index++) {
                     const idSplit = iPrice[index].id.split('-')
-                    if(id == idSplit[1]) {
-                        console.log('Found');
-                        removeElement(`form-unit-${id}`)
-                        removeElement(`form-unit-name-${id}`)
-                        removeElement(`harga-${id}`)
-                        removeElement(`btn-remove-product-${id}`)
-                        break
+                    if(isAll) {
+                        removeElement(`form-unit-${idSplit[1]}`)
+                        removeElement(`form-unit-name-${idSplit[1]}`)
+                        removeElement(`harga-${idSplit[1]}`)
+                        removeElement(`btn-remove-product-${idSplit[1]}`)
+                    } else {
+                        if(id == idSplit[1]) {
+                            console.log('Found');
+                            removeElement(`form-unit-${id}`)
+                            removeElement(`form-unit-name-${id}`)
+                            removeElement(`harga-${id}`)
+                            removeElement(`btn-remove-product-${id}`)
+                            break
+                        }
                     }
                 }
             }
@@ -225,7 +229,7 @@
                             <td>${data.data.from + index}</td>
                             <td>${element['name']}</td>
                             <td>${product_price}</td>
-                            
+
                             <td>
                                 <i class="far fa-edit" onclick="show('${element['id']}')"></i>
                                 <i class="ml-3 far fa-trash-alt" onclick="destroy('${element['id']}')"></i>
@@ -366,9 +370,9 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
                     get()
                     $('#modal-product').modal('toggle');
+                    clearInput()
                 })
                 .catch(error => {
                     console.error(error)
@@ -396,11 +400,6 @@
         }
 
         get()
-
-        // document.getElementById("image").addEventListener("change", function() {
-        //     changeImage(this);
-        // });
-
 
         document.getElementById("btn-add-product").addEventListener("click", function() {
             addInput()
