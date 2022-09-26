@@ -86,6 +86,7 @@
                                         <td colspan="6" class="text-center">
                                             <button type="button" class="btn btn-success" onclick="createColumn()">Tambah</button> &nbsp;
                                             <button type="button" class="btn btn-primary" onclick="preparePayment()">Bayar</button> &nbsp;
+                                            <button type="button" class="btn btn-danger" onclick="clearTransaction()">Batalkan</button> &nbsp;
                                             <button type="button" class="btn btn-secondary" onclick="preparePrint()">Print</button> &nbsp;
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".bd-example-modal-xl">Lihat Nota</button>
                                         </td>
@@ -321,6 +322,12 @@
         $('#modal-nota').modal('toggle');
     }
 
+    function clearTransaction() {
+        window.localStorage.setItem('current_products', null)
+        document.getElementById(`price-total`).innerHTML = formatRupiah("0", 'Rp. ')
+        loadData()
+    }
+
     function reOrder() {
         let iProduct = document.getElementsByName("form-product-select[]")
         if (iProduct.length > 0) {
@@ -373,8 +380,6 @@
                 price += parseInt(priceProduct[priceProduct.length-1]) * qty
             }
         }
-        let currentStorage = window.localStorage.getItem('current_products') != null ? JSON.parse(window.localStorage.getItem('current_products')) : JSON.parse(window.localStorage.getItem('last_products'))
-        makeTableNota(currentStorage)
         document.getElementById(`price-total`).innerHTML = formatRupiah(price.toString(), 'Rp. ')
         hideSidebar()
     }
@@ -476,6 +481,7 @@
         let total = 0
         let currentStorage = JSON.parse(window.localStorage.getItem('current_products'))
         if(currentStorage != null) {
+            console.log("masuk sini!");
             makeTableNota(currentStorage)
             for (let index = 0; index < currentStorage.length; index++) {
                 let priceTotal = parseInt(currentStorage[index]['price']) * parseFloat(currentStorage[index]['qty'])
@@ -513,6 +519,7 @@
             element.append(newElement)
             document.getElementById("price-total").innerHTML = formatRupiah(total.toString(), 'Rp. ')
         } else {
+            console.log("masuk sini2!");
             itemLen = 0
             element.empty()
             createColumn()
@@ -655,11 +662,11 @@
         let totalLen = 20
         let totalAllText = ''
         bodyMessage = ''
-        
+
         data.forEach((v) => {
             let produkSplit = v['name'].split('')
             let unitSplit = v['unit'].split('')
-            
+
             let price = parseInt(v['price']) * parseFloat(v['qty'])
             itemTotal += 1
             total += price
@@ -670,7 +677,7 @@
                 console.log(`${i} < ${(qtyLen-qtyText.length)}`);
                 qtyText += ' '
             }
-            
+
             // UNIT
             let unitText = ''
             for (let index = 0; index < unitLen; index++) {
@@ -717,9 +724,9 @@
         for (let index = 0; index < (3 - itemTotal.toString().length); index++) {
             itemTotalText += ' '
         }
-        
+
         let format1 = `
-        
+
 TGL: ${today}    #${data[0]['nota']}
 --------------------------------`
         printData.forEach((v) => {
@@ -729,7 +736,7 @@ TGL: ${today}    #${data[0]['nota']}
 --------------------------------
 ${itemTotalText} Item  Total: ${totalAllText}
 
-   Terimakasih Sudah Berbelanja 
+   Terimakasih Sudah Berbelanja
 
 
 `
@@ -741,16 +748,16 @@ Nota : #930123120492
 Nama                     Total
 IND Kari/Dus
 1 x 2400000             24000000
-IND Soto/Pack           
+IND Soto/Pack
 10 x 2400000            24000000
-IND Goreng/Renceng        
+IND Goreng/Renceng
 10 x 2400000            24000000
-IND Kocok BDG/Pcs       
+IND Kocok BDG/Pcs
 100 x 2400000           24000000
 --------------------------------
 Item : 6
 Total            RP. 111.200.000
-   Terimakasih Sudah Berbelanja 
+   Terimakasih Sudah Berbelanja
 `
         bodyMessage = format1
         let lenString = 0
